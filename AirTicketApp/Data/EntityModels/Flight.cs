@@ -1,0 +1,53 @@
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace AirTicketApp.Data.EntityModels
+{
+    public class Flight
+    {
+        [Key]
+        public int Id { get; set; }
+
+        [Required]
+        public int DepartureId { get; set; }
+
+        [ForeignKey(nameof(DepartureId))]
+        public Airport DepartureAirport { get; set; } = null!;
+
+        [Required]
+        public int ArrivalId { get; set; }
+
+        [ForeignKey(nameof(ArrivalId))]
+        public Airport ArrivalAirport { get; set; } = null!;
+
+        [Required]
+        public DateTime DepartureDate { get; set; }
+
+        [Required]
+        public DateTime ArrivalDate { get; set; }
+
+        [Required]
+        public int CompanyId { get; set; }
+
+        [ForeignKey(nameof(CompanyId))]
+        public Company Company { get; set; } = null!;
+
+        [Required]
+        public decimal Price { get; set; }
+
+        [Required]
+        public int AirplaneId { get; set; }
+
+        [ForeignKey(nameof(AirplaneId))]
+        public Airplane Airplane { get; set; } = null!;
+
+        public bool Drinks { get; set; }
+
+        public bool Food { get; set; }
+
+        public bool Snack { get; set; }
+
+        public bool Luggage { get; set; }
+
+    }
+}
