@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using static AirTicketApp.Data.Common.CityModelConstants;
 
 namespace AirTicketApp.Data.EntityModels
 {
@@ -9,6 +10,7 @@ namespace AirTicketApp.Data.EntityModels
         public int Id { get; set; }
 
         [Required]
+        [StringLength(MaxCityNameLength)]
         public string Name { get; set; } = null!;
 
         [ForeignKey(nameof(CountryId))]

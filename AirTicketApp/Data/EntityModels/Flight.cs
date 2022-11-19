@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using static AirTicketApp.Data.Common.FlightModelConstants;
 
 namespace AirTicketApp.Data.EntityModels
 {
@@ -27,7 +28,8 @@ namespace AirTicketApp.Data.EntityModels
         [Required]
         public DateTime ArrivalDate { get; set; }
 
-        public int Duration { get; set; }
+        [MaxLength(MaxFlightDuration)]
+        public int? Duration { get; set; }
 
         [Required]
         public int CompanyId { get; set; }
@@ -46,13 +48,13 @@ namespace AirTicketApp.Data.EntityModels
         [ForeignKey(nameof(AirplaneId))]
         public Airplane Airplane { get; set; } = null!;
 
-        public bool Drinks { get; set; }
+        public bool? Drinks { get; set; }
 
-        public bool Food { get; set; }
+        public bool? Food { get; set; }
 
-        public bool Snack { get; set; }
+        public bool? Snack { get; set; }
 
-        public bool Luggage { get; set; }
+        public bool? Luggage { get; set; }
 
     }
 }

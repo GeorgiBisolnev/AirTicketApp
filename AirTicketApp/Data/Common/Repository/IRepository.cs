@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace AirTicketApp.Data.Common
+namespace AirTicketApp.Data.Common.Repository.Repository
 {
     /// <summary>
     /// Abstraction of repository access methods
