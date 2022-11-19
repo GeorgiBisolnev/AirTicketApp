@@ -27,7 +27,7 @@ namespace AirTicketApp.Data.EntityModels
         [Required]
         public DateTime ArrivalDate { get; set; }
 
-        public int duration { get; set; }
+        public int Duration { get; set; }
 
         [Required]
         public int CompanyId { get; set; }

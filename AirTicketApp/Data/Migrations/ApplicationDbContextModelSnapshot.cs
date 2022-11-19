@@ -244,6 +244,9 @@ namespace AirTicketApp.Data.Migrations
                     b.Property<bool>("Drinks")
                         .HasColumnType("bit");
 
+                    b.Property<int>("Duration")
+                        .HasColumnType("int");
+
                     b.Property<bool>("Food")
                         .HasColumnType("bit");
 
@@ -257,9 +260,6 @@ namespace AirTicketApp.Data.Migrations
                     b.Property<bool>("Snack")
                         .HasColumnType("bit");
 
-                    b.Property<int>("duration")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AirplaneId");
@@ -271,6 +271,24 @@ namespace AirTicketApp.Data.Migrations
                     b.HasIndex("DepartureId");
 
                     b.ToTable("Flights");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AirplaneId = 1,
+                            ArrivalDate = new DateTime(2022, 11, 19, 16, 30, 0, 0, DateTimeKind.Unspecified),
+                            ArrivalId = 2,
+                            CompanyId = 1,
+                            DepartureDate = new DateTime(2022, 11, 19, 18, 30, 0, 0, DateTimeKind.Unspecified),
+                            DepartureId = 1,
+                            Drinks = true,
+                            Duration = 120,
+                            Food = true,
+                            Luggage = true,
+                            Price = 100m,
+                            Snack = false
+                        });
                 });
 
             modelBuilder.Entity("AirTicketApp.Data.EntityModels.Manufacture", b =>
@@ -440,17 +458,17 @@ namespace AirTicketApp.Data.Migrations
                         {
                             Id = "dea12856-c198-4129-b3f3-b893d8395082",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1c9531f6-b6a0-4d53-aa83-f4160079f446",
-                            Email = "user@mail.com",
+                            ConcurrencyStamp = "959f6d4e-d6d9-4ef2-b0c7-9575913efc9f",
+                            Email = "user@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
-                            NormalizedEmail = "user@mail.com",
-                            NormalizedUserName = "user@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGbQsQvWp2H+t1DxyCsHL+NlFBlZWG6WAd+opjxtAvsl6DsXxN4W4wU78KU9GRR9Nw==",
+                            NormalizedEmail = "user@gmail.com",
+                            NormalizedUserName = "user@gmail.com",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDtINwihGcLEzZhsU0EaV3BB9pUeI22QCU9H7ESYE8AKTFXkkQyEACPQ3WnZ48lSGA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9ce3b441-7292-456f-8ff8-5488eefee5d1",
+                            SecurityStamp = "053b60b2-ef61-4671-ae5c-1eb115cd171b",
                             TwoFactorEnabled = false,
-                            UserName = "user@gmail.com"
+                            UserName = "user"
                         });
                 });
 

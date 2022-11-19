@@ -14,8 +14,7 @@ namespace AirTicketApp.Data
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
-        {
-
+        {           
             builder.ApplyConfiguration(new UserConfiguration());
             builder.ApplyConfiguration(new AirplaneConfiguration());
             builder.ApplyConfiguration(new AirportConfiguration());
@@ -23,6 +22,7 @@ namespace AirTicketApp.Data
             builder.ApplyConfiguration(new CompaniesConfiguration());
             builder.ApplyConfiguration(new CountryConfiguration());
             builder.ApplyConfiguration(new ManufactureConfiguration());
+            builder.ApplyConfiguration(new FlightConfiguration());
 
             base.OnModelCreating(builder);
         }
