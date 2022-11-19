@@ -1,15 +1,30 @@
-﻿using AirTicketApp.Data.EntityModels;
+﻿using AirTicketApp.Data.Configuration;
+using AirTicketApp.Data.EntityModels;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace AirTicketApp.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class AirTicketAppContext : IdentityDbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public AirTicketAppContext(DbContextOptions<AirTicketAppContext> options)
             : base(options)
         {
 
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+
+            builder.ApplyConfiguration(new UserConfiguration());
+            builder.ApplyConfiguration(new AirplaneConfiguration());
+            builder.ApplyConfiguration(new AirportConfiguration());
+            builder.ApplyConfiguration(new CityConfiguration());
+            builder.ApplyConfiguration(new CompaniesConfiguration());
+            builder.ApplyConfiguration(new CountryConfiguration());
+            builder.ApplyConfiguration(new ManufactureConfiguration());
+
+            base.OnModelCreating(builder);
         }
 
         public DbSet<Airplane> Airplanes { get; set; }

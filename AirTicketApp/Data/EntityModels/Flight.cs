@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AirTicketApp.Data.EntityModels
@@ -26,6 +27,8 @@ namespace AirTicketApp.Data.EntityModels
         [Required]
         public DateTime ArrivalDate { get; set; }
 
+        public int duration { get; set; }
+
         [Required]
         public int CompanyId { get; set; }
 
@@ -33,6 +36,8 @@ namespace AirTicketApp.Data.EntityModels
         public Company Company { get; set; } = null!;
 
         [Required]
+        [Column(TypeName = "money")]
+        [Precision(18, 2)]
         public decimal Price { get; set; }
 
         [Required]

@@ -20,8 +20,7 @@ namespace AirTicketApp.Data.Configuration
                 Id=1,
                 Name = "Sofia Airport",
                 IATACode="SOF",
-                CityId=1,
-                CountryId=1
+                CityId=1
 
             });
             airports.Add(new Airport()
@@ -29,8 +28,7 @@ namespace AirTicketApp.Data.Configuration
                 Id = 2,
                 Name = "Sheremetyevo Airport",
                 IATACode = "SVO",
-                CityId = 2,
-                CountryId = 2
+                CityId = 2
 
             });
             airports.Add(new Airport()
@@ -38,8 +36,7 @@ namespace AirTicketApp.Data.Configuration
                 Id = 3,
                 Name = "Istanbul Airport",
                 IATACode = "IST",
-                CityId = 3,
-                CountryId = 3
+                CityId = 3
 
             });
             return airports;

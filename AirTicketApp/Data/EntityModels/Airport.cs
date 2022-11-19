@@ -11,14 +11,6 @@ namespace AirTicketApp.Data.EntityModels
         [Required]
         public string Name { get; set; } = null!;
 
-
-        [ForeignKey(nameof(CountryId))]
-        public Country Country { get; set; } = null!;
-
-        [Required]
-        public int CountryId { get; set; }
-
-
         [ForeignKey(nameof(CityId))]
         public City City { get; set; } = null!;
 
