@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AirTicketApp.Controllers
 {
+    [Authorize]
     public class Flight : Controller
     {
         private readonly IFlightService flightService;
@@ -26,5 +27,15 @@ namespace AirTicketApp.Controllers
 
             return View(query);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            var query = await flightService.AllFlights();
+
+            return View(query);
+        }
+
+
     }
 }

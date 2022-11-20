@@ -19,7 +19,7 @@ namespace AirTicketApp.Data.Configuration
                 CompanyId = 1,
                 Price = 100,
                 AirplaneId = 1,
-                Drinks = true,
+                Snack = true,
                 Food = true,
                 Luggage = true,
                 Duration = 120

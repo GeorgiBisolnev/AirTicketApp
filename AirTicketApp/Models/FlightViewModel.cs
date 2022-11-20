@@ -49,5 +49,10 @@ namespace AirTicketApp.Models
         public bool? Snack { get; set; }
 
         public bool? Luggage { get; set; }
+
+        public IEnumerable<AirportViewModel> Airports { get; set; } = new List<AirportViewModel>();
+        public IEnumerable<CompanyViewModel> Companies { get; set; } = new List<CompanyViewModel>();
+        public IEnumerable<AirplaneViewModel> Airplanes { get; set; } = new List<AirplaneViewModel>();
+
     }
 }

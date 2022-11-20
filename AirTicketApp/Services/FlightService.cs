@@ -39,5 +39,28 @@ namespace AirTicketApp.Services
 
             return flights;
         }
+
+        public async Task<int> Create(FlightViewModel model)
+        {
+            var flight = new Flight()
+            {
+                ArrivalAirport = model.ArrivalAirport,
+                DepartureAirport = model.DepartureAirport,
+                ArrivalDate = model.ArrivalDate,
+                DepartureDate = model.DepartureDate,
+                Company = model.Company,
+                Price = model.Price,
+                Airplane = model.Airplane,
+                Snack = model.Snack,
+                Food = model.Food,
+                Luggage = model.Luggage,
+                Duration = model.Duration
+            };
+
+            await repo.AddAsync(flight);
+            await repo.SaveChangesAsync();
+
+            return flight.Id;
+        }
     }
 }

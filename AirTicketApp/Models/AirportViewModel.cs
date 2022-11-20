@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using AirTicketApp.Data.EntityModels;
+using System.ComponentModel.DataAnnotations;
 using static AirTicketApp.Data.Common.AirportModelConstants;
 
 namespace AirTicketApp.Models
@@ -12,7 +13,7 @@ namespace AirTicketApp.Models
         [StringLength(NameMaximimLength)]
         public string Name { get; set; } = null!;
 
-        public CityViewModel City { get; set; } = null!;
+        public City City { get; set; } = null!;
 
         [Required]
         public int CityId { get; set; }

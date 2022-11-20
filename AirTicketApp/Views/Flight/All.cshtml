@@ -32,8 +32,12 @@
                 <p class="">@flight.DepartureDate.Date.ToString("MMMM dd, yy", CultureInfo.CreateSpecificCulture("en-US")) (@flight.DepartureDate.DayOfWeek)</p>
                   <span>Duration: @flight.Duration min.</span>
                 <p><b>Arrives at:</b></p>
-                <p >@flight.ArrivalDate</p>
-                <p></p>
+                <div>@flight.ArrivalDate.Date.ToString("MMMM dd, yy", CultureInfo.CreateSpecificCulture("en-US")) (@flight.DepartureDate.DayOfWeek)
+                                @if (flight.Snack==true || flight.Food==true || flight.Luggage == true)
+                                {
+                                    <b> Extra's:  </b>
+                                }
+                
                 @if (flight.Snack == true)
                                 {
                                    <img src="/images/snack.png" alt="Added snack's'" width="24" height="24"/>   
@@ -46,6 +50,7 @@
                                 {
                                    <img src="/images/luggage.png" alt="Added luggage" width="24" height="24"/>   
                                 }
+                </div>
 
               </div>
               <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
