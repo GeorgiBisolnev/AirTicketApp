@@ -1,5 +1,8 @@
 using AirTicketApp.Data;
+using AirTicketApp.Data.Common.Repository;
 using AirTicketApp.ModelBinders;
+using AirTicketApp.Services;
+using AirTicketApp.Services.Contracts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,6 +30,9 @@ builder.Services.AddControllersWithViews().AddMvcOptions(options =>
 {
     options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
 });
+
+builder.Services.AddScoped<IRepository, Repository>();
+builder.Services.AddScoped<IFlightService, FlightService>();
 
 
 var app = builder.Build();
