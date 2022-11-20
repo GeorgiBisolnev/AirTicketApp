@@ -5,6 +5,7 @@ using AirTicketApp.Services;
 using AirTicketApp.Services.Contracts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -51,6 +52,13 @@ else
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(@"E:\Project C# web advanced\AirTicketApp\AirTicketApp\", "images")),
+    RequestPath = "/images"
+});
 
 app.UseRouting();
 

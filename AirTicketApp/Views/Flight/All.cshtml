@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<FlightViewModel>
+@using System.Globalization
 
 @{
     ViewBag.Title = "All Flights";
@@ -7,10 +8,15 @@
 
 <h2 class="text-center">@ViewBag.Title</h2>
 
+    <style>
+      p {
+        
+        margin: 0;
+
+      }
+    </style>
 
 
-<section style="background-color: #eee;">
-       <div class="container py-5">
 @foreach (var flight in Model)
 {
     <div class="row justify-content-center mb-3">
@@ -18,42 +24,35 @@
         <div class="card shadow-0 border rounded-3">
           <div class="card-body">
             <div class="row">
-              <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">               
+              <div class="col-md-6 col-lg-3 col-xl-3 mb-4 mb-lg-0">
+                  <img src="https://www.esky.bg/_fe/img/base64:YWxfbG9nb19MTy5wbmc=?s=80x29"/>
               </div>
               <div class="col-md-6 col-lg-6 col-xl-6">
-                <h5>@flight.ArrivalAirport.Name - @flight.ArrivalAirport.City.Name</h5>
-                <div class="d-flex flex-row">
-
+                <h5>@flight.DepartureAirport.IATACode -> @flight.ArrivalAirport.IATACode</h5>
+                <p class="">@flight.DepartureDate.Date.ToString("MMMM dd, yy", CultureInfo.CreateSpecificCulture("en-US")) (@flight.DepartureDate.DayOfWeek)</p>
                   <span>Duration: @flight.Duration min.</span>
-                </div>
-                <div class="mt-1 mb-0 text-muted small">
-                  <span>@flight.Airplane.Manufacture.Name</span>
-                  <span class="text-primary"> • </span>
-                  <span>@flight.Airplane.Model</span>
-                </div>
-                <!--<div class="mb-2 text-muted small">
-                  <span>Unique design</span>
-                  <span class="text-primary"> • </span>
-                  <span>For men</span>
-                  <span class="text-primary"> • </span>
-                  <span>Casual<br /></span> 
-                </div> 
-                <p class="text-truncate mb-4 mb-md-0">
-                  There are many variations of passages of Lorem Ipsum available, but the
-                  majority have suffered alteration in some form, by injected humour, or
-                  randomised words which don't look even slightly believable.
-                </p> -->
-                <h6>Departure at:</h6>
-                <h6>@flight.DepartureDate</h6>
-                <h6>Arrives at:</h6>
-                <h6>@flight.ArrivalDate</h6>
+                <p><b>Arrives at:</b></p>
+                <p >@flight.ArrivalDate</p>
+                <p></p>
+                @if (flight.Snack == true)
+                                {
+                                   <img src="/images/snack.png" alt="Added snack's'" width="24" height="24"/>   
+                                }
+                @if (flight.Food==true)
+                                {
+                                   <img src="/images/food.png" alt="Added food" width="24" height="24"/>  
+                                }
+                @if (flight.Luggage==true)
+                                {
+                                   <img src="/images/luggage.png" alt="Added luggage" width="24" height="24"/>   
+                                }
+
               </div>
               <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
                 <div class="d-flex flex-row align-items-center mb-1">                    
-                  <h4 class="mb-1 me-1">$@flight.Price</h4>
-                   <!-- <span class="text-danger"><s>$20.99</s></span> -->
-                </div>
-                <!-- <h6 class="text-success">Free shipping</h6> -->
+                  <h4 class="mb-1 me-1">$@flight.Price.ToString("0.00", CultureInfo.InvariantCulture)</h4>
+                  
+                </div>                 
                 <div class="d-flex flex-column mt-4">
                   <button class="btn btn-primary btn-sm" type="button">Details</button>
                   <button class="btn btn-outline-primary btn-sm mt-2" type="button">
@@ -67,6 +66,4 @@
       </div>
     </div>
 }
-  </div>
-</section>
 

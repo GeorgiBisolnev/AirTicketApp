@@ -31,6 +31,9 @@ namespace AirTicketApp.Services
                     Company = f.Company,
                     Airplane = f.Airplane,
                     Price = f.Price,
+                    Snack = f.Snack,
+                    Food = f.Food,
+                    Luggage = f.Luggage,
                 })
                 .ToListAsync();
 
