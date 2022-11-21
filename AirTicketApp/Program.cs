@@ -56,7 +56,7 @@ app.UseStaticFiles();
 app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new PhysicalFileProvider(
-        Path.Combine(@"E:\Project C# web advanced\AirTicketApp\AirTicketApp\", "images")),
+        Path.Combine(Directory.GetCurrentDirectory(), "images")),
     RequestPath = "/images"
 });
 
