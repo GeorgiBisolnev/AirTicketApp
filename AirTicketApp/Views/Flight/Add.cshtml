@@ -1,0 +1,91 @@
+﻿@model FlightViewModel
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form method="post">
+            <input type="hidden" asp-for="@Model.Id" />
+            <div class="form-group">
+                <label asp-for="DepartureDate">Departure Date</label>                              
+                <input asp-for="DepartureDate" type="datetime-local">
+                <span asp-validation-for="DepartureDate" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ArrivalDate">Arrival Date</label>                              
+                <input asp-for="ArrivalDate" type="datetime-local">
+                <span asp-validation-for="ArrivalDate" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DepartureId">Departure Airport</label>
+                <select class="ui search selection dropdown" asp-for="DepartureId" id="search-select-DepAirport">
+                    @foreach (var dairport in @Model.Airports)
+                    {
+                        <option value="@dairport.Id">@dairport.IATACode (@dairport.Name - @dairport.City.Name)</option>
+                    }
+                </select>
+                <span asp-validation-for="DepartureId" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ArrivalId">Arrival Airport</label>
+                <select class="ui search selection dropdown" asp-for="ArrivalId" id="search-select-ArAirport">
+                    @foreach (var aairport in @Model.Airports)
+                    {
+                        <option value="@aairport.Id">@aairport.IATACode (@aairport.Name - @aairport.City.Name)</option>
+                    }
+                </select>
+                <span asp-validation-for="ArrivalId" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Company"></label>
+                <select class="ui search selection dropdown" asp-for="CompanyId" id="search-select-ArAirport">
+                    @foreach (var company in @Model.Companies)
+                    {
+                        <option value="@company.Id">@company.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="CompanyId" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AirplaneId"></label>
+                <select class="ui search selection dropdown" asp-for="AirplaneId" id="search-select-airplane">
+                    @foreach (var airplane in @Model.Airplanes)
+                    {
+                        <option value="@airplane.Id">@airplane.Manufacture.Name @airplane.Model</option>
+                    }
+                </select>
+                <span asp-validation-for="AirplaneId" class="small text-danger"></span>
+            </div>
+            <div class="form-group">                
+                @Html.CheckBoxFor(x => x.Snack)
+                <label asp-for="Snack">Snack</label>
+                <span asp-validation-for="Snack" class="small text-danger"></span>
+            </div>
+            <div class="form-group">                
+                @Html.CheckBoxFor(x => x.Food)
+                <label asp-for="Food">Food</label>
+                <span asp-validation-for="Food" class="small text-danger"></span>
+            </div>
+            <div class="form-group">                
+                @Html.CheckBoxFor(x => x.Luggage)
+                <label asp-for="Luggage">Luggage</label>
+                <span asp-validation-for="Luggage" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price"></label>
+                <input asp-for="Price" class="form-control">
+                <span asp-validation-for="Price" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Duration"></label>
+                <input asp-for="Duration" class="form-control" placeholder="input duration in minutes">
+                <span asp-validation-for="Duration" class="small text-danger"></span>
+            </div>
+            <div class="text-center">
+                <input class="btn btn-primary mt-3" type="submit" value="Save" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

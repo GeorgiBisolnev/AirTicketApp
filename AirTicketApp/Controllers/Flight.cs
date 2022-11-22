@@ -1,4 +1,5 @@
-﻿using AirTicketApp.Services.Contracts;
+﻿using AirTicketApp.Models;
+using AirTicketApp.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,11 +15,6 @@ namespace AirTicketApp.Controllers
             this.flightService = flightService;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> All()
@@ -29,11 +25,33 @@ namespace AirTicketApp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Add()
         {
-            var query = await flightService.AllFlights();
+            var model = new FlightViewModel()
+            {
+                Airplanes = await flightService.GetAllAirplanes(),
+                Airports = await flightService.GetAllAirports(),
+                Companies = await flightService.GetAllCompanies(),
+            };
 
-            return View(query);
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(FlightViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                model.Airplanes = await flightService.GetAllAirplanes();
+                model.Airports = await flightService.GetAllAirports();
+                model.Companies = await flightService.GetAllCompanies();
+
+                return View(model);
+            }
+
+            await flightService.Create(model);
+
+            return RedirectToAction(nameof(All));
         }
 
 

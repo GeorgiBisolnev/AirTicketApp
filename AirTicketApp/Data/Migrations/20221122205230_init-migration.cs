@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AirTicketApp.Data.Migrations
 {
-    public partial class init_migration : Migration
+    public partial class initmigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,7 +15,7 @@ namespace AirTicketApp.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -28,7 +28,7 @@ namespace AirTicketApp.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(56)", maxLength: 56, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -41,7 +41,7 @@ namespace AirTicketApp.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -54,7 +54,7 @@ namespace AirTicketApp.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     CountryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -95,9 +95,9 @@ namespace AirTicketApp.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     CityId = table.Column<int>(type: "int", nullable: false),
-                    IATACode = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    IATACode = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -120,11 +120,10 @@ namespace AirTicketApp.Data.Migrations
                     ArrivalId = table.Column<int>(type: "int", nullable: false),
                     DepartureDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ArrivalDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Duration = table.Column<int>(type: "int", nullable: false),
+                    Duration = table.Column<int>(type: "int", maxLength: 1200, nullable: true),
                     CompanyId = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<decimal>(type: "money", precision: 18, scale: 2, nullable: false),
                     AirplaneId = table.Column<int>(type: "int", nullable: false),
-                    Drinks = table.Column<bool>(type: "bit", nullable: false),
                     Food = table.Column<bool>(type: "bit", nullable: false),
                     Snack = table.Column<bool>(type: "bit", nullable: false),
                     Luggage = table.Column<bool>(type: "bit", nullable: false)
@@ -186,7 +185,7 @@ namespace AirTicketApp.Data.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "dea12856-c198-4129-b3f3-b893d8395082", 0, "959f6d4e-d6d9-4ef2-b0c7-9575913efc9f", "user@gmail.com", true, false, null, "user@gmail.com", "user@gmail.com", "AQAAAAEAACcQAAAAEDtINwihGcLEzZhsU0EaV3BB9pUeI22QCU9H7ESYE8AKTFXkkQyEACPQ3WnZ48lSGA==", null, false, "053b60b2-ef61-4671-ae5c-1eb115cd171b", false, "user" });
+                values: new object[] { "dea12856-c198-4129-b3f3-b893d8395082", 0, "2033d324-354f-47fc-b15a-7a45736dc166", "user@gmail.com", true, false, null, "user@gmail.com", "user@gmail.com", "AQAAAAEAACcQAAAAEO+C/XNcaI3PBqP+KTROw+EFl1JI0ILwoIJdDXhuOrSorqS7EW7ASqbeIxCcPtGfjw==", null, false, "fa21be89-fa2f-4e59-ae2a-45c9240fcaf4", false, "user" });
 
             migrationBuilder.InsertData(
                 table: "Companies",
@@ -245,8 +244,8 @@ namespace AirTicketApp.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "Flights",
-                columns: new[] { "Id", "AirplaneId", "ArrivalDate", "ArrivalId", "CompanyId", "DepartureDate", "DepartureId", "Drinks", "Duration", "Food", "Luggage", "Price", "Snack" },
-                values: new object[] { 1, 1, new DateTime(2022, 11, 19, 16, 30, 0, 0, DateTimeKind.Unspecified), 2, 1, new DateTime(2022, 11, 19, 18, 30, 0, 0, DateTimeKind.Unspecified), 1, true, 120, true, true, 100m, false });
+                columns: new[] { "Id", "AirplaneId", "ArrivalDate", "ArrivalId", "CompanyId", "DepartureDate", "DepartureId", "Duration", "Food", "Luggage", "Price", "Snack" },
+                values: new object[] { 1, 1, new DateTime(2022, 11, 19, 18, 30, 0, 0, DateTimeKind.Unspecified), 2, 1, new DateTime(2022, 11, 19, 16, 30, 0, 0, DateTimeKind.Unspecified), 1, 120, true, true, 100m, true });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Airplanes_ManufactureId",

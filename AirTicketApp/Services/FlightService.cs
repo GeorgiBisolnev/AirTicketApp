@@ -44,13 +44,13 @@ namespace AirTicketApp.Services
         {
             var flight = new Flight()
             {
-                ArrivalAirport = model.ArrivalAirport,
-                DepartureAirport = model.DepartureAirport,
+                ArrivalId = model.ArrivalId,
+                DepartureId = model.DepartureId,
                 ArrivalDate = model.ArrivalDate,
                 DepartureDate = model.DepartureDate,
-                Company = model.Company,
+                CompanyId = model.CompanyId,
                 Price = model.Price,
-                Airplane = model.Airplane,
+                AirplaneId = model.AirplaneId,
                 Snack = model.Snack,
                 Food = model.Food,
                 Luggage = model.Luggage,
@@ -61,6 +61,52 @@ namespace AirTicketApp.Services
             await repo.SaveChangesAsync();
 
             return flight.Id;
+        }
+
+        public async Task<IEnumerable<AirportViewModel>> GetAllAirports()
+        {
+            var airports = await repo.AllReadonly<Airport>()
+                .Include(c => c.City.Country)
+                .Select(a => new AirportViewModel()
+                {
+                    Id = a.Id,
+                    Name = a.Name,
+                    City = a.City,
+                    IATACode = a.IATACode,
+                })
+                .ToListAsync();
+
+            return airports;
+        }
+
+        public async Task<IEnumerable<CompanyViewModel>> GetAllCompanies()
+        {
+            var companies = await repo.AllReadonly<Company>()
+                .Select(c => new CompanyViewModel()
+                {
+                    Name = c.Name,
+                    Id = c.Id,
+
+
+                })
+                .ToListAsync();
+
+            return companies;
+        }
+
+        public async Task<IEnumerable<AirplaneViewModel>> GetAllAirplanes()
+        {
+            var airplanes = await repo.AllReadonly<Airplane>()
+                .Include(m => m.Manufacture)
+                .Select(a => new AirplaneViewModel()
+                {
+                    Model = a.Model,
+                    Id = a.Id,
+                    Manufacture = a.Manufacture,
+                })
+                .ToListAsync();
+
+            return airplanes;
         }
     }
 }

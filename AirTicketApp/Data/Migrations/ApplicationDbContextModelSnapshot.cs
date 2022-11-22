@@ -69,11 +69,13 @@ namespace AirTicketApp.Data.Migrations
 
                     b.Property<string>("IATACode")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(3)
+                        .HasColumnType("nvarchar(3)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -118,7 +120,8 @@ namespace AirTicketApp.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -157,7 +160,8 @@ namespace AirTicketApp.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -191,7 +195,8 @@ namespace AirTicketApp.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(56)
+                        .HasColumnType("nvarchar(56)");
 
                     b.HasKey("Id");
 
@@ -241,10 +246,8 @@ namespace AirTicketApp.Data.Migrations
                     b.Property<int>("DepartureId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Drinks")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("Duration")
+                    b.Property<int?>("Duration")
+                        .HasMaxLength(1200)
                         .HasColumnType("int");
 
                     b.Property<bool>("Food")
@@ -277,17 +280,16 @@ namespace AirTicketApp.Data.Migrations
                         {
                             Id = 1,
                             AirplaneId = 1,
-                            ArrivalDate = new DateTime(2022, 11, 19, 16, 30, 0, 0, DateTimeKind.Unspecified),
+                            ArrivalDate = new DateTime(2022, 11, 19, 18, 30, 0, 0, DateTimeKind.Unspecified),
                             ArrivalId = 2,
                             CompanyId = 1,
-                            DepartureDate = new DateTime(2022, 11, 19, 18, 30, 0, 0, DateTimeKind.Unspecified),
+                            DepartureDate = new DateTime(2022, 11, 19, 16, 30, 0, 0, DateTimeKind.Unspecified),
                             DepartureId = 1,
-                            Drinks = true,
                             Duration = 120,
                             Food = true,
                             Luggage = true,
                             Price = 100m,
-                            Snack = false
+                            Snack = true
                         });
                 });
 
@@ -301,7 +303,8 @@ namespace AirTicketApp.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -458,15 +461,15 @@ namespace AirTicketApp.Data.Migrations
                         {
                             Id = "dea12856-c198-4129-b3f3-b893d8395082",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "959f6d4e-d6d9-4ef2-b0c7-9575913efc9f",
+                            ConcurrencyStamp = "2033d324-354f-47fc-b15a-7a45736dc166",
                             Email = "user@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "user@gmail.com",
                             NormalizedUserName = "user@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDtINwihGcLEzZhsU0EaV3BB9pUeI22QCU9H7ESYE8AKTFXkkQyEACPQ3WnZ48lSGA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEO+C/XNcaI3PBqP+KTROw+EFl1JI0ILwoIJdDXhuOrSorqS7EW7ASqbeIxCcPtGfjw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "053b60b2-ef61-4671-ae5c-1eb115cd171b",
+                            SecurityStamp = "fa21be89-fa2f-4e59-ae2a-45c9240fcaf4",
                             TwoFactorEnabled = false,
                             UserName = "user"
                         });

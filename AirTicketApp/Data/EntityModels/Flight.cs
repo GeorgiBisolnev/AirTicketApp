@@ -48,11 +48,11 @@ namespace AirTicketApp.Data.EntityModels
         [ForeignKey(nameof(AirplaneId))]
         public Airplane Airplane { get; set; } = null!;
 
-        public bool? Food { get; set; }
+        public bool Food { get; set; }
 
-        public bool? Snack { get; set; }
+        public bool Snack { get; set; }
 
-        public bool? Luggage { get; set; }
+        public bool Luggage { get; set; }
 
     }
 }

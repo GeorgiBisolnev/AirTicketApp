@@ -1,4 +1,5 @@
 ﻿using AirTicketApp.Data.EntityModels;
+using AirTicketApp.Models.ValidationClassAtributes;
 using System.ComponentModel.DataAnnotations;
 using static AirTicketApp.Data.Common.FlightModelConstants;
 
@@ -20,12 +21,13 @@ namespace AirTicketApp.Models
         public Airport ArrivalAirport { get; set; } = null!;
 
         [Required]
+        [DateLessThan("ArrivalDate", ErrorMessage ="Departure date and time must be less than Arrival date")]
         public DateTime DepartureDate { get; set; }
 
         [Required]
         public DateTime ArrivalDate { get; set; }
 
-        [MaxLength(MaxFlightDuration)]
+        [Range(1,MaxFlightDuration)]
         public int? Duration { get; set; }
 
         [Required]
@@ -35,6 +37,7 @@ namespace AirTicketApp.Models
 
         [Required]
         [Display(Name = "Price of the flight")]
+        [Range(1, 1000000.00, ErrorMessage = "Price per must be a positive number and less than {2} leva")]
         public decimal Price { get; set; }
 
         [Required]
@@ -42,13 +45,11 @@ namespace AirTicketApp.Models
 
         public Airplane Airplane { get; set; } = null!;
 
-        public bool? Drinks { get; set; }
+        public bool Food { get; set; }
 
-        public bool? Food { get; set; }
+        public bool Snack { get; set; }
 
-        public bool? Snack { get; set; }
-
-        public bool? Luggage { get; set; }
+        public bool Luggage { get; set; }
 
         public IEnumerable<AirportViewModel> Airports { get; set; } = new List<AirportViewModel>();
         public IEnumerable<CompanyViewModel> Companies { get; set; } = new List<CompanyViewModel>();
