@@ -1,4 +1,5 @@
-﻿using AirTicketApp.Models;
+﻿using AirTicketApp.Data.EntityModels;
+using AirTicketApp.Models;
 using AirTicketApp.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

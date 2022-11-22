@@ -13,12 +13,12 @@ namespace AirTicketApp.Models
         [Required]
         public int DepartureId { get; set; }    
 
-        public Airport DepartureAirport { get; set; } = null!;
+        public Airport? DepartureAirport { get; set; } = null!;
 
         [Required]
         public int ArrivalId { get; set; }
 
-        public Airport ArrivalAirport { get; set; } = null!;
+        public Airport? ArrivalAirport { get; set; } = null!;
 
         [Required]
         [DateLessThan("ArrivalDate", ErrorMessage ="Departure date and time must be less than Arrival date")]
@@ -33,7 +33,7 @@ namespace AirTicketApp.Models
         [Required]
         public int CompanyId { get; set; }
 
-        public Company Company { get; set; } = null!;
+        public Company? Company { get; set; } = null!;
 
         [Required]
         [Display(Name = "Price of the flight")]
@@ -43,7 +43,7 @@ namespace AirTicketApp.Models
         [Required]
         public int AirplaneId { get; set; }
 
-        public Airplane Airplane { get; set; } = null!;
+        public Airplane? Airplane { get; set; } = null!;
 
         public bool Food { get; set; }
 
