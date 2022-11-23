@@ -11,6 +11,7 @@ namespace AirTicketApp.Models
         public int Id { get; set; }
 
         [Required]
+        [NotEqualTo("ArrivalId",ErrorMessage ="Departure airport can't be the same as arrival airport")]
         public int DepartureId { get; set; }    
 
         public Airport? DepartureAirport { get; set; } = null!;
@@ -37,7 +38,7 @@ namespace AirTicketApp.Models
 
         [Required]
         [Display(Name = "Price of the flight")]
-        [Range(1, 1000000.00, ErrorMessage = "Price per must be a positive number and less than {2} leva")]
+        [Range(1, 500000.00, ErrorMessage = "Price per must be a positive number and less than {2} leva")]
         public decimal Price { get; set; }
 
         [Required]
@@ -54,6 +55,8 @@ namespace AirTicketApp.Models
         public IEnumerable<AirportViewModel> Airports { get; set; } = new List<AirportViewModel>();
         public IEnumerable<CompanyViewModel> Companies { get; set; } = new List<CompanyViewModel>();
         public IEnumerable<AirplaneViewModel> Airplanes { get; set; } = new List<AirplaneViewModel>();
+
+        public string?  DateTimeNowFormated { get; set; }
 
     }
 }
