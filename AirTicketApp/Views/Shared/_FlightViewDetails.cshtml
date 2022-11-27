@@ -1,4 +1,5 @@
-﻿@model FlightViewModelDetails
+﻿@using System.Globalization
+@model FlightViewModelDetails
 
 <div class="main-body">
 <div class="container">
@@ -11,14 +12,17 @@
               <p class="font-size-sm mb-0"><strong>Departure:</strong> @Model.DepartureAirport.Name (@Model.DepartureAirport.IATACode) - @Model.DepartureAirport.City.Name @Model.DepartureAirport.City.Country.Name</p>
               <p class="font-size-sm mb-0"><strong>Arplane: </strong> @Model.Airplane.Manufacture.Name @Model.Airplane.Model - Maximum capacity <strong>@Model.Airplane.Capacity</strong></p>
               <p class="font-size-sm mb-0"><strong>Avallible places: </strong> @Model.AvailablePlaces </p>
-              <p class="font-size-sm mb-0"><strong>Arrival date: </strong> @Model.ArrivalDate.ToString("dd MMM YYYY - HH:mm") time</p>
-              <p class="font-size-sm mb-0"><strong>Duration: </strong> @Model.Duration minutes </p>
-              <p class="font-size-sm mb-0"><strong>Departure date: </strong> @Model.DepartureDate.ToString("dd MMM YYYY - HH:mm") time</p>
+              <p class="font-size-sm mb-0"><strong>Arrival date: </strong> @Model.ArrivalDate.ToString("dd MMM yyyy - HH:mm",CultureInfo.CreateSpecificCulture("en-US")) time</p>
+              @if (Model.Duration!=null)
+                        {
+                            <p class="font-size-sm mb-0"><strong>Duration: </strong> @Model.Duration minutes </p>
+                        }
+              <p class="font-size-sm mb-0"><strong>Departure date: </strong> @Model.DepartureDate.ToString("dd MMM yyyy - HH:mm",CultureInfo.CreateSpecificCulture("en-US")) time</p>
             </div>
             <div class="card-header border-bottom justify-content-center py-4">
               <h1 class="pricing-price">
                 <small class="align-self-start">$</small>
-                @Model.Price                
+                @Model.Price.ToString("0.00", CultureInfo.InvariantCulture)                
               </h1>
             </div>
             <div class="card-body">

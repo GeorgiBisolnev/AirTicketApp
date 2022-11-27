@@ -11,8 +11,11 @@
               </div>
               <div class="col-md-6 col-lg-6 col-xl-6">
                 <h5>@Model.DepartureAirport.IATACode -> @Model.ArrivalAirport.IATACode</h5>
-                <p class="">@Model.DepartureDate.Date.ToString("MMMM dd, yy", CultureInfo.CreateSpecificCulture("en-US")) (@Model.DepartureDate.DayOfWeek)</p>
-                  <span>Duration: @Model.Duration min.</span>
+                <p class="">@Model.DepartureDate.Date.ToString("MMMM dd, yy", CultureInfo.CreateSpecificCulture("en-US")) (@Model.DepartureDate.DayOfWeek)</p>                  
+                  @if (Model.Duration!=null)
+                        {
+                            <span>Duration: @Model.Duration min.</span>
+                        }
                 <p><b>Arrives at:</b></p>
                 <div>@Model.ArrivalDate.Date.ToString("MMMM dd, yy", CultureInfo.CreateSpecificCulture("en-US")) (@Model.DepartureDate.DayOfWeek)
                                 @if (Model.Snack==true || Model.Food==true || Model.Luggage == true)
