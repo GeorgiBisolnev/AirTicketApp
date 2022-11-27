@@ -1,0 +1,57 @@
+﻿@using System.Globalization
+@model FlightViewModel
+
+<div class="row justify-content-center mb-3">
+      <div class="col-md-12 col-xl-10">
+        <div class="card shadow-0 border rounded-3">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6 col-lg-3 col-xl-3 mb-4 mb-lg-0">
+                  <img src="https://www.esky.bg/_fe/img/base64:YWxfbG9nb19MTy5wbmc=?s=80x29"/>
+              </div>
+              <div class="col-md-6 col-lg-6 col-xl-6">
+                <h5>@Model.DepartureAirport.IATACode -> @Model.ArrivalAirport.IATACode</h5>
+                <p class="">@Model.DepartureDate.Date.ToString("MMMM dd, yy", CultureInfo.CreateSpecificCulture("en-US")) (@Model.DepartureDate.DayOfWeek)</p>
+                  <span>Duration: @Model.Duration min.</span>
+                <p><b>Arrives at:</b></p>
+                <div>@Model.ArrivalDate.Date.ToString("MMMM dd, yy", CultureInfo.CreateSpecificCulture("en-US")) (@Model.DepartureDate.DayOfWeek)
+                                @if (Model.Snack==true || Model.Food==true || Model.Luggage == true)
+                                {
+                                    <b> Extra's:  </b>
+                                }
+                
+                @if (Model.Snack == true)
+                                {
+                                   <img src="/images/snack.png" alt="Added snack's'" width="24" height="24"/>   
+                                }
+                @if (Model.Food==true)
+                                {
+                                   <img src="/images/food.png" alt="Added food" width="24" height="24"/>  
+                                }
+                @if (Model.Luggage==true)
+                                {
+                                   <img src="/images/luggage.png" alt="Added luggage" width="24" height="24"/>   
+                                }
+                </div>
+
+              </div>
+              <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
+                <div class="d-flex flex-row align-items-center mb-1">                    
+                  <h4 class="mb-1 me-1">$@Model.Price.ToString("0.00", CultureInfo.InvariantCulture)</h4>
+                  
+                </div>                 
+                <div class="d-flex flex-column mt-4">
+                  
+                  <a class="btn btn-primary" asp-controller="Flight" asp-action="Details"
+                            asp-route-id="@Model.Id"> Details </a>
+
+                  <button class="btn btn-outline-primary btn-sm mt-2" type="button">
+                    BUY
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

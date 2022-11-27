@@ -1,0 +1,59 @@
+﻿@model FlightViewModelDetails
+
+<div class="main-body">
+<div class="container">
+      <div class="row gutters-sm">
+        <div class="col-sm-6 col-xl-4 mb-3">
+          <div class="card">
+            <div class="card-header border-bottom flex-column align-items-start p-3">
+              
+              <h4 class="text-secondary font-weight-light mb-2">Flight to @Model.ArrivalAirport.Name (@Model.ArrivalAirport.IATACode) - @Model.ArrivalAirport.City.Name @Model.ArrivalAirport.City.Country.Name</h4>
+              <p class="font-size-sm mb-0"><strong>Departure:</strong> @Model.DepartureAirport.Name (@Model.DepartureAirport.IATACode) - @Model.DepartureAirport.City.Name @Model.DepartureAirport.City.Country.Name</p>
+              <p class="font-size-sm mb-0"><strong>Arplane: </strong> @Model.Airplane.Manufacture.Name @Model.Airplane.Model - Maximum capacity <strong>@Model.Airplane.Capacity</strong></p>
+              <p class="font-size-sm mb-0"><strong>Avallible places: </strong> @Model.AvailablePlaces </p>
+              <p class="font-size-sm mb-0"><strong>Arrival date: </strong> @Model.ArrivalDate.ToString("dd MMM YYYY - HH:mm") time</p>
+              <p class="font-size-sm mb-0"><strong>Duration: </strong> @Model.Duration minutes </p>
+              <p class="font-size-sm mb-0"><strong>Departure date: </strong> @Model.DepartureDate.ToString("dd MMM YYYY - HH:mm") time</p>
+            </div>
+            <div class="card-header border-bottom justify-content-center py-4">
+              <h1 class="pricing-price">
+                <small class="align-self-start">$</small>
+                @Model.Price                
+              </h1>
+            </div>
+            <div class="card-body">
+              <ul class="list-unstyled font-size-sm mb-0">
+                  @if (Model.Snack==true)
+                            {
+                                <li><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check text-success mr-2"><polyline points="20 6 9 17 4 12"></polyline></svg><strong>Snack</strong><span class="text-secondary ml-1"> Included</span></li>
+                            }
+                            else
+                            {
+                                <li><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x text-danger mr-2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg><strong>Snack</strong><span class="text-secondary ml-1"> not included</span></li>
+                            }
+                  @if (Model.Food==true)
+                            {
+                                <li><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check text-success mr-2"><polyline points="20 6 9 17 4 12"></polyline></svg><strong>Food</strong><span class="text-secondary ml-1"> Included</span></li>
+                            }
+                            else
+                            {
+                                <li><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x text-danger mr-2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg><strong>Food</strong><span class="text-secondary ml-1"> not included</span></li>
+                            }
+                  @if (Model.Luggage==true)
+                            {
+                                <li><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check text-success mr-2"><polyline points="20 6 9 17 4 12"></polyline></svg><strong>Luggage</strong><span class="text-secondary ml-1"> Included</span></li>
+                            }
+                            else
+                            {
+                                <li><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x text-danger mr-2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg><strong>Luggage</strong><span class="text-secondary ml-1"> not included</span></li>
+                            }
+              </ul>
+            </div>
+            <div class="card-footer justify-content-center p-3">
+              <button class="btn btn-outline-secondary">Proceed to buy</button>
+            </div>
+          </div>
+        </div>       
+    </div>
+</div>
+</div>

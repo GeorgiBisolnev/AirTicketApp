@@ -9,6 +9,7 @@ namespace AirTicketApp.Services.Contracts
         Task<IEnumerable<AirportViewModel>> GetAllAirports(); 
         Task<IEnumerable<CompanyViewModel>> GetAllCompanies(); 
         Task<IEnumerable<AirplaneViewModel>> GetAllAirplanes(); 
+        Task<FlightViewModelDetails> Details(int id); 
         Task<int> Create(FlightViewModel model); 
     }
 }

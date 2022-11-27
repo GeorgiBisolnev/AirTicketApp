@@ -14,7 +14,6 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<AirTicketAppContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 {
     options.SignIn.RequireConfirmedAccount = false;
@@ -25,6 +24,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
     options.Password.RequireDigit = false;
     options.Password.RequireUppercase = false;
 })
+    .AddRoles<IdentityRole>()
+    .AddRoleManager<RoleManager<IdentityRole>>()
     .AddEntityFrameworkStores<AirTicketAppContext>();
 
 builder.Services.AddControllersWithViews().AddMvcOptions(options =>
@@ -65,9 +66,22 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
+app.UseEndpoints(endpoints =>
+{
+
+    endpoints.MapControllerRoute(
+      name: "areas",
+      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+    );
+
+
+    endpoints.MapControllerRoute(
+      name: "default",
+      pattern: "{controller=Home}/{action=Index}/{id?}"
+    );
+});
 app.MapDefaultControllerRoute();
 
 app.MapRazorPages();

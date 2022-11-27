@@ -108,6 +108,48 @@ namespace AirTicketApp.Services
 
             return airplanes;
         }
+        /// <summary>
+        /// finds detiled information about flights
+        /// </summary>
+        /// <param name="flightId"></param>
+        /// <returns>Flight model</returns>
+        /// <exception cref="Exception"></exception>
+        public async Task<FlightViewModelDetails> Details(int Id)
+        {
 
+            var f = await repo.AllReadonly<Flight>()
+                            .Include(m => m.Airplane.Manufacture)
+                            .Include(c => c.ArrivalAirport.City.Country)
+                            .Include(c => c.DepartureAirport.City.Country)
+                            .FirstOrDefaultAsync(f => f.Id == Id);
+
+            int buyedFlights = await repo.AllReadonly<Ticket>()
+                .CountAsync(t=>t.FlightId==Id);
+
+            if (f==null)
+            {
+                throw new Exception ("We cant find flight information!");
+            }
+
+            
+            var flightModel = new FlightViewModelDetails()
+            {
+                Id = f.Id,
+                ArrivalAirport = f.ArrivalAirport,
+                DepartureAirport = f.DepartureAirport,
+                ArrivalDate = f.ArrivalDate,
+                DepartureDate = f.DepartureDate,
+                Duration = f.Duration,
+                Company = f.Company,
+                Airplane = f.Airplane,
+                Price = f.Price,
+                Snack = f.Snack,
+                Food = f.Food,
+                Luggage = f.Luggage,
+                AvailablePlaces = f.Airplane.Capacity - buyedFlights,
+            };
+
+            return flightModel;
+        }
     }
 }

@@ -64,6 +64,17 @@ namespace AirTicketApp.Controllers
             return RedirectToAction(nameof(All));
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Details(int Id)
+        {
+
+            var flightModel = await flightService.Details(Id);
+
+
+
+            return View(flightModel);
+        }
+
 
     }
 }
