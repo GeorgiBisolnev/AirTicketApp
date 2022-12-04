@@ -4,23 +4,23 @@
 
 <div class="row">
     <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
-        <form method="post">
+        <form method="post" class="mt-1 offset-1 col-10 border border-primary pt-2 pb-2 px-2 py-2">
             <input type="hidden" asp-for="@Model.Id" />
             <div class="form-group">
-                <label asp-for="DepartureDate">Departure Date</label>                              
-                <input asp-for="DepartureDate" type="datetime-local" value=@Model.DateTimeNowFormated 
+                <label asp-for="DepartureDate" class="form-label">Departure Date</label>                              
+                <input asp-for="DepartureDate" type="datetime-local" class="form-control" value=@Model.DateTimeNowFormated 
                     min=@Model.DateTimeNowFormated>
                 <span asp-validation-for="DepartureDate" class="small text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ArrivalDate">Arrival Date</label>                              
-                <input asp-for="ArrivalDate" type="datetime-local" value=@Model.DateTimeNowFormated
+                <input asp-for="ArrivalDate" type="datetime-local" class="form-control" value=@Model.DateTimeNowFormated
                     min=@Model.DateTimeNowFormated>
                 <span asp-validation-for="ArrivalDate" class="small text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DepartureId">Departure Airport</label>
-                <select class="ui search selection dropdown" asp-for="DepartureId" id="search-select-DepAirport">
+                <select class="form-select" asp-for="DepartureId" id="search-select-DepAirport">
                     @foreach (var dairport in @Model.Airports)
                     {
                         <option value="@dairport.Id">@dairport.IATACode (@dairport.Name - @dairport.City.Name)</option>
@@ -30,7 +30,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="ArrivalId">Arrival Airport</label>
-                <select class="ui search selection dropdown" asp-for="ArrivalId" id="search-select-ArAirport">
+                <select class="form-select" asp-for="ArrivalId" id="search-select-ArAirport">
                     @foreach (var aairport in @Model.Airports)
                     {
                         <option value="@aairport.Id">@aairport.IATACode (@aairport.Name - @aairport.City.Name)</option>
@@ -40,7 +40,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Company"></label>
-                <select class="ui search selection dropdown" asp-for="CompanyId" id="search-select-ArAirport">
+                <select class="form-select" asp-for="CompanyId" id="search-select-ArAirport">
                     @foreach (var company in @Model.Companies)
                     {
                         <option value="@company.Id">@company.Name</option>
@@ -50,7 +50,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="AirplaneId"></label>
-                <select class="ui search selection dropdown" asp-for="AirplaneId" id="search-select-airplane">
+                <select class="form-select" asp-for="AirplaneId" id="search-select-airplane">
                     @foreach (var airplane in @Model.Airplanes)
                     {
                         <option value="@airplane.Id">@airplane.Manufacture.Name @airplane.Model</option>

@@ -4,12 +4,14 @@ using AirTicketApp.Models;
 using AirTicketApp.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using X.PagedList;
 
 namespace AirTicketApp.Controllers
 {
     [Authorize]
     public class Flight : Controller
     {
+        public int pageSize = 4;
         private readonly IFlightService flightService;
 
         public Flight(IFlightService flightService)
@@ -19,7 +21,7 @@ namespace AirTicketApp.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All(int page=1)
         {
             IEnumerable<FlightViewModel> query = new List<FlightViewModel>();
             try
@@ -30,10 +32,14 @@ namespace AirTicketApp.Controllers
             {
 
                 TempData[MessageConstant.ErrorMessage] = "System error!";
-                return View(query);
+                return View(query.ToPagedList(page, pageSize));
             }
 
-            return View(query);
+            //Filter all flights
+
+            var pagedFlights = query.ToPagedList(page, pageSize);
+
+            return View(pagedFlights);
         }
 
         //[HttpGet]

@@ -1,17 +1,24 @@
-﻿@model IEnumerable<FlightViewModel>
+﻿@model PagedList<FlightViewModel>
 @using System.Globalization
+@using X.PagedList;
+@using X.PagedList.Mvc.Core;
 
 @{
     ViewBag.Title = "All Flights";
 }
 
-    <style>
-      p {
+<style>
+  p {        
+    margin: 0;
+  }
+  .pagination-container {
         
-        margin: 0;
+        display:flex;
+        flex-wrap:nowrap;
+        justify-content:center;
+  }
 
-      }
-    </style>
+</style>
 
 @if (Model.Count()==0)
 {
@@ -23,25 +30,18 @@ else
     <h2 class="text-center">Flights found</h2>
 }
 
+
 @foreach (var flight in Model)
 {
     <partial name="_flightViewPartial" model="@flight" />
 }
 
-
-<nav aria-label="Page navigation example">
-  <ul class="pagination justify-content-center">
-    <li class="page-item disabled">
-      <a class="page-link" href="#" tabindex="-1">Previous</a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#">Next</a>
-    </li>
-  </ul>
-</nav>
-
-
-
+@Html.PagedListPager((IPagedList) Model, page=> Url.Action("All", new {page}),
+new X.PagedList.Web.Common.PagedListRenderOptions{
+    LiElementClasses = new string[]{
+        "page-item",
+    },
+    PageClasses = new string[]{
+        "page-link"
+    }    
+})
