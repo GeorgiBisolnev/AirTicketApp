@@ -1,4 +1,5 @@
-﻿using AirTicketApp.Models;
+﻿using AirTicketApp.Data.Common.MessageConstants;
+using AirTicketApp.Models;
 using AirTicketApp.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +18,7 @@ namespace AirTicketApp.Areas.Admin.Controllers
 
         [HttpGet]
         public async Task<IActionResult> Add()
-        {
+        {            
             var model = new FlightViewModel()
             {                
                 Airplanes = await flightService.GetAllAirplanes(),
@@ -45,12 +46,20 @@ namespace AirTicketApp.Areas.Admin.Controllers
                     model.DateTimeNowFormated = DateTime.Now.ToString("yyyy-MM-dd") +
                     "T" +
                     DateTime.Now.ToString("HH:mm");
-                }
+                }                
+
                 return View(model);
             }
+            try
+            {
+                await flightService.Create(model);
+            }
+            catch (Exception)
+            {
+                TempData[MessageConstant.ErrorMessage] = "System error!";
+            }
 
-            await flightService.Create(model);
-
+            TempData[MessageConstant.SuccessMessage] = "Successfully added new flight!";
             return RedirectToAction("All", "Flight", new { area = "" });
         }
 

@@ -1,4 +1,5 @@
-﻿using AirTicketApp.Data.EntityModels;
+﻿using AirTicketApp.Data.Common.MessageConstants;
+using AirTicketApp.Data.EntityModels;
 using AirTicketApp.Models;
 using AirTicketApp.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
@@ -20,8 +21,18 @@ namespace AirTicketApp.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> All()
         {
-            var query = await flightService.AllFlights();
-            
+            IEnumerable<FlightViewModel> query = new List<FlightViewModel>();
+            try
+            {
+                query = await flightService.AllFlights();
+            }
+            catch (Exception)
+            {
+
+                TempData[MessageConstant.ErrorMessage] = "System error!";
+                return View(query);
+            }
+
             return View(query);
         }
 

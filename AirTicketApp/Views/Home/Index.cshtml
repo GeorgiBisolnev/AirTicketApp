@@ -8,4 +8,27 @@
 </div>
 
 
+<button class="btn btn-dark" id="toastrSuccess">Toastr success</button>
+
+
+
+
+
+@section Scripts{
+
+<script type="text/javascript">
+$(function() {
+    $("#toastrSuccess").click(function() {
+        
+        toastr.success("Success TOASTR!", "Success");
+
+        //alert("ok");
+    });
+});
+
+</script>
+
+}
+
+
 
