@@ -42,50 +42,20 @@ namespace AirTicketApp.Controllers
             return View(pagedFlights);
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> Add()
-        //{
-        //    var model = new FlightViewModel()
-        //    {                
-        //        Airplanes = await flightService.GetAllAirplanes(),
-        //        Airports = await flightService.GetAllAirports(),
-        //        Companies = await flightService.GetAllCompanies(),
-        //        DateTimeNowFormated = DateTime.Now.ToString("yyyy-MM-dd") + 
-        //        "T"+
-        //        DateTime.Now.ToString("HH:mm"),
-        //    };
-
-        //    return View(model);
-        //}
-
-        //[HttpPost]
-        //public async Task<IActionResult> Add(FlightViewModel model)
-        //{
-
-        //    if (!ModelState.IsValid)
-        //    {
-        //        model.Airplanes = await flightService.GetAllAirplanes();
-        //        model.Airports = await flightService.GetAllAirports();
-        //        model.Companies = await flightService.GetAllCompanies();
-        //        if (string.IsNullOrEmpty(model.DateTimeNowFormated))
-        //        {
-        //            model.DateTimeNowFormated = DateTime.Now.ToString("yyyy-MM-dd") +
-        //            "T" +
-        //            DateTime.Now.ToString("HH:mm");
-        //        }
-        //        return View(model);
-        //    }
-
-        //    await flightService.Create(model);
-
-        //    return RedirectToAction(nameof(All));
-        //}
-
         [HttpGet]
         public async Task<IActionResult> Details(int Id)
         {
+            FlightViewModelDetails flightModel = new FlightViewModelDetails();
+            try
+            {
+                flightModel = await flightService.Details(Id);
+            }
+            catch (Exception)
+            {
 
-            var flightModel = await flightService.Details(Id);
+                TempData[MessageConstant.ErrorMessage] = "System error!";
+                return RedirectToAction("All");
+            }            
 
             return View(flightModel);
         }

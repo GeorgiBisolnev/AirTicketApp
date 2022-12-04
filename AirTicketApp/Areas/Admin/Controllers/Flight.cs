@@ -38,25 +38,43 @@ namespace AirTicketApp.Areas.Admin.Controllers
 
             if (!ModelState.IsValid)
             {
-                model.Airplanes = await flightService.GetAllAirplanes();
-                model.Airports = await flightService.GetAllAirports();
-                model.Companies = await flightService.GetAllCompanies();
+                try
+                {
+                    model.Airplanes = await flightService.GetAllAirplanes();
+                    model.Airports = await flightService.GetAllAirports();
+                    model.Companies = await flightService.GetAllCompanies();
+                }
+                catch (Exception)
+                {
+
+                    TempData[MessageConstant.ErrorMessage] = "System error!";
+                    return View(model);
+                }
+                
                 if (string.IsNullOrEmpty(model.DateTimeNowFormated))
                 {
                     model.DateTimeNowFormated = DateTime.Now.ToString("yyyy-MM-dd") +
                     "T" +
                     DateTime.Now.ToString("HH:mm");
-                }                
-
+                }
+                TempData[MessageConstant.WarningMessage] = "Not all validations are passed!";
                 return View(model);
             }
+
+            if (model.DepartureDate<DateTime.Now)
+            {
+                TempData[MessageConstant.WarningMessage] = "Departure date error!";
+                return View(model);
+            }
+
             try
             {
                 await flightService.Create(model);
             }
             catch (Exception)
             {
-                TempData[MessageConstant.ErrorMessage] = "System error!";
+                TempData[MessageConstant.ErrorMessage] = "Can not create new flight! System error!";
+                return View(model);
             }
 
             TempData[MessageConstant.SuccessMessage] = "Successfully added new flight!";
@@ -67,8 +85,17 @@ namespace AirTicketApp.Areas.Admin.Controllers
         public async Task<IActionResult> Details(int Id)
         {
 
-            var flightModel = await flightService.Details(Id);
+            FlightViewModel flightModel = new FlightViewModel();
+            try
+            {
+                flightModel = await flightService.Details(Id);
+            }
+            catch (Exception)
+            {
 
+                TempData[MessageConstant.ErrorMessage] = "Cant load flight details due to system error!";
+            }
+            
             return View(flightModel);
         }
 
