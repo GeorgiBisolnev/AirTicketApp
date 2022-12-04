@@ -36,7 +36,7 @@ namespace AirTicketApp.Services
                     Luggage = f.Luggage,
                 })
                 .ToListAsync();
-
+            
             return flights;
         }
 

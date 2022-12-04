@@ -57,6 +57,7 @@ namespace AirTicketApp.Models
         public IEnumerable<AirplaneViewModel> Airplanes { get; set; } = new List<AirplaneViewModel>();
 
         public string?  DateTimeNowFormated { get; set; }
+        public int TotalFlightsFound { get; set; }
 
     }
 }
