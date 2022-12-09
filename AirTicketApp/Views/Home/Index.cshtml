@@ -2,29 +2,30 @@
     ViewData["Title"] = "Home Page";
 }
 
+<style>
+
+$('#sandbox-container .input-group.date').datepicker({
+    maxViewMode: 2,
+    todayBtn: true,
+    orientation: "bottom auto",
+    forceParse: false,
+    daysOfWeekHighlighted: "0,6",
+    todayHighlight: true
+});
+
+</style>
+
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET CoreAASAS</a>.</p>
 </div>
 
 
-<button class="btn btn-dark" id="toastrSuccess">Toastr success</button>
-
-
-
-
 
 @section Scripts{
 
 <script type="text/javascript">
-$(function() {
-    $("#toastrSuccess").click(function() {
-        
-        toastr.success("Success TOASTR!", "Success");
 
-        //alert("ok");
-    });
-});
 
 </script>
 

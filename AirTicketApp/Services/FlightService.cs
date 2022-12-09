@@ -3,6 +3,7 @@ using AirTicketApp.Data.EntityModels;
 using AirTicketApp.Services.Contracts;
 using AirTicketApp.Models;
 using Microsoft.EntityFrameworkCore;
+using AirTicketApp.Models.Flight;
 
 namespace AirTicketApp.Services
 {
@@ -20,6 +21,7 @@ namespace AirTicketApp.Services
             var flights =  await repo.AllReadonly<Flight>()
                 .Include(m=>m.Airplane.Manufacture)
                 .Include(c=>c.ArrivalAirport.City)
+                .Where(d=>d.DepartureDate>=DateTime.Today)
                 .Select(f=> new FlightViewModel()
                 {
                     Id=f.Id,
@@ -150,6 +152,44 @@ namespace AirTicketApp.Services
             };
 
             return flightModel;
+        }
+
+        public async Task<IEnumerable<FlightViewModel>> AllFlightsFilter(
+            FlightSorting? sorting = 0,
+            DateTime? searchDate = null,
+            int? ArrivalAirportId = null,
+            int? DepartureAirportId = null)
+        {      
+            var result = await AllFlights();
+
+            if (ArrivalAirportId != null)
+            {
+                result = result.Where(f => f.ArrivalAirport.Id == ArrivalAirportId);
+            }
+
+            if (DepartureAirportId != null)
+            {
+                result = result.Where(f => f.DepartureAirport.Id == DepartureAirportId);
+            }
+            if (searchDate != null)
+            {
+                result = result.Where(f => f.DepartureDate.Date == searchDate);
+            }
+
+            result = sorting switch
+            {
+                FlightSorting.Price => result
+                    .OrderBy(f=>f.Price).ToList(),
+                FlightSorting.Company=>result
+                    .OrderByDescending(f=>f.Company.Name).ToList(),
+                FlightSorting.DepartureDate => result
+                    .OrderBy(f=>f.DepartureDate).ToList(),
+                FlightSorting.ArrivalDate=> result
+                    .OrderBy(f => f.ArrivalDate).ToList(),
+                _ => result.OrderBy(f=>f.Id).ToList()
+            };
+
+            return result;
         }
     }
 }

@@ -11,7 +11,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/toastr/toastr.min.js"></script>
     <!-- От тук надолу ще експериментирам за календара-->
-    
+
 
     <!-- до тук ще експериментирам за календара-->
 </head>
@@ -38,7 +38,13 @@
                             <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="Admin" asp-controller="Flight" asp-action="Add">Add flight</a>
                             </li>
-                        }                                                
+                        }
+                        @if (this.User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Flight" asp-action="Search">Search for flight</a>
+                            </li>
+                        }  
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
@@ -58,7 +64,7 @@
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>    
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>        
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)

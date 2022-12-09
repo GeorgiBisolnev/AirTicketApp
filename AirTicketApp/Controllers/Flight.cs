@@ -1,9 +1,11 @@
 ﻿using AirTicketApp.Data.Common.MessageConstants;
 using AirTicketApp.Data.EntityModels;
 using AirTicketApp.Models;
+using AirTicketApp.Models.Flight;
 using AirTicketApp.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using X.PagedList;
 
 namespace AirTicketApp.Controllers
@@ -19,29 +21,70 @@ namespace AirTicketApp.Controllers
             this.flightService = flightService;
         }
 
+        /// <summary>
+        /// Searching for flights
+        /// </summary>
+        /// <param name="page"></param>
+        /// <returns>Filtered flight by giving date</returns>
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> All(int page=1)
         {
-            IEnumerable<FlightViewModel> query = new List<FlightViewModel>();
+
+            var filter = JsonConvert
+                .DeserializeObject<List<FlightViewModel>>((string)TempData["filter"]);
+
+            TempData["filter"] = JsonConvert.SerializeObject(filter);
+
+            var pagedFlights = filter.ToPagedList(page, pageSize);
+
+            return View(pagedFlights);
+
+            IEnumerable<FlightViewModel> newQuery = new List<FlightViewModel>();
             try
             {
-                query = await flightService.AllFlights();
+                newQuery = await flightService.AllFlights();
             }
             catch (Exception)
             {
 
                 TempData[MessageConstant.ErrorMessage] = "System error!";
-                return View(query.ToPagedList(page, pageSize));
+                return View(newQuery.ToPagedList(page, pageSize));
             }
 
-            //Filter all flights
-
-            var pagedFlights = query.ToPagedList(page, pageSize);
-
-            return View(pagedFlights);
+            return View("Index");
         }
 
+        [HttpPost]        
+        public async Task<IActionResult> Search(AllFlightsQueryModel query)
+        {
+            var result = await flightService.AllFlightsFilter(
+                query.Sorting,
+                query.SearchDate,
+                query.ArrivalAirportId,
+                query.DepartureAirportId                
+                );
+            //query.Flights = result.ToPagedList(query.page, pageSize);
+
+            TempData["filter"] = JsonConvert.SerializeObject(result);
+            return RedirectToAction("All", new { page = 1 });            
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Search()
+        {
+            var query = new AllFlightsQueryModel();
+
+            query.Airports = await flightService.GetAllAirports();
+
+            return View(query);
+        }
+
+        /// <summary>
+        /// Detailed view in single fligt
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns>return flight by given id</returns>
         [HttpGet]
         public async Task<IActionResult> Details(int Id)
         {

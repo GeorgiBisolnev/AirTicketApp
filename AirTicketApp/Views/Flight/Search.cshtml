@@ -1,0 +1,59 @@
+﻿@model AllFlightsQueryModel
+
+
+<form method="post">
+    <div class="row">
+
+         <div class="form-group col-md-3">
+            <div class="form-group">
+                <label asp-for="DepartureAirportId">Departure airport</label>
+                <select asp-for="DepartureAirportId" class="form-control">
+                    <option value=""></option>
+                    @foreach (var airport in Model.Airports)
+                    {
+                        <option value="@airport.Id">@airport.Name @airport.IATACode</option>
+                    }
+                </select>
+            </div>
+        </div> 
+
+        <div class="form-group col-md-3">
+            <div class="form-group">
+                <label asp-for="ArrivalAirportId">Arrival airport</label>
+                <select asp-for="ArrivalAirportId" class="form-control">
+                    <option value=""></option>
+                    @foreach (var airport in Model.Airports)
+                    {
+                        <option value="@airport.Id">@airport.Name @airport.IATACode</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+            <div class="form-group col-md-3">
+                <label asp-for="SearchDate">Departure date</label>                              
+                <input asp-for="SearchDate" type="date" class="form-control" value=@DateTime.Today
+                    min=@DateTime.Today required ="required">                
+            </div>
+
+
+        <div class="col-md-3">
+            <div class="form-group mt-4 p-2">
+                <input type="submit" value="Search" class="btn btn-primary" />
+            </div>
+        </div>
+
+        <div class="form-group col-md-3">
+            <div class="form-group">
+                <label asp-for="Sorting"></label>
+                <select asp-for="Sorting" class="form-control">
+                    <option value="0">Price</option>
+                    <option value="1">Company name</option>
+                    <option value="2">Departure date</option>
+                    <option value="3">Arrival date</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</form>
+
