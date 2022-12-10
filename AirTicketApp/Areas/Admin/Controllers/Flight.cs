@@ -10,10 +10,18 @@ namespace AirTicketApp.Areas.Admin.Controllers
     public class Flight : BaseController
     {
         private readonly IFlightService flightService;
-
-        public Flight(IFlightService flightService)
+        private readonly IAirplaneService airplaneService;
+        private readonly IAirportService airportService;
+        private readonly ICompanyService companyService;
+        public Flight(IFlightService _flightService,
+            IAirplaneService _airplaneService,
+            IAirportService _airportService,
+            ICompanyService _companyService)
         {
-            this.flightService = flightService;
+            this.flightService = _flightService;
+            this.airplaneService = _airplaneService;
+            this.airportService = _airportService;
+            this.companyService = _companyService;
         }
 
         [HttpGet]
@@ -21,9 +29,9 @@ namespace AirTicketApp.Areas.Admin.Controllers
         {            
             var model = new FlightViewModel()
             {                
-                Airplanes = await flightService.GetAllAirplanes(),
-                Airports = await flightService.GetAllAirports(),
-                Companies = await flightService.GetAllCompanies(),
+                Airplanes = await airplaneService.GetAllAirplanes(),
+                Airports = await airportService.GetAllAirports(),
+                Companies = await companyService.GetAllCompanies(),
                 DateTimeNowFormated = DateTime.Now.ToString("yyyy-MM-dd") + 
                 "T"+
                 DateTime.Now.ToString("HH:mm"),
@@ -40,9 +48,9 @@ namespace AirTicketApp.Areas.Admin.Controllers
             {
                 try
                 {
-                    model.Airplanes = await flightService.GetAllAirplanes();
-                    model.Airports = await flightService.GetAllAirports();
-                    model.Companies = await flightService.GetAllCompanies();
+                    model.Airplanes = await airplaneService.GetAllAirplanes();
+                    model.Airports = await airportService.GetAllAirports();
+                    model.Companies = await companyService.GetAllCompanies();
                 }
                 catch (Exception)
                 {

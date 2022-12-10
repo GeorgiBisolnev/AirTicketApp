@@ -4,6 +4,6 @@ namespace AirTicketApp.Services.Contracts
 {
     public interface ICompanyService
     {
-        Task<IEnumerable<CompanyViewModel>> GetAll(); 
+        Task<IEnumerable<CompanyViewModel>> GetAllCompanies();
     }
 }

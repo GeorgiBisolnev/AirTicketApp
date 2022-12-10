@@ -15,12 +15,13 @@ namespace AirTicketApp.Services
             this.repo = _repo;
         }
 
-        public async Task<IEnumerable<AirportViewModel>> GetAll()
+        public async Task<IEnumerable<AirportViewModel>> GetAllAirports()
         {
             var airports = await repo.AllReadonly<Airport>()
-                .Include(c=>c.City.Country)
+                .Include(c => c.City.Country)
                 .Select(a => new AirportViewModel()
                 {
+                    Id = a.Id,
                     Name = a.Name,
                     City = a.City,
                     IATACode = a.IATACode,

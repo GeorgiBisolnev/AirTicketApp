@@ -64,52 +64,6 @@ namespace AirTicketApp.Services
 
             return flight.Id;
         }
-
-        public async Task<IEnumerable<AirportViewModel>> GetAllAirports()
-        {
-            var airports = await repo.AllReadonly<Airport>()
-                .Include(c => c.City.Country)
-                .Select(a => new AirportViewModel()
-                {
-                    Id = a.Id,
-                    Name = a.Name,
-                    City = a.City,
-                    IATACode = a.IATACode,
-                })
-                .ToListAsync();
-
-            return airports;
-        }
-
-        public async Task<IEnumerable<CompanyViewModel>> GetAllCompanies()
-        {
-            var companies = await repo.AllReadonly<Company>()
-                .Select(c => new CompanyViewModel()
-                {
-                    Name = c.Name,
-                    Id = c.Id,
-
-
-                })
-                .ToListAsync();
-
-            return companies;
-        }
-
-        public async Task<IEnumerable<AirplaneViewModel>> GetAllAirplanes()
-        {
-            var airplanes = await repo.AllReadonly<Airplane>()
-                .Include(m => m.Manufacture)
-                .Select(a => new AirplaneViewModel()
-                {
-                    Model = a.Model,
-                    Id = a.Id,
-                    Manufacture = a.Manufacture,
-                })
-                .ToListAsync();
-
-            return airplanes;
-        }
         /// <summary>
         /// finds detiled information about flights
         /// </summary>

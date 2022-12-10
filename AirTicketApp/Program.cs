@@ -35,6 +35,9 @@ builder.Services.AddControllersWithViews().AddMvcOptions(options =>
 
 builder.Services.AddScoped<IRepository, Repository>();
 builder.Services.AddScoped<IFlightService, FlightService>();
+builder.Services.AddScoped<IAirplaneService, AirplaneService>();
+builder.Services.AddScoped<IAirportService, AirportService>();
+builder.Services.AddScoped<ICompanyService, CompanyService>();
 
 
 var app = builder.Build();

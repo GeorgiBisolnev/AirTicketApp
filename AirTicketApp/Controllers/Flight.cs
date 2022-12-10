@@ -15,10 +15,19 @@ namespace AirTicketApp.Controllers
     {
         public int pageSize = 4;
         private readonly IFlightService flightService;
+        private readonly IAirplaneService airplaneService;
+        private readonly IAirportService airportService;
+        private readonly ICompanyService companyService;
 
-        public Flight(IFlightService flightService)
+        public Flight(IFlightService _flightService,
+            IAirplaneService _airplaneService,
+            IAirportService _airportService,
+            ICompanyService _companyService)
         {
-            this.flightService = flightService;
+            this.flightService = _flightService;            
+            this.airplaneService = _airplaneService;            
+            this.airportService = _airportService;            
+            this.companyService = _companyService;            
         }
 
         /// <summary>
@@ -30,6 +39,20 @@ namespace AirTicketApp.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> All(int page=1)
         {
+            if (TempData["ShowAllFlights"] == "Yes")
+            {
+                IEnumerable<FlightViewModel> newQuery = new List<FlightViewModel>();
+                try
+                {
+                    newQuery = await flightService.AllFlights();
+                }
+                catch (Exception)
+                {
+
+                    TempData[MessageConstant.ErrorMessage] = "System error!";
+                    return View(newQuery.ToPagedList(page, pageSize));
+                }
+            }
 
             var filter = JsonConvert
                 .DeserializeObject<List<FlightViewModel>>((string)TempData["filter"]);
@@ -39,20 +62,6 @@ namespace AirTicketApp.Controllers
             var pagedFlights = filter.ToPagedList(page, pageSize);
 
             return View(pagedFlights);
-
-            IEnumerable<FlightViewModel> newQuery = new List<FlightViewModel>();
-            try
-            {
-                newQuery = await flightService.AllFlights();
-            }
-            catch (Exception)
-            {
-
-                TempData[MessageConstant.ErrorMessage] = "System error!";
-                return View(newQuery.ToPagedList(page, pageSize));
-            }
-
-            return View("Index");
         }
 
         [HttpPost]        
@@ -75,7 +84,7 @@ namespace AirTicketApp.Controllers
         {
             var query = new AllFlightsQueryModel();
 
-            query.Airports = await flightService.GetAllAirports();
+            query.Airports = await airportService.GetAllAirports();
 
             return View(query);
         }
