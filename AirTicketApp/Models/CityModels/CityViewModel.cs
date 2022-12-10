@@ -1,7 +1,8 @@
 ﻿using AirTicketApp.Data.EntityModels;
 using System.ComponentModel.DataAnnotations;
 using static AirTicketApp.Data.Common.CityModelConstants;
-namespace AirTicketApp.Models
+
+namespace AirTicketApp.Models.CityModels
 {
     public class CityViewModel
     {

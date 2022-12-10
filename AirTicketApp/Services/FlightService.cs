@@ -1,9 +1,8 @@
 ﻿using AirTicketApp.Data.Common.Repository;
 using AirTicketApp.Data.EntityModels;
 using AirTicketApp.Services.Contracts;
-using AirTicketApp.Models;
 using Microsoft.EntityFrameworkCore;
-using AirTicketApp.Models.Flight;
+using AirTicketApp.Models.FlightModels;
 
 namespace AirTicketApp.Services
 {

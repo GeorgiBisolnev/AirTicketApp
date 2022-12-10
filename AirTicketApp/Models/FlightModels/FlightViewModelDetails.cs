@@ -1,4 +1,4 @@
-﻿namespace AirTicketApp.Models
+﻿namespace AirTicketApp.Models.FlightModels
 {
     public class FlightViewModelDetails : FlightViewModel
     {

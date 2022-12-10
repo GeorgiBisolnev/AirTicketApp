@@ -1,4 +1,4 @@
-﻿namespace AirTicketApp.Models.Flight
+﻿namespace AirTicketApp.Models.FlightModels
 {
     public enum FlightSorting
     {

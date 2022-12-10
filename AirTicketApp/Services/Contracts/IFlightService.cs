@@ -1,5 +1,4 @@
-﻿using AirTicketApp.Models;
-using AirTicketApp.Models.Flight;
+﻿using AirTicketApp.Models.FlightModels;
 
 namespace AirTicketApp.Services.Contracts
 {

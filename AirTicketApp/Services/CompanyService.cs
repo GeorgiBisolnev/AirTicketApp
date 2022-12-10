@@ -1,6 +1,6 @@
 ﻿using AirTicketApp.Data.Common.Repository;
 using AirTicketApp.Data.EntityModels;
-using AirTicketApp.Models;
+using AirTicketApp.Models.CompanyModels;
 using AirTicketApp.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
 

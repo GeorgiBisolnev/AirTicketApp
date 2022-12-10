@@ -1,4 +1,6 @@
-﻿namespace AirTicketApp.Models.Flight
+﻿using AirTicketApp.Models.AirportModels;
+
+namespace AirTicketApp.Models.FlightModels
 {
     public class AllFlightsQueryModel
     {

@@ -1,5 +1,5 @@
 ﻿using AirTicketApp.Data.Common.MessageConstants;
-using AirTicketApp.Models;
+using AirTicketApp.Models.FlightModels;
 using AirTicketApp.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

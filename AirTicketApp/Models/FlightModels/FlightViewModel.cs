@@ -1,9 +1,12 @@
 ﻿using AirTicketApp.Data.EntityModels;
+using AirTicketApp.Models.AirplaneModels;
+using AirTicketApp.Models.AirportModels;
+using AirTicketApp.Models.CompanyModels;
 using AirTicketApp.Models.ValidationClassAtributes;
 using System.ComponentModel.DataAnnotations;
 using static AirTicketApp.Data.Common.FlightModelConstants;
 
-namespace AirTicketApp.Models
+namespace AirTicketApp.Models.FlightModels
 {
     public class FlightViewModel
     {
@@ -11,8 +14,8 @@ namespace AirTicketApp.Models
         public int Id { get; set; }
 
         [Required]
-        [NotEqualTo("ArrivalId",ErrorMessage ="Departure airport can't be the same as arrival airport")]
-        public int DepartureId { get; set; }    
+        [NotEqualTo("ArrivalId", ErrorMessage = "Departure airport can't be the same as arrival airport")]
+        public int DepartureId { get; set; }
 
         public Airport? DepartureAirport { get; set; } = null!;
 
@@ -22,13 +25,13 @@ namespace AirTicketApp.Models
         public Airport? ArrivalAirport { get; set; } = null!;
 
         [Required]
-        [DateLessThan("ArrivalDate", ErrorMessage ="Departure date and time must be less than Arrival date")]
+        [DateLessThan("ArrivalDate", ErrorMessage = "Departure date and time must be less than Arrival date")]
         public DateTime DepartureDate { get; set; }
 
         [Required]
         public DateTime ArrivalDate { get; set; }
 
-        [Range(1,MaxFlightDuration)]
+        [Range(1, MaxFlightDuration)]
         public int? Duration { get; set; }
 
         [Required]
@@ -56,7 +59,7 @@ namespace AirTicketApp.Models
         public IEnumerable<CompanyViewModel> Companies { get; set; } = new List<CompanyViewModel>();
         public IEnumerable<AirplaneViewModel> Airplanes { get; set; } = new List<AirplaneViewModel>();
 
-        public string?  DateTimeNowFormated { get; set; }
+        public string? DateTimeNowFormated { get; set; }
         public int TotalFlightsFound { get; set; }
 
     }

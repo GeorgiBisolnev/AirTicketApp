@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using static AirTicketApp.Data.Common.AirportModelConstants;
 
-namespace AirTicketApp.Models
+namespace AirTicketApp.Models.AirportModels
 {
     public class AirportViewModel
     {

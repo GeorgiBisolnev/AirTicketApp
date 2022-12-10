@@ -1,6 +1,6 @@
 ﻿using AirTicketApp.Data.EntityModels;
 
-namespace AirTicketApp.Models
+namespace AirTicketApp.Models.AirplaneModels
 {
     public class AirplaneViewModel
     {
