@@ -34,7 +34,13 @@
                             <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="Admin" asp-controller="Flight" asp-action="Add">Add flight</a>
                             </li>
-                        }                         
+                        }
+                        @if (this.User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Flight" asp-action="Search">Search for flight</a>
+                            </li>
+                        } 
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>

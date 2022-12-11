@@ -71,7 +71,12 @@ namespace AirTicketApp.Controllers
                 query.ArrivalAirportId,
                 query.DepartureAirportId                
                 );
-            //query.Flights = result.ToPagedList(query.page, pageSize);
+
+            if (query.DepartureAirportId == query.ArrivalAirportId)
+            {
+                TempData[MessageConstant.ErrorMessage] = "Arrival airport can't be the same as Departure airport!";
+                return Redirect("Search");
+            }
 
             TempData["filter"] = JsonConvert.SerializeObject(result);
             return RedirectToAction("All", new { page = 1 });            
@@ -104,7 +109,7 @@ namespace AirTicketApp.Controllers
             {
 
                 TempData[MessageConstant.ErrorMessage] = "System error!";
-                return RedirectToAction("All");
+                return RedirectToAction("Index");
             }            
 
             return View(flightModel);

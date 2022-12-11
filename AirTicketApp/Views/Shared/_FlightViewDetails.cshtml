@@ -12,12 +12,12 @@
               <p class="font-size-sm mb-0"><strong>Departure:</strong> @Model.DepartureAirport.Name (@Model.DepartureAirport.IATACode) - @Model.DepartureAirport.City.Name @Model.DepartureAirport.City.Country.Name</p>
               <p class="font-size-sm mb-0"><strong>Arplane: </strong> @Model.Airplane.Manufacture.Name @Model.Airplane.Model - Maximum capacity <strong>@Model.Airplane.Capacity</strong></p>
               <p class="font-size-sm mb-0"><strong>Avallible places: </strong> @Model.AvailablePlaces </p>
-              <p class="font-size-sm mb-0"><strong>Arrival date: </strong> @Model.ArrivalDate.ToString("dd MMM yyyy - HH:mm",CultureInfo.CreateSpecificCulture("en-US")) time</p>
+              <p class="font-size-sm mb-0"><strong>Departure at: </strong> @Model.DepartureDate.ToString("dd MMM yyyy - HH:mm",CultureInfo.CreateSpecificCulture("en-US")) time<strong> Arrival in: </strong> @Model.ArrivalDate.ToString("dd MMM yyyy - HH:mm",CultureInfo.CreateSpecificCulture("en-US")) time </p>
               @if (Model.Duration!=null)
                         {
                             <p class="font-size-sm mb-0"><strong>Duration: </strong> @Model.Duration minutes </p>
                         }
-              <p class="font-size-sm mb-0"><strong>Departure date: </strong> @Model.DepartureDate.ToString("dd MMM yyyy - HH:mm",CultureInfo.CreateSpecificCulture("en-US")) time</p>
+                <p class="font-size-sm mb-0"><strong>Company: </strong>@Model.Company.Name</p>
             </div>
             <div class="card-header border-bottom justify-content-center py-4">
               <h1 class="pricing-price">
@@ -55,6 +55,11 @@
             </div>
             <div class="card-footer justify-content-center p-3">
               <button class="btn btn-outline-secondary">Proceed to buy</button>
+            </div>
+            <div class="card-footer justify-content-center p-3">
+
+             <a asp-area="Admin" asp-controller="Flight" asp-action="Edit"
+               asp-route-id="@Model.Id" class="btn btn-primary btn-lg">Edit</a>
             </div>
           </div>
         </div>       

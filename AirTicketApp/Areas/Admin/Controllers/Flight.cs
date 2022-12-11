@@ -1,4 +1,5 @@
 ﻿using AirTicketApp.Data.Common.MessageConstants;
+using AirTicketApp.Data.EntityModels;
 using AirTicketApp.Models.FlightModels;
 using AirTicketApp.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
@@ -32,19 +33,43 @@ namespace AirTicketApp.Areas.Admin.Controllers
                 Airplanes = await airplaneService.GetAllAirplanes(),
                 Airports = await airportService.GetAllAirports(),
                 Companies = await companyService.GetAllCompanies(),
-                DateTimeNowFormated = DateTime.Now.ToString("yyyy-MM-dd") + 
+                DateTimeNowFormatedArrival = DateTime.Now.ToString("yyyy-MM-dd") + 
                 "T"+
                 DateTime.Now.ToString("HH:mm"),
+                DateTimeNowFormatedDeparture = DateTime.Now.ToString("yyyy-MM-dd") +
+                "T" +
+                DateTime.Now.ToString("HH:mm"),                
             };
 
+            model.ArrivalAirport = new Airport()
+            {
+                Id = 1
+            };
+            model.DepartureAirport = new Airport()
+            {
+                Id = 1
+            };
             return View(model);
         }
 
         [HttpPost]
         public async Task<IActionResult> Add(FlightViewModel model)
         {
-
-            if (!ModelState.IsValid)
+            if (model.ArrivalAirport == null)
+            {
+                model.ArrivalAirport = new Airport()
+                {
+                    Id = 0
+                };
+            }
+            if (model.DepartureAirport == null)
+            {
+                model.DepartureAirport = new Airport()
+                {
+                    Id = 0
+                };
+            }
+            if (!ModelState.IsValid || model.DepartureDate < DateTime.Now)
             {
                 try
                 {
@@ -59,25 +84,20 @@ namespace AirTicketApp.Areas.Admin.Controllers
                     return View(model);
                 }
                 
-                if (string.IsNullOrEmpty(model.DateTimeNowFormated))
-                {
-                    model.DateTimeNowFormated = DateTime.Now.ToString("yyyy-MM-dd") +
-                    "T" +
-                    DateTime.Now.ToString("HH:mm");
-                }
+                model.DateTimeNowFormatedArrival = model.ArrivalDate.ToString("yyyy-MM-dd") +
+                    "T" + model.ArrivalDate.ToString("HH:mm");
+
+                model.DateTimeNowFormatedDeparture = model.DepartureDate.ToString("yyyy-MM-dd") +
+                    "T" + model.DepartureDate.ToString("HH:mm");
+                TempData[MessageConstant.ErrorMessage] = "Departure date error!";
                 TempData[MessageConstant.WarningMessage] = "Not all validations are passed!";
                 return View(model);
             }
 
-            if (model.DepartureDate<DateTime.Now)
-            {
-                TempData[MessageConstant.WarningMessage] = "Departure date error!";
-                return View(model);
-            }
-
+            int flightCreatedId = 0;
             try
             {
-                await flightService.Create(model);
+                flightCreatedId = await flightService.Create(model);
             }
             catch (Exception)
             {
@@ -86,27 +106,82 @@ namespace AirTicketApp.Areas.Admin.Controllers
             }
 
             TempData[MessageConstant.SuccessMessage] = "Successfully added new flight!";
-            return RedirectToAction("All", "Flight", new { area = "" });
+            return RedirectToAction("Details","Flight", new { Id=flightCreatedId, Area = "" });
         }
-
         [HttpGet]
-        public async Task<IActionResult> Details(int Id)
+        public async Task<IActionResult> Edit(int Id)
         {
+            var model = await flightService.GetFlightById(Id);
+            model.Airplanes = await airplaneService.GetAllAirplanes();
+            model.Airports = await airportService.GetAllAirports();
+            model.Companies = await companyService.GetAllCompanies();
+            model.DateTimeNowFormatedArrival = model.ArrivalDate.ToString("yyyy-MM-dd") +
+            "T" + model.ArrivalDate.ToString("HH:mm");
+            model.DateTimeNowFormatedDeparture = model.DepartureDate.ToString("yyyy-MM-dd") +
+            "T" + model.DepartureDate.ToString("HH:mm");
 
-            FlightViewModel flightModel = new FlightViewModel();
+
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, FlightViewModel model)
+        {
+            if (model.ArrivalAirport == null)
+            {
+                model.ArrivalAirport = new Airport()
+                {
+                    Id = 0
+                };
+            }
+            if (model.DepartureAirport == null)
+            {
+                model.DepartureAirport = new Airport()
+                {
+                    Id = 0
+                };
+            }
+            if (!ModelState.IsValid || model.DepartureDate < DateTime.Now)
+            {
+                try
+                {
+                    model.Airplanes = await airplaneService.GetAllAirplanes();
+                    model.Airports = await airportService.GetAllAirports();
+                    model.Companies = await companyService.GetAllCompanies();
+                }
+                catch (Exception)
+                {
+
+                    TempData[MessageConstant.ErrorMessage] = "System error!";
+                    return View(model);
+                }
+
+                model.DateTimeNowFormatedArrival = model.ArrivalDate.ToString("yyyy-MM-dd") +
+                    "T" + model.ArrivalDate.ToString("HH:mm");
+
+                model.DateTimeNowFormatedDeparture = model.DepartureDate.ToString("yyyy-MM-dd") +
+                    "T" + model.DepartureDate.ToString("HH:mm");
+                TempData[MessageConstant.ErrorMessage] = "Departure date error!";
+                TempData[MessageConstant.WarningMessage] = "Not all validations are passed!";
+                return View(model);
+            }
+
             try
             {
-                flightModel = await flightService.Details(Id);
+                await flightService.Edit(id, model);
             }
-            catch (Exception)
+            catch (ArgumentException ex)
             {
-
-                TempData[MessageConstant.ErrorMessage] = "Cant load flight details due to system error!";
+                TempData[MessageConstant.ErrorMessage] = "Can not edit flight! " + ex;
+                return View(model);
             }
-            
-            return View(flightModel);
+            catch (Exception ex)
+            {
+                TempData[MessageConstant.ErrorMessage] = "Can not edit flight! System error! " + ex;
+                return View(model);
+            }
+
+            TempData[MessageConstant.SuccessMessage] = "Successfully edited flight!";
+            return RedirectToAction("Details", "Flight", new { Id = id, Area = "" });
         }
-
-
     }
 }

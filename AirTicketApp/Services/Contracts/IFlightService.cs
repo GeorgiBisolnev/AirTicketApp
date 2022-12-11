@@ -12,6 +12,9 @@ namespace AirTicketApp.Services.Contracts
             int? DepartureAirportId = null
             ); 
         Task<FlightViewModelDetails> Details(int id); 
-        Task<int> Create(FlightViewModel model); 
+        Task<int> Create(FlightViewModel model);
+        Task Edit(int flightId, FlightViewModel model);
+        Task<bool> BuyedFlightsByGivenFlightId(int flightId);
+        Task<FlightViewModel> GetFlightById(int Id);
     }
 }

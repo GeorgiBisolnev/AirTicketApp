@@ -76,6 +76,7 @@ namespace AirTicketApp.Services
                             .Include(m => m.Airplane.Manufacture)
                             .Include(c => c.ArrivalAirport.City.Country)
                             .Include(c => c.DepartureAirport.City.Country)
+                            .Include(c=>c.Company)
                             .FirstOrDefaultAsync(f => f.Id == Id);
 
             int buyedFlights = await repo.AllReadonly<Ticket>()
@@ -143,6 +144,86 @@ namespace AirTicketApp.Services
             };
 
             return result;
+        }
+
+        public async Task Edit(int flightId, FlightViewModel model)
+        {
+            var flight = await repo.All<Flight>()
+                .Include(f=>f.ArrivalAirport)
+                .Include(f=>f.DepartureAirport)
+                .Include(c=>c.Company)
+                .FirstOrDefaultAsync(f=>f.Id==flightId);
+
+            if (flight == null)
+            {
+                throw new ArgumentNullException("There is no flightwith such id");
+            }
+
+            flight.ArrivalId = model.ArrivalId;
+            flight.DepartureId = model.DepartureId;
+            flight.ArrivalDate = model.ArrivalDate;
+            flight.DepartureDate = model.DepartureDate;
+            if (await BuyedFlightsByGivenFlightId(flightId)==false)
+            {
+                flight.CompanyId = model.CompanyId;
+                flight.AirplaneId = model.AirplaneId;
+            } else
+            {
+                throw new ArgumentException("Company and Airplane cant be chaged due to avalible tickets for this flight!");
+            }            
+            flight.Snack = model.Snack;
+            flight.Food = model.Food;
+            flight.Luggage = model.Luggage;
+            flight.Price = model.Price;
+            flight.Duration = model.Duration;
+
+            await repo.SaveChangesAsync();
+        }
+
+        public async Task<bool> BuyedFlightsByGivenFlightId(int flightId)
+        {
+            var result = await repo.AllReadonly<Ticket>()
+                .FirstOrDefaultAsync(t => t.FlightId == flightId);
+
+            if (result==null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+        public async Task<FlightViewModel> GetFlightById(int Id)
+        {
+            var model = await repo.AllReadonly<Flight>()
+                .Where(f=>f.Id==Id)
+                .Include(f=>f.ArrivalAirport)
+                .Include(f=>f.DepartureAirport)
+                .Include(c=>c.Company)
+                .Select(f => new FlightViewModel()
+                {
+                    Id = f.Id,
+                    ArrivalAirport = f.ArrivalAirport,
+                    DepartureAirport = f.DepartureAirport,
+                    ArrivalDate = f.ArrivalDate,
+                    DepartureDate = f.DepartureDate,
+                    Duration = f.Duration,
+                    Company = f.Company,
+                    CompanyId=f.CompanyId,
+                    Airplane = f.Airplane,
+                    Price = f.Price,
+                    Snack = f.Snack,
+                    Food = f.Food,
+                    Luggage = f.Luggage,
+                })
+                .FirstOrDefaultAsync();
+
+            if (model == null)
+            {
+                throw new ArgumentNullException("There is no flight with such Id!");
+                return new FlightViewModel();
+            }
+
+            return model;
         }
     }
 }

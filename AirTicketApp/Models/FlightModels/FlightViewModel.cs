@@ -58,8 +58,8 @@ namespace AirTicketApp.Models.FlightModels
         public IEnumerable<AirportViewModel> Airports { get; set; } = new List<AirportViewModel>();
         public IEnumerable<CompanyViewModel> Companies { get; set; } = new List<CompanyViewModel>();
         public IEnumerable<AirplaneViewModel> Airplanes { get; set; } = new List<AirplaneViewModel>();
-
-        public string? DateTimeNowFormated { get; set; }
+        public string? DateTimeNowFormatedArrival { get; set; }
+        public string? DateTimeNowFormatedDeparture { get; set; }
         public int TotalFlightsFound { get; set; }
 
     }
