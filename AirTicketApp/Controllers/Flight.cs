@@ -78,6 +78,12 @@ namespace AirTicketApp.Controllers
                 return Redirect("Search");
             }
 
+            if (query.DepartureAirportId == 0 || query.ArrivalAirportId == 0)
+            {
+                TempData[MessageConstant.ErrorMessage] = "Please select airport!";
+                return Redirect("Search");
+            }
+
             TempData["filter"] = JsonConvert.SerializeObject(result);
             return RedirectToAction("All", new { page = 1 });            
         }

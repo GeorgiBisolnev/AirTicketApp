@@ -113,22 +113,19 @@ namespace AirTicketApp.Services
             DateTime? searchDate = null,
             int? ArrivalAirportId = null,
             int? DepartureAirportId = null)
-        {      
+        {
+            if (searchDate==null || ArrivalAirportId == null || DepartureAirportId == null ||
+                ArrivalAirportId == 0 || DepartureAirportId==0)
+            {
+                throw new ArgumentException("Wring input parameters"); 
+            }
             var result = await AllFlights();
 
-            if (ArrivalAirportId != null)
-            {
-                result = result.Where(f => f.ArrivalAirport.Id == ArrivalAirportId);
-            }
+            result = result.Where(f => f.ArrivalAirport.Id == ArrivalAirportId);
 
-            if (DepartureAirportId != null)
-            {
-                result = result.Where(f => f.DepartureAirport.Id == DepartureAirportId);
-            }
-            if (searchDate != null)
-            {
-                result = result.Where(f => f.DepartureDate.Date == searchDate);
-            }
+            result = result.Where(f => f.DepartureAirport.Id == DepartureAirportId);
+
+            result = result.Where(f => f.DepartureDate.Date == searchDate);
 
             result = sorting switch
             {
