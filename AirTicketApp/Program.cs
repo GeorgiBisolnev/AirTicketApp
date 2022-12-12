@@ -1,5 +1,6 @@
 using AirTicketApp.Data;
 using AirTicketApp.Data.Common.Repository;
+using AirTicketApp.Data.EntityModels.IdentityModels;
 using AirTicketApp.ModelBinders;
 using AirTicketApp.Services;
 using AirTicketApp.Services.Contracts;
@@ -14,7 +15,8 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<AirTicketAppContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
+//builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options=>
 {
     options.SignIn.RequireConfirmedAccount = false;
     options.SignIn.RequireConfirmedEmail = false;

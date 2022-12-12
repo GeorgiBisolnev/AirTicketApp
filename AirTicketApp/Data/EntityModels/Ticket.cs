@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using AirTicketApp.Data.EntityModels.IdentityModels;
+using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -19,7 +20,7 @@ namespace AirTicketApp.Data.EntityModels
         public string UserId { get; set; } = null!;
 
         [ForeignKey(nameof(UserId))]
-        public IdentityUser User { get; set; } = null!;
+        public ApplicationUser User { get; set; } = null!;
 
     }
 }

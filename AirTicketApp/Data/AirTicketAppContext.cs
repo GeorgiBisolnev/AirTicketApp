@@ -1,11 +1,14 @@
 ﻿using AirTicketApp.Data.Configuration;
 using AirTicketApp.Data.EntityModels;
+using AirTicketApp.Data.EntityModels.IdentityModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace AirTicketApp.Data
 {
-    public class AirTicketAppContext : IdentityDbContext
+    public class AirTicketAppContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
     {
         public AirTicketAppContext(DbContextOptions<AirTicketAppContext> options)
             : base(options)
@@ -23,7 +26,7 @@ namespace AirTicketApp.Data
             builder.ApplyConfiguration(new CountryConfiguration());
             builder.ApplyConfiguration(new ManufactureConfiguration());
             builder.ApplyConfiguration(new FlightConfiguration());
-
+            
             base.OnModelCreating(builder);
         }
 
