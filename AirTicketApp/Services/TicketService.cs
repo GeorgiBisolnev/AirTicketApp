@@ -1,6 +1,8 @@
 ﻿using AirTicketApp.Data.Common.Repository;
 using AirTicketApp.Data.EntityModels;
 using AirTicketApp.Data.EntityModels.IdentityModels;
+using AirTicketApp.Models.FlightModels;
+using AirTicketApp.Models.Ticket;
 using AirTicketApp.Services.Contracts;
 using Microsoft.AspNetCore.Identity;
 using System.Data.Entity;
@@ -23,6 +25,37 @@ namespace AirTicketApp.Services
             this.repo = _repo;
             this.userService = _userService;
             this.flightService = _flightService;
+        }
+
+        public async Task<List<TicketAllViewModel>> AllTicketsByUser(string userId)
+        {
+            var result = await repo.AllReadonly<Ticket>()
+                .AsNoTracking()
+                .Where(x => x.UserId == userId)
+                .Select(t => new TicketAllViewModel()
+                {
+                    TicketId = t.guid.ToString(),
+                    FlightId = t.FlightId
+                })
+                .ToListAsync();
+
+            foreach (var ticket in result)
+            {
+                var flightModel = await flightService.GetFlightById(ticket.FlightId);
+                ticket.ArrivalDate = flightModel.ArrivalDate;
+                ticket.DepartureDate = flightModel.DepartureDate;
+                ticket.ArrivalAirportName = flightModel.ArrivalAirport.Name;
+                ticket.ArrivalAirportCode = flightModel.ArrivalAirport.IATACode;
+                ticket.ArrivalCity = flightModel.ArrivalAirport.City.Name;
+                ticket.ArrivalCountry= flightModel.ArrivalAirport.City.Country.Name;
+                ticket.DepartureAirportName = flightModel.DepartureAirport.Name;
+                ticket.DepartureAirportCode = flightModel.DepartureAirport.IATACode;
+                ticket.DepartureCity = flightModel.DepartureAirport.City.Name;
+                ticket.DepartureCountry = flightModel.DepartureAirport.City.Country.Name;
+                ticket.Price = flightModel.Price;
+            }
+
+            return result;
         }
 
         public async Task<bool> AvailableTickets(int flightId, int capacity)

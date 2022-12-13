@@ -27,6 +27,13 @@ namespace AirTicketApp.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> All(string userId)
+        {
+            var model =  await ticketService.AllTicketsByUser(userId);            
+            return View(model);
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Buy(int Id)
         {
             TicketViewModel model = new TicketViewModel();
