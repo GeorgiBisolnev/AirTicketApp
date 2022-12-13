@@ -3,8 +3,7 @@
 
 <form method="post">
     <div class="row">
-
-         <div class="form-group col-md-3">
+         <div class="dropdown bootstrap-select form-control">
             <div class="form-group">
                 <label asp-for="DepartureAirportId">Departure airport</label>
                 <select asp-for="DepartureAirportId" class="form-control">
@@ -14,10 +13,10 @@
                         <option value="@airport.Id">@airport.Name @airport.IATACode</option>
                     }
                 </select>
+                <span asp-validation-for="DepartureAirportId" class="small text-danger"></span>
             </div>
-        </div> 
 
-        <div class="form-group col-md-3">
+
             <div class="form-group">
                 <label asp-for="ArrivalAirportId">Arrival airport</label>
                 <select asp-for="ArrivalAirportId" class="form-control">
@@ -27,13 +26,16 @@
                         <option value="@airport.Id">@airport.Name @airport.IATACode</option>
                     }
                 </select>
+                <span asp-validation-for="ArrivalAirportId" class="small text-danger"></span>
             </div>
         </div>
+ 
 
             <div class="form-group col-md-3">
                 <label asp-for="SearchDate">Departure date</label>                              
                 <input asp-for="SearchDate" type="date" class="form-control" value=@DateTime.Today
-                    min=@DateTime.Today required ="required">                
+                    min=@DateTime.Today required ="required">
+                <span asp-validation-for="SearchDate" class="small text-danger"></span>
             </div>
 
 
@@ -56,4 +58,8 @@
         </div>
     </div>
 </form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
 

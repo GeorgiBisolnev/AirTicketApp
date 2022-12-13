@@ -15,6 +15,7 @@ namespace AirTicketApp.Services.Contracts
         Task<int> Create(FlightViewModel model);
         Task Edit(int flightId, FlightViewModel model);
         Task<bool> BuyedFlightsByGivenFlightId(int flightId);
+        Task<bool> FlightExists(int flightId);
         Task<FlightViewModel> GetFlightById(int Id);
     }
 }

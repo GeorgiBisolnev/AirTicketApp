@@ -296,13 +296,13 @@ namespace AirTicketApp.Migrations
                         column: x => x.ArrivalId,
                         principalTable: "Airports",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Flights_Airports_DepartureId",
                         column: x => x.DepartureId,
                         principalTable: "Airports",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Flights_Companies_CompanyId",
                         column: x => x.CompanyId,
@@ -337,9 +337,14 @@ namespace AirTicketApp.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "f4e6d3d7-2c27-4e98-ac4c-aae04be8411b", "0c8835d0-fe93-4abc-9893-1a3a4667d41e", "Administrator", "ADMINISTRATOR" });
+
+            migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "CountryId", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PassportNum", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "dea12856-c198-4129-b3f3-b893d8395082", 0, "c5596c11-76f2-4afb-84a8-12e152b7b3a8", null, "user@gmail.com", true, null, null, false, null, "user@gmail.com", "user@gmail.com", null, "AQAAAAEAACcQAAAAEOLBffEG6ZrM5hFigvn0ltYF5PLkak0PLCeaeRdMDhfzyMAOI6g3mTCKBJL5rWEXow==", null, false, "385c3d22-b1c2-46c9-8eac-0f0ac54d5121", false, "user" });
+                values: new object[] { "dea12856-c198-4129-b3f3-b893d8395082", 0, "090aad6a-ca7e-4673-9a96-b948341a70bc", null, "user@gmail.com", true, null, null, false, null, "user@gmail.com", "user@gmail.com", null, "AQAAAAEAACcQAAAAEJdyWryRCHlw7b1Tb92pQjbff6+YZUJFDRjeKjZhzEtzbH9RpaHj1kZv10+az6YpCA==", null, false, "8ff7f978-94a1-47e1-9020-165a9f213c76", false, "user" });
 
             migrationBuilder.InsertData(
                 table: "Companies",

@@ -73,6 +73,7 @@ namespace AirTicketApp.Services
         {
 
             var f = await repo.AllReadonly<Flight>()
+                            .AsNoTracking()
                             .Include(m => m.Airplane.Manufacture)
                             .Include(c => c.ArrivalAirport.City.Country)
                             .Include(c => c.DepartureAirport.City.Country)
@@ -80,7 +81,8 @@ namespace AirTicketApp.Services
                             .FirstOrDefaultAsync(f => f.Id == Id);
 
             int buyedFlights = await repo.AllReadonly<Ticket>()
-                .CountAsync(t=>t.FlightId==Id);
+                .AsNoTracking()
+                .CountAsync(t => t.FlightId == Id);
 
             if (f==null)
             {
@@ -117,7 +119,7 @@ namespace AirTicketApp.Services
             if (searchDate==null || ArrivalAirportId == null || DepartureAirportId == null ||
                 ArrivalAirportId == 0 || DepartureAirportId==0)
             {
-                throw new ArgumentException("Wring input parameters"); 
+                throw new ArgumentException("Wrong input parameters"); 
             }
             var result = await AllFlights();
 
@@ -180,6 +182,7 @@ namespace AirTicketApp.Services
         public async Task<bool> BuyedFlightsByGivenFlightId(int flightId)
         {
             var result = await repo.AllReadonly<Ticket>()
+                .AsNoTracking()
                 .FirstOrDefaultAsync(t => t.FlightId == flightId);
 
             if (result==null)
@@ -192,10 +195,12 @@ namespace AirTicketApp.Services
         public async Task<FlightViewModel> GetFlightById(int Id)
         {
             var model = await repo.AllReadonly<Flight>()
+                .AsNoTracking()
                 .Where(f=>f.Id==Id)
                 .Include(f=>f.ArrivalAirport)
                 .Include(f=>f.DepartureAirport)
                 .Include(c=>c.Company)
+                .Include(a=>a.Airplane)
                 .Select(f => new FlightViewModel()
                 {
                     Id = f.Id,
@@ -217,10 +222,24 @@ namespace AirTicketApp.Services
             if (model == null)
             {
                 throw new ArgumentNullException("There is no flight with such Id!");
-                return new FlightViewModel();
             }
 
             return model;
+        }
+
+        public async Task<bool> FlightExists(int flightId)
+        {
+            var result = await repo.AllReadonly<Flight>()
+                .AsNoTracking()
+                .ToListAsync();
+
+
+            if (result.FirstOrDefault(f => f.Id == flightId) == null)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

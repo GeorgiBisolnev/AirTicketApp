@@ -65,12 +65,22 @@ namespace AirTicketApp.Controllers
         [HttpPost]        
         public async Task<IActionResult> Search(AllFlightsQueryModel query)
         {
-            var result = await flightService.AllFlightsFilter(
+            IEnumerable<FlightViewModel> result = new List<FlightViewModel>();
+            try
+            {
+                result = await flightService.AllFlightsFilter(
                 query.Sorting,
                 query.SearchDate,
                 query.ArrivalAirportId,
-                query.DepartureAirportId                
+                query.DepartureAirportId
                 );
+            }
+            catch (ArgumentException ex)
+            {
+
+                TempData[MessageConstant.ErrorMessage] = ex;
+                return Redirect("Search");
+            }
 
             if (query.DepartureAirportId == query.ArrivalAirportId)
             {

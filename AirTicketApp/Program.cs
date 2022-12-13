@@ -27,6 +27,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     options.Password.RequireUppercase = false;
 })
     .AddRoles<IdentityRole>()
+    .AddSignInManager<SignInManager<ApplicationUser>>()
     .AddRoleManager<RoleManager<IdentityRole>>()
     .AddEntityFrameworkStores<AirTicketAppContext>();
 
@@ -36,10 +37,12 @@ builder.Services.AddControllersWithViews().AddMvcOptions(options =>
 });
 
 builder.Services.AddScoped<IRepository, Repository>();
-builder.Services.AddScoped<IFlightService, FlightService>();
 builder.Services.AddScoped<IAirplaneService, AirplaneService>();
 builder.Services.AddScoped<IAirportService, AirportService>();
 builder.Services.AddScoped<ICompanyService, CompanyService>();
+builder.Services.AddScoped<IApplicationUserService, ApplicationUserService>();
+builder.Services.AddScoped<IFlightService, FlightService>();
+builder.Services.AddScoped<ITicketService, TicketService>();
 
 
 var app = builder.Build();

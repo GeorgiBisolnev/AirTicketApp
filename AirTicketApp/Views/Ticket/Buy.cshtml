@@ -1,0 +1,60 @@
+﻿@using AirTicketApp.Models.Ticket
+@model TicketViewModel
+
+<style>
+    .float-container {
+    border: 3px solid #fff;
+    padding: 20px;
+}
+
+.float-child {
+    width: 50%;
+    float: left;
+    padding: 20px;
+    border: 1px black;
+} 
+
+</style>
+
+<div class="float-container">
+    <div class="float-child">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="FirstName"></label>
+                <input asp-for="FirstName" class="form-control">
+                <span asp-validation-for="FirstName" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName"></label>
+                <input asp-for="LastName" class="form-control" placeholder="">
+                <span asp-validation-for="LastName" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" placeholder="">
+                <span asp-validation-for="Email" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber"></label>
+                <input asp-for="PhoneNumber" class="form-control" placeholder="">
+                <span asp-validation-for="PhoneNumber" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PassportNum">Serial nuber of your passport</label>
+                <input asp-for="PassportNum" class="form-control" placeholder="">
+                <span asp-validation-for="PassportNum" class="small text-danger"></span>
+            </div>
+            <div class="text-center">
+                <input class="btn btn-primary mt-3" type="submit" value="Save" />
+            </div>
+        </form>
+       
+    </div>
+        <div class="float-child"> 
+            <partial name="_FlightViewDetails" model="@Model.FlightModel" />
+        </div> 
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

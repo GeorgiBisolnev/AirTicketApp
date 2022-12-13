@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AirTicketApp.Migrations
 {
     [DbContext(typeof(AirTicketAppContext))]
-    [Migration("20221212114457_initial")]
+    [Migration("20221212161030_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -379,15 +379,15 @@ namespace AirTicketApp.Migrations
                         {
                             Id = "dea12856-c198-4129-b3f3-b893d8395082",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c5596c11-76f2-4afb-84a8-12e152b7b3a8",
+                            ConcurrencyStamp = "090aad6a-ca7e-4673-9a96-b948341a70bc",
                             Email = "user@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "user@gmail.com",
                             NormalizedUserName = "user@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOLBffEG6ZrM5hFigvn0ltYF5PLkak0PLCeaeRdMDhfzyMAOI6g3mTCKBJL5rWEXow==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJdyWryRCHlw7b1Tb92pQjbff6+YZUJFDRjeKjZhzEtzbH9RpaHj1kZv10+az6YpCA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "385c3d22-b1c2-46c9-8eac-0f0ac54d5121",
+                            SecurityStamp = "8ff7f978-94a1-47e1-9020-165a9f213c76",
                             TwoFactorEnabled = false,
                             UserName = "user"
                         });
@@ -465,6 +465,15 @@ namespace AirTicketApp.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "f4e6d3d7-2c27-4e98-ac4c-aae04be8411b",
+                            ConcurrencyStamp = "0c8835d0-fe93-4abc-9893-1a3a4667d41e",
+                            Name = "Administrator",
+                            NormalizedName = "ADMINISTRATOR"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

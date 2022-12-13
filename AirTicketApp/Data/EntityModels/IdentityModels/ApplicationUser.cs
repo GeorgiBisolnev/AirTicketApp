@@ -15,8 +15,10 @@ namespace AirTicketApp.Data.EntityModels.IdentityModels
         [ForeignKey(nameof(CountryId))]
         public Country? Country { get; set; }
 
+        [StringLength(MaxFirstNameStringLenght)]
         public string? FirstName { get; set; }
 
+        [StringLength(MaxLastNameStringLenght)]
         public string? LastName { get; set; }
     }
 }

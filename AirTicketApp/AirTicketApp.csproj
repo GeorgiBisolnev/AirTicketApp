@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>aspnet-AirTicketApp-D3CCEC8C-93DA-4E3E-AA1B-C9FDAA2EE5A9</UserSecretsId>
+	<WarningsAsErrors>CS4014</WarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,6 +27,7 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Data\Migrations\" />
+    <Folder Include="Migrations\" />
     <Folder Include="wwwroot\Custom\" />
   </ItemGroup>
 

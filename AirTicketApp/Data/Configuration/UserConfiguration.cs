@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
+
 namespace AirTicketApp.Data.Configuration
 {
     public class UserConfiguration : IEntityTypeConfiguration<ApplicationUser>
@@ -30,9 +31,9 @@ namespace AirTicketApp.Data.Configuration
             user.PasswordHash =
                  hasher.HashPassword(user, "user123");
 
-            users.Add(user);           
+            users.Add(user);
 
             return users;
-        }        
+        }    
     }
 }
