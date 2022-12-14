@@ -74,7 +74,15 @@
                 <select class="form-select" asp-for="AirplaneId" id="search-select-airplane">
                     @foreach (var airplane in @Model.Airplanes)
                     {
-                        <option value="@airplane.Id">@airplane.Manufacture.Name @airplane.Model</option>
+                        if (airplane.Id == @Model.Airplane.Id)
+                        {
+                            <option value="@airplane.Id" selected>@airplane.Manufacture.Name @airplane.Model</option>
+                        }
+                        else
+                        {
+                           <option value="@airplane.Id">@airplane.Manufacture.Name @airplane.Model</option> 
+                        }
+                        
                     }
                 </select>
                 <span asp-validation-for="AirplaneId" class="small text-danger"></span>

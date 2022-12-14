@@ -16,7 +16,7 @@
                         {
                             <span>Duration: @Model.Duration min.</span>
                         }
-                <p><b>Arrives at:</b></p>
+                <p><b>Arrives in:</b></p>
                 <div>@Model.ArrivalDate.Date.ToString("MMMM dd, yy", CultureInfo.CreateSpecificCulture("en-US")) (@Model.DepartureDate.DayOfWeek)
                                 @if (Model.Snack==true || Model.Food==true || Model.Luggage == true)
                                 {
@@ -48,9 +48,9 @@
                   <a class="btn btn-primary" asp-controller="Flight" asp-action="Details"
                             asp-route-id="@Model.Id"> Details </a>
 
-                  <button class="btn btn-outline-primary btn-sm mt-2" type="button">
+@*                  <button class="btn btn-outline-primary btn-sm mt-2" type="button">
                     BUY
-                  </button>
+                  </button>*@
                 </div>
               </div>
             </div>

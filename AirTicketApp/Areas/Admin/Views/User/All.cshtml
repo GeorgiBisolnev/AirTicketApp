@@ -14,6 +14,7 @@
       <th scope="col">Phone number</th>
       <th scope="col">Is administrator</th>
       <th scope="col">Passport number</th>
+      <th scope="col">Action</th>
     </tr>
   </thead>
   <tbody>
@@ -28,8 +29,9 @@
                     <td>@Model.ElementAtOrDefault(i).FirstName </td>
                     <td>@Model.ElementAtOrDefault(i).LastName </td>
                     <td>@Model.ElementAtOrDefault(i).PhoneNumber </td>
-                    <td>Yes </td>
+                    <td><label>✔</label> </td>
                     <td>@Model.ElementAtOrDefault(i).PassportNum</td>
+                    <td></td>
                 </tr>
             }
             else
@@ -41,8 +43,11 @@
                     <td>@Model.ElementAtOrDefault(i).FirstName </td>
                     <td>@Model.ElementAtOrDefault(i).LastName </td>
                     <td>@Model.ElementAtOrDefault(i).PhoneNumber </td>
-                    <td>No </td>
+                    <td><label class="text-center">❌</label></td>
                     <td>@Model.ElementAtOrDefault(i).PassportNum</td>
+                    <td>
+                        <a asp-area="Admin" asp-controller="User" asp-action="GiveAdminRole" asp-route-id="@Model.ElementAtOrDefault(i).Id" class="btn btn-danger">Give admin role</a>
+                    </td>
                 </tr> 
             }
         } 

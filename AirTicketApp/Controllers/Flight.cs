@@ -37,20 +37,20 @@ namespace AirTicketApp.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> All(int page=1)
         {
-            if (TempData["ShowAllFlights"] == "Yes")
-            {
-                IEnumerable<FlightViewModel> newQuery = new List<FlightViewModel>();
-                try
-                {
-                    newQuery = await flightService.AllFlights();
-                }
-                catch (Exception)
-                {
+            //if (TempData["ShowAllFlights"] == "Yes")
+            //{
+            //    IEnumerable<FlightViewModel> newQuery = new List<FlightViewModel>();
+            //    try
+            //    {
+            //        newQuery = await flightService.AllFlights();
+            //    }
+            //    catch (Exception)
+            //    {
 
-                    TempData[MessageConstant.ErrorMessage] = "System error!";
-                    return View(newQuery.ToPagedList(page, pageSize));
-                }
-            }
+            //        TempData[MessageConstant.ErrorMessage] = "System error!";
+            //        return View(newQuery.ToPagedList(page, pageSize));
+            //    }
+            //}
 
             var filter = JsonConvert
                 .DeserializeObject<List<FlightViewModel>>((string)TempData["filter"]);
@@ -78,7 +78,7 @@ namespace AirTicketApp.Controllers
             catch (ArgumentException ex)
             {
 
-                TempData[MessageConstant.ErrorMessage] = ex;
+                TempData[MessageConstant.ErrorMessage] = ex.Message;
                 return Redirect("Search");
             }
 

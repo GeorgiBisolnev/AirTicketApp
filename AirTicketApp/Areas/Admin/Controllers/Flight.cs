@@ -49,6 +49,10 @@ namespace AirTicketApp.Areas.Admin.Controllers
             {
                 Id = 1
             };
+            model.Airplane = new Airplane()
+            {
+                Id = 1
+            };
             return View(model);
         }
 
@@ -68,6 +72,14 @@ namespace AirTicketApp.Areas.Admin.Controllers
                 {
                     Id = 0
                 };
+            }
+            if (model.Airplane==null)
+            {
+                model.Airplane = new Airplane() 
+                { 
+                    Id=0 
+                };
+
             }
             if (!ModelState.IsValid || model.DepartureDate < DateTime.Now)
             {
@@ -140,6 +152,14 @@ namespace AirTicketApp.Areas.Admin.Controllers
                     Id = 0
                 };
             }
+            if (model.Airplane == null)
+            {
+                model.Airplane = new Airplane()
+                {
+                    Id = 0
+                };
+
+            }
             if (!ModelState.IsValid || model.DepartureDate < DateTime.Now)
             {
                 try
@@ -171,12 +191,12 @@ namespace AirTicketApp.Areas.Admin.Controllers
             }
             catch (ArgumentException ex)
             {
-                TempData[MessageConstant.ErrorMessage] = "Can not edit flight! " + ex;
-                return View(model);
+                TempData[MessageConstant.ErrorMessage] = "Can not edit flight! " + ex.Message;
+                return RedirectToAction("Edit", "Flight", new { Id = model.Id, Area = "Admin" });
             }
             catch (Exception ex)
             {
-                TempData[MessageConstant.ErrorMessage] = "Can not edit flight! System error! " + ex;
+                TempData[MessageConstant.ErrorMessage] = "Can not edit flight! System error! " + ex.Message;
                 return View(model);
             }
 

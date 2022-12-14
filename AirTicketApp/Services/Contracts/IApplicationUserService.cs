@@ -8,6 +8,8 @@ namespace AirTicketApp.Services.Contracts
 
         Task<bool> SavePersonaUserInfo(ApplicationUserViewModel user);
         Task<bool> IsAdministrator(string Id);
+        Task<bool> GiveAdminRole(string Id);
         Task<IEnumerable<ApplicationUserViewModel>> GetAll();
+
     }
 }

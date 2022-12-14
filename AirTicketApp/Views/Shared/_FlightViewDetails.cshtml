@@ -1,6 +1,14 @@
 ﻿@using System.Globalization
 @model FlightViewModelDetails
 
+
+<style>
+
+$(.label-danger{background-color:#d9534f}.label-danger[href]:focus,.label-danger[href]:hover{background-color:#c9302c}
+
+);
+
+</style>
 <div class="main-body">
 <div class="container">
       <div class="row">
@@ -12,7 +20,15 @@
               <p class="font-size-sm mb-0"><strong>Departure:</strong> @Model.DepartureAirport.Name (@Model.DepartureAirport.IATACode) - @Model.DepartureAirport.City.Name @Model.DepartureAirport.City.Country.Name</p>
               <p class="font-size-sm mb-0"><strong>Arplane: </strong> @Model.Airplane.Manufacture.Name @Model.Airplane.Model - Maximum capacity <strong>@Model.Airplane.Capacity</strong></p>
               <p class="font-size-sm mb-0"><strong>Avallible places: </strong> @Model.AvailablePlaces </p>
-              <p class="font-size-sm mb-0"><strong>Departure at: </strong> @Model.DepartureDate.ToString("dd MMM yyyy - HH:mm",CultureInfo.CreateSpecificCulture("en-US")) time<strong> Arrival in: </strong> @Model.ArrivalDate.ToString("dd MMM yyyy - HH:mm",CultureInfo.CreateSpecificCulture("en-US")) time </p>
+              @if (@Model.AvailablePlaces==0)
+                        {
+                            <span style="background-color:red">No tickets avaliable</span>
+                        }
+              @if (@Model.AvailablePlaces<10 && @Model.AvailablePlaces>0)
+                        {
+                            <span style="background-color:yellow">Few tickets avaliable</span>
+                        }
+                        <p class="font-size-sm mb-0"><strong>Departure at: </strong> @Model.DepartureDate.ToString("dd MMM yyyy - HH:mm",CultureInfo.CreateSpecificCulture("en-US")) time<strong> Arrival in: </strong> @Model.ArrivalDate.ToString("dd MMM yyyy - HH:mm",CultureInfo.CreateSpecificCulture("en-US")) time </p>
               @if (Model.Duration!=null)
                         {
                             <p class="font-size-sm mb-0"><strong>Duration: </strong> @Model.Duration minutes </p>

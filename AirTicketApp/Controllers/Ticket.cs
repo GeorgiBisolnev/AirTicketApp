@@ -96,9 +96,14 @@ namespace AirTicketApp.Controllers
                     return RedirectToAction("Index", "Home");
                 }
             }
-            else
+            else if(!ticketsAvalibale)
             {
                 TempData[MessageConstant.WarningMessage] = "No tickets avalable for this flight";
+                return RedirectToAction("All", "Flight");
+            }
+            else
+            {
+                TempData[MessageConstant.ErrorMessage] = "System error!";
                 return RedirectToAction("All", "Flight");
             }
         }

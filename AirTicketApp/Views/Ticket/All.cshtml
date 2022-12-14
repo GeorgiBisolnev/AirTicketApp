@@ -1,4 +1,5 @@
 ﻿@using AirTicketApp.Models.Ticket
+@using System.Globalization
 @model List<TicketAllViewModel>
 
 <h2>All buyed tickets</h2>
@@ -24,9 +25,9 @@
                    <th scope="row">@(i+1)</th>
                     <td>@Model.ElementAtOrDefault(i).DepartureAirportName (@Model.ElementAtOrDefault(i).DepartureAirportCode) - @Model.ElementAtOrDefault(i).DepartureCountry, @Model.ElementAtOrDefault(i).DepartureCity </td>
                     <td>@Model.ElementAtOrDefault(i).ArrivalAirportName (@Model.ElementAtOrDefault(i).ArrivalAirportCode) - @Model.ElementAtOrDefault(i).ArrivalCountry, @Model.ElementAtOrDefault(i).ArrivalCity </td>
-                    <td>@Model.ElementAtOrDefault(i).ArrivalDate </td>
-                    <td>@Model.ElementAtOrDefault(i).DepartureDate </td>
-                    <td>@Model.ElementAtOrDefault(i).Price </td>
+                    <td>@Model.ElementAtOrDefault(i).ArrivalDate.ToString("dd MMM yyyy - HH:mm",CultureInfo.CreateSpecificCulture("en-US")) </td>
+                    <td>@Model.ElementAtOrDefault(i).DepartureDate.ToString("dd MMM yyyy - HH:mm",CultureInfo.CreateSpecificCulture("en-US")) </td>
+                    <td>@Model.ElementAtOrDefault(i).Price.ToString("0.00", CultureInfo.InvariantCulture) </td>
                     <td>@Model.ElementAtOrDefault(i).TicketId </td>
                     <td>@Model.ElementAtOrDefault(i).CompanyName</td>
                 </tr>
@@ -38,9 +39,9 @@
                  <th scope="row">@(i+1)</th>
                     <td>@Model.ElementAtOrDefault(i).DepartureAirportName (@Model.ElementAtOrDefault(i).DepartureAirportCode) - @Model.ElementAtOrDefault(i).DepartureCountry, @Model.ElementAtOrDefault(i).DepartureCity </td>
                     <td>@Model.ElementAtOrDefault(i).ArrivalAirportName (@Model.ElementAtOrDefault(i).ArrivalAirportCode) - @Model.ElementAtOrDefault(i).ArrivalCountry, @Model.ElementAtOrDefault(i).ArrivalCity </td>
-                    <td>@Model.ElementAtOrDefault(i).ArrivalDate </td>
-                    <td>@Model.ElementAtOrDefault(i).DepartureDate </td>
-                    <td>@Model.ElementAtOrDefault(i).Price </td>
+                    <td>@Model.ElementAtOrDefault(i).ArrivalDate.ToString("dd MMM yyyy - HH:mm",CultureInfo.CreateSpecificCulture("en-US")) </td>
+                    <td>@Model.ElementAtOrDefault(i).DepartureDate.ToString("dd MMM yyyy - HH:mm",CultureInfo.CreateSpecificCulture("en-US")) </td>
+                    <td>@Model.ElementAtOrDefault(i).Price.ToString("0.00", CultureInfo.InvariantCulture) </td>
                     <td>@Model.ElementAtOrDefault(i).TicketId </td>
                     <td>@Model.ElementAtOrDefault(i).CompanyName</td>
                 </tr> 

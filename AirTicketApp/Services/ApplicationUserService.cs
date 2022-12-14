@@ -53,6 +53,7 @@ namespace AirTicketApp.Services
         public async Task<bool> IsAdministrator(string Id)
         {
             var user = await repo.AllReadonly<ApplicationUser>()
+                .AsNoTracking()
                 .FirstOrDefaultAsync(u => u.Id == Id);
 
             if (user ==null)
@@ -119,6 +120,20 @@ namespace AirTicketApp.Services
             }
 
             else return false;
+        }
+
+        public async Task<bool> GiveAdminRole(string Id)
+        {
+            var user = await repo.AllReadonly<ApplicationUser>()
+                .FirstOrDefaultAsync(u=>u.Id == Id);
+
+            if (user!=null)
+            {
+                await userManager.AddToRoleAsync(user, AdminRolleName);
+                return true;
+            }
+
+            return false;
         }
     }
 }

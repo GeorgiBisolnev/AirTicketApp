@@ -158,24 +158,31 @@ namespace AirTicketApp.Services
             {
                 throw new ArgumentNullException("There is no flightwith such id");
             }
-
-            flight.ArrivalId = model.ArrivalId;
-            flight.DepartureId = model.DepartureId;
-            flight.ArrivalDate = model.ArrivalDate;
-            flight.DepartureDate = model.DepartureDate;
+            
             if (await BuyedFlightsByGivenFlightId(flightId)==false)
             {
+                flight.ArrivalId = model.ArrivalId;
+                flight.DepartureId = model.DepartureId;
                 flight.CompanyId = model.CompanyId;
                 flight.AirplaneId = model.AirplaneId;
-            } else
+            } else if(model.ArrivalId!=flight.ArrivalId 
+                || flight.DepartureId != model.DepartureId 
+                || flight.CompanyId != model.CompanyId 
+                || flight.AirplaneId != model.AirplaneId    
+                || model.ArrivalDate > flight.ArrivalDate.AddDays(1)
+                || model.ArrivalDate < flight.ArrivalDate.AddDays(-1)
+                || model.DepartureDate > flight.DepartureDate.AddDays(1)
+                || model.DepartureDate < flight.DepartureDate.AddDays(-1))
             {
-                throw new ArgumentException("Company and Airplane cant be chaged due to avalible tickets for this flight!");
+                throw new ArgumentException("Company, Airplane, airports and date's more that 24 hours cant be chaged due to avalible tickets for this flight!");
             }            
             flight.Snack = model.Snack;
             flight.Food = model.Food;
             flight.Luggage = model.Luggage;
             flight.Price = model.Price;
             flight.Duration = model.Duration;
+            flight.ArrivalDate = model.ArrivalDate;
+            flight.DepartureDate = model.DepartureDate;
 
             await repo.SaveChangesAsync();
         }
@@ -203,7 +210,7 @@ namespace AirTicketApp.Services
                 .Include(c=>c.Company)
                 .Include(c=>c.ArrivalAirport.City.Country)
                 .Include(c=>c.DepartureAirport.City.Country)
-                .Include(a=>a.Airplane)
+                .Include(a=>a.Airplane.Manufacture)
                 .Select(f => new FlightViewModel()
                 {
                     Id = f.Id,

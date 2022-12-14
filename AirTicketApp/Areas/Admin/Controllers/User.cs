@@ -1,4 +1,5 @@
-﻿using AirTicketApp.Services.Contracts;
+﻿using AirTicketApp.Data.Common.MessageConstants;
+using AirTicketApp.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AirTicketApp.Areas.Admin.Controllers
@@ -16,6 +17,14 @@ namespace AirTicketApp.Areas.Admin.Controllers
             var users = await userService.GetAll();
 
             return View(users);
+        }
+        [HttpGet]
+        public async Task<IActionResult> GiveAdminRole(string Id)
+        {
+            var result = await userService.GiveAdminRole(Id);
+            var user = await userService.GetUserInfo(Id);
+            TempData[MessageConstant.SuccessMessage] = $"User {user.UserName} is now Administrator!";
+            return RedirectToAction("All", "User", new {Area="Admin"});
         }
     }
 }
