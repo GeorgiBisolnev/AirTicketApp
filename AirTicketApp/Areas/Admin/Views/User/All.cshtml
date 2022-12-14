@@ -1,0 +1,50 @@
+﻿@using AirTicketApp.Models.ApplicationUser
+@model IEnumerable<ApplicationUserViewModel>
+
+
+<h2>All users in DB</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">User name</th>
+      <th scope="col">Email</th>
+      <th scope="col">First name</th>
+      <th scope="col">Last name</th>
+      <th scope="col">Phone number</th>
+      <th scope="col">Is administrator</th>
+      <th scope="col">Passport number</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (int i = 0; i < @Model.Count(); i++)
+        {
+            if (Model.ElementAtOrDefault(i).IsAdministrator)
+            {
+                <tr class="table-info">
+                   <th scope="row">@(i+1)</th>
+                    <td>@Model.ElementAtOrDefault(i).UserName </td>
+                    <td>@Model.ElementAtOrDefault(i).Email </td>
+                    <td>@Model.ElementAtOrDefault(i).FirstName </td>
+                    <td>@Model.ElementAtOrDefault(i).LastName </td>
+                    <td>@Model.ElementAtOrDefault(i).PhoneNumber </td>
+                    <td>Yes </td>
+                    <td>@Model.ElementAtOrDefault(i).PassportNum</td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                   <th scope="row">@(i+1)</th>
+                    <td>@Model.ElementAtOrDefault(i).UserName </td>
+                    <td>@Model.ElementAtOrDefault(i).Email </td>
+                    <td>@Model.ElementAtOrDefault(i).FirstName </td>
+                    <td>@Model.ElementAtOrDefault(i).LastName </td>
+                    <td>@Model.ElementAtOrDefault(i).PhoneNumber </td>
+                    <td>No </td>
+                    <td>@Model.ElementAtOrDefault(i).PassportNum</td>
+                </tr> 
+            }
+        } 
+  </tbody>
+</table>

@@ -7,6 +7,6 @@ namespace AirTicketApp.Areas.Admin.Constants
 
         public const string AdminRolleName = "Administrator";
 
-        public const string AdminEmail = "admin@mail.com";
+        public const string AdminEmail = "user@mail.com";
     }
 }

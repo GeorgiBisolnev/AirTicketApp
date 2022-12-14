@@ -6,6 +6,8 @@ namespace AirTicketApp.Models.ApplicationUser
 {
     public class ApplicationUserViewModel
     {
+        public string? Id { get; set; }
+
         [StringLength(MaxPassportNumLength)]
         public string PassportNum { get; set; } = null!;
 
@@ -26,5 +28,6 @@ namespace AirTicketApp.Models.ApplicationUser
 
         [Phone]
         public string PhoneNumber { get; set; }
+        public bool IsAdministrator { get; set; }
     }
 }

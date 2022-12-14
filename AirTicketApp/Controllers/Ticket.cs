@@ -1,11 +1,10 @@
 ﻿using AirTicketApp.Data.Common.MessageConstants;
-using AirTicketApp.Models.FlightModels;
+using AirTicketApp.Extentions;
+using AirTicketApp.Models.ApplicationUser;
 using AirTicketApp.Models.Ticket;
 using AirTicketApp.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using AirTicketApp.Extentions;
-using AirTicketApp.Models.ApplicationUser;
 using Newtonsoft.Json;
 
 namespace AirTicketApp.Controllers
