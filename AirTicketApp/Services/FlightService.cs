@@ -18,6 +18,7 @@ namespace AirTicketApp.Services
         public async Task<IEnumerable<FlightViewModel>> AllFlights()
         {
             var flights =  await repo.AllReadonly<Flight>()
+                .AsNoTracking()
                 .Include(m=>m.Airplane.Manufacture)
                 .Include(c=>c.ArrivalAirport.City)
                 .Where(d=>d.DepartureDate>=DateTime.Today)
@@ -200,6 +201,8 @@ namespace AirTicketApp.Services
                 .Include(f=>f.ArrivalAirport)
                 .Include(f=>f.DepartureAirport)
                 .Include(c=>c.Company)
+                .Include(c=>c.ArrivalAirport.City.Country)
+                .Include(c=>c.DepartureAirport.City.Country)
                 .Include(a=>a.Airplane)
                 .Select(f => new FlightViewModel()
                 {

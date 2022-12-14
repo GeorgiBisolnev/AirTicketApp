@@ -1,11 +1,10 @@
 ﻿using AirTicketApp.Data.Common.Repository;
 using AirTicketApp.Data.EntityModels;
 using AirTicketApp.Data.EntityModels.IdentityModels;
-using AirTicketApp.Models.FlightModels;
 using AirTicketApp.Models.Ticket;
 using AirTicketApp.Services.Contracts;
 using Microsoft.AspNetCore.Identity;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace AirTicketApp.Services
 {
@@ -29,6 +28,7 @@ namespace AirTicketApp.Services
 
         public async Task<List<TicketAllViewModel>> AllTicketsByUser(string userId)
         {
+
             var result = await repo.AllReadonly<Ticket>()
                 .AsNoTracking()
                 .Where(x => x.UserId == userId)
@@ -53,9 +53,10 @@ namespace AirTicketApp.Services
                 ticket.DepartureCity = flightModel.DepartureAirport.City.Name;
                 ticket.DepartureCountry = flightModel.DepartureAirport.City.Country.Name;
                 ticket.Price = flightModel.Price;
+                ticket.CompanyName = flightModel.Company.Name;
             }
 
-            return result;
+            return result.OrderByDescending(t => t.ArrivalDate).ToList();
         }
 
         public async Task<bool> AvailableTickets(int flightId, int capacity)
@@ -76,8 +77,8 @@ namespace AirTicketApp.Services
         {
             bool flightExsists = await flightService.FlightExists(flightId);
             Ticket ticket = new Ticket();
-            //var ticketsAvalibale = await AvailableTickets(flightId, capacity);
-            if (flightExsists && true)
+            var ticketsAvalibale = await AvailableTickets(flightId, capacity);
+            if (flightExsists && ticketsAvalibale)
             {
                 ticket.FlightId = flightId;
                 ticket.UserId = userId;

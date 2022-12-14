@@ -11,6 +11,7 @@
         public string DepartureAirportCode { get; set; }
         public string DepartureCity { get; set; }
         public string DepartureCountry { get; set; }
+        public string CompanyName { get; set; }
         public DateTime ArrivalDate { get; set; }
         public DateTime DepartureDate { get; set; }
         public decimal Price { get; set; }

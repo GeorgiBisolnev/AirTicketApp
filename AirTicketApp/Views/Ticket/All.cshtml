@@ -12,20 +12,39 @@
       <th scope="col">Arrival Date</th>
       <th scope="col">Price</th>
       <th scope="col">Ticket number</th>
+      <th scope="col">Company</th>
     </tr>
   </thead>
   <tbody>
     @for (int i = 0; i < @Model.Count(); i++)
         {
-                <tr>
-                    <th scope="row">@i</th>
+            if (Model.ElementAtOrDefault(i).ArrivalDate<DateTime.Now)
+            {
+                <tr class="table-danger">
+                   <th scope="row">@(i+1)</th>
                     <td>@Model.ElementAtOrDefault(i).DepartureAirportName (@Model.ElementAtOrDefault(i).DepartureAirportCode) - @Model.ElementAtOrDefault(i).DepartureCountry, @Model.ElementAtOrDefault(i).DepartureCity </td>
                     <td>@Model.ElementAtOrDefault(i).ArrivalAirportName (@Model.ElementAtOrDefault(i).ArrivalAirportCode) - @Model.ElementAtOrDefault(i).ArrivalCountry, @Model.ElementAtOrDefault(i).ArrivalCity </td>
                     <td>@Model.ElementAtOrDefault(i).ArrivalDate </td>
                     <td>@Model.ElementAtOrDefault(i).DepartureDate </td>
                     <td>@Model.ElementAtOrDefault(i).Price </td>
                     <td>@Model.ElementAtOrDefault(i).TicketId </td>
+                    <td>@Model.ElementAtOrDefault(i).CompanyName</td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+
+                 <th scope="row">@(i+1)</th>
+                    <td>@Model.ElementAtOrDefault(i).DepartureAirportName (@Model.ElementAtOrDefault(i).DepartureAirportCode) - @Model.ElementAtOrDefault(i).DepartureCountry, @Model.ElementAtOrDefault(i).DepartureCity </td>
+                    <td>@Model.ElementAtOrDefault(i).ArrivalAirportName (@Model.ElementAtOrDefault(i).ArrivalAirportCode) - @Model.ElementAtOrDefault(i).ArrivalCountry, @Model.ElementAtOrDefault(i).ArrivalCity </td>
+                    <td>@Model.ElementAtOrDefault(i).ArrivalDate </td>
+                    <td>@Model.ElementAtOrDefault(i).DepartureDate </td>
+                    <td>@Model.ElementAtOrDefault(i).Price </td>
+                    <td>@Model.ElementAtOrDefault(i).TicketId </td>
+                    <td>@Model.ElementAtOrDefault(i).CompanyName</td>
                 </tr> 
+            }
         } 
   </tbody>
 </table>

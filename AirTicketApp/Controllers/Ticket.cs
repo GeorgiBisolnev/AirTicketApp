@@ -29,7 +29,7 @@ namespace AirTicketApp.Controllers
         [HttpGet]
         public async Task<IActionResult> All(string userId)
         {
-            var model =  await ticketService.AllTicketsByUser(userId);            
+            var model =  await ticketService.AllTicketsByUser(User.Id());            
             return View(model);
         }
 
@@ -76,16 +76,32 @@ namespace AirTicketApp.Controllers
             };
             bool success = await userService.SavePersonaUserInfo(userModel);
             var userId = User.Id();
-            //var ticketsAvalibale = await ticketService.AvailableTickets(modelFromTempData.FlightModel.Id, modelFromTempData.FlightModel.Airplane.Capacity);
-            if (success && true)
+            var ticketsAvalibale = await ticketService.AvailableTickets(modelFromTempData.FlightModel.Id, modelFromTempData.FlightModel.Airplane.Capacity);
+            if (success && ticketsAvalibale)
             {
-                string ticketId = await ticketService.BuyTicket(modelFromTempData.FlightModel.Id, userId, modelFromTempData.FlightModel.Airplane.Capacity);
-                TempData[MessageConstant.SuccessMessage] = "Successfully bued ticket number " + ticketId;
-                return RedirectToAction("Index", "Home");
-            }
+                try
+                {
+                    string ticketId = await ticketService.BuyTicket(modelFromTempData.FlightModel.Id, userId, modelFromTempData.FlightModel.Airplane.Capacity);
+                    TempData[MessageConstant.SuccessMessage] = "Successfully bued ticket number " + ticketId;
+                    return RedirectToAction("All", "Flight");
+                }
+                catch (ArgumentException ex)
+                {
 
-            TempData[MessageConstant.ErrorMessage] = "System error!";
-            return View(modelFromTempData.FlightModel.Id);
+                    TempData[MessageConstant.WarningMessage] = ex;
+                    return RedirectToAction("Index", "Home");
+                }
+                catch (Exception)
+                {
+                    TempData[MessageConstant.ErrorMessage] = "System error!";
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            else
+            {
+                TempData[MessageConstant.WarningMessage] = "No tickets avalable for this flight";
+                return RedirectToAction("All", "Flight");
+            }
         }
     }
 }
