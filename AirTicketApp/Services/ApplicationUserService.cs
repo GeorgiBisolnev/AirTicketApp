@@ -21,8 +21,8 @@ namespace AirTicketApp.Services
 
         public async Task<IEnumerable<ApplicationUserViewModel>> GetAll()
         {
-            var users = await repo.All<ApplicationUser>()
-                //.AsNoTracking()
+            var users = await repo.AllReadonly<ApplicationUser>()
+                .AsNoTracking()
                 .Include(c => c.Country)
                 .Select(u => new ApplicationUserViewModel()
                 {
@@ -52,8 +52,7 @@ namespace AirTicketApp.Services
         }
         public async Task<bool> IsAdministrator(string Id)
         {
-            var user = await repo.All<ApplicationUser>()
-                //.AsNoTracking()
+            var user = await repo.AllReadonly<ApplicationUser>()
                 .FirstOrDefaultAsync(u => u.Id == Id);
 
             if (user ==null)
@@ -70,7 +69,7 @@ namespace AirTicketApp.Services
                     return true;
                 }
             }
-
+            
             return false;
         }
 
@@ -124,11 +123,11 @@ namespace AirTicketApp.Services
 
         public async Task<bool> GiveAdminRole(string Id)
         {
-            var user = await repo.AllReadonly<ApplicationUser>()
+            var user = await repo.All<ApplicationUser>()
                 .FirstOrDefaultAsync(u=>u.Id == Id);
 
             if (user!=null)
-            {
+            {                
                 await userManager.AddToRoleAsync(user, AdminRolleName);
                 return true;
             }
