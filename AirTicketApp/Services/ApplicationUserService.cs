@@ -21,7 +21,7 @@ namespace AirTicketApp.Services
 
         public async Task<IEnumerable<ApplicationUserViewModel>> GetAll()
         {
-            var users = await repo.AllReadonly<ApplicationUser>()
+            var users = await repo.All<ApplicationUser>()
                 //.AsNoTracking()
                 .Include(c => c.Country)
                 .Select(u => new ApplicationUserViewModel()
@@ -52,7 +52,7 @@ namespace AirTicketApp.Services
         }
         public async Task<bool> IsAdministrator(string Id)
         {
-            var user = await repo.AllReadonly<ApplicationUser>()
+            var user = await repo.All<ApplicationUser>()
                 //.AsNoTracking()
                 .FirstOrDefaultAsync(u => u.Id == Id);
 

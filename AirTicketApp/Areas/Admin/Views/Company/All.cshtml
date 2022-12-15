@@ -1,0 +1,26 @@
+﻿@model List<CompanyViewModel>
+
+
+<table class="table table-sm">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Name</th>
+      <th scope="col">Small img url</th>
+      <th scope="col">Large img url</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (var company in @Model)
+    {
+            <tr>
+              <th scope="row">@company.Id</th>
+              <td>@company.Name</td>
+              <td><a href="@company.ImgUrl">Link</a> </td>
+              <td><a href="@company.ImgUrlCarousel">Link</a> </td>
+              <td><a class="btn btn btn-danger" asp-action="Edit" asp-area="Admin" asp-controller="Company" asp-route-id="@company.Id">Edit</a> </td>
+            </tr>
+    }
+  </tbody>
+</table>

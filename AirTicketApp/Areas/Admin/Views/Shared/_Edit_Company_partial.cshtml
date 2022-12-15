@@ -1,0 +1,29 @@
+﻿@model CompanyViewModel
+
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form method="post" class="mt-1 offset-1 col-10 border border-primary pt-2 pb-2 px-2 py-2">
+            <input type="hidden" asp-for="@Model.Id" />
+            <div class="form-group">
+                <label asp-for="Name" class="form-label">Company name</label>                              
+                <input asp-for="Name" class="form-control" value=@Model.Name>
+                <span asp-validation-for="Name" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImgUrl">Small image</label>
+                <input asp-for="ImgUrl" class="form-control">
+                <span asp-validation-for="ImgUrl" class="small text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ImgUrlCarousel">Large image</label>
+                <input asp-for="ImgUrlCarousel" class="form-control">
+                <span asp-validation-for="ImgUrlCarousel" class="small text-danger"></span>
+            </div>
+            <div class="text-center">
+                <input class="btn btn-primary mt-3" type="submit" value="Save" />
+            </div>
+        </form>
+    </div>
+</div>
