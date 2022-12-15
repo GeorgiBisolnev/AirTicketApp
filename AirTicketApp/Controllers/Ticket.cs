@@ -87,8 +87,8 @@ namespace AirTicketApp.Controllers
                 catch (ArgumentException ex)
                 {
 
-                    TempData[MessageConstant.WarningMessage] = ex;
-                    return RedirectToAction("Index", "Home");
+                    TempData[MessageConstant.WarningMessage] = ex.Message;
+                    return RedirectToAction("All", "Flight");
                 }
                 catch (Exception)
                 {

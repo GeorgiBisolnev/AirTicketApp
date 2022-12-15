@@ -15,7 +15,7 @@ namespace AirTicketApp.Areas.Admin.Controllers
         public async Task<IActionResult> All()
         {
             var users = await userService.GetAll();
-
+            
             return View(users);
         }
         [HttpGet]

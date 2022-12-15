@@ -16,7 +16,6 @@ builder.Services.AddDbContext<AirTicketAppContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
-//builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options=>
 {
     options.SignIn.RequireConfirmedAccount = false;
     options.SignIn.RequireConfirmedEmail = false;

@@ -77,6 +77,14 @@ namespace AirTicketApp.Services
         {
             bool flightExsists = await flightService.FlightExists(flightId);
             Ticket ticket = new Ticket();
+            var flight = await flightService.GetFlightById(flightId);
+            DateTime departureDate = flight.DepartureDate;
+
+            if (departureDate<DateTime.Now)
+            {
+                throw new ArgumentException("Departure date is in the past!");
+            }
+                
             var ticketsAvalibale = await AvailableTickets(flightId, capacity);
             if (flightExsists && ticketsAvalibale)
             {

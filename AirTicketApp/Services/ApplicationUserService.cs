@@ -47,7 +47,7 @@ namespace AirTicketApp.Services
                 else
                     user.IsAdministrator = false;
             }
-
+            
             return users;
         }
         public async Task<bool> IsAdministrator(string Id)

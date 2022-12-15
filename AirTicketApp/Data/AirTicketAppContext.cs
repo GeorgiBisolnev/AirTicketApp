@@ -30,6 +30,11 @@ namespace AirTicketApp.Data
             
             base.OnModelCreating(builder);
         }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder
+                .EnableSensitiveDataLogging();
+        }
 
         public DbSet<Airplane> Airplanes { get; set; }
         public DbSet<Airport> Airports { get; set; }
