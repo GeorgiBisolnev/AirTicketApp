@@ -10,14 +10,14 @@ body {
   background-image: url('https://scitechdaily.com/images/Jetliner-Airplane-Flying.jpg');
   background-repeat: no-repeat;
 }
-$('#sandbox-container .input-group.date').datepicker({
+/*$('#sandbox-container .input-group.date').datepicker({
     maxViewMode: 2,
     todayBtn: true,
     orientation: "bottom auto",
     forceParse: false,
     daysOfWeekHighlighted: "0,6",
     todayHighlight: true
-});
+});*/
 </style>
 
 <div class="text-center">
@@ -44,6 +44,7 @@ $('#sandbox-container .input-group.date').datepicker({
 }
 else
 {
+    <h3 class="display-6" >Top 3 offers on our site</h3>
     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
         @foreach (var flight in Model)
@@ -55,7 +56,7 @@ else
                 <div class="carousel-caption d-none d-md-block">
                     <h5>
                                 <p class="lead">
-                                     <p>From @flight.DepartureCity to @flight.ArrivalCity for $@flight.Price.ToString("0.00", CultureInfo.InvariantCulture)</p>
+                                     <p style="background-color: wheat">From @flight.DepartureCity to @flight.ArrivalCity for $@flight.Price.ToString("0.00", CultureInfo.InvariantCulture)</p>
                                      <a class="btn btn-primary" asp-controller="Flight" asp-action="Details"
                                             asp-route-id="@flight.FlightId"> Details </a>
                                 </p>

@@ -31,6 +31,7 @@ namespace AirTicketApp.Areas.Admin.Controllers
                 model.NumberOfUsers = await userService.NumberOfUsers();
                 model.TotalTickets = await ticketService.TotalTickets();
                 model.MostPopularAirport = await ticketService.MostPopularAirport();
+                model.MostExpensiveDestination = await flightService.MostExpensiveDestination();
                 return View(model);
             }
             catch (Exception)

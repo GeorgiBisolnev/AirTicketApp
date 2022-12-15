@@ -277,5 +277,25 @@ namespace AirTicketApp.Services
 
             return result;
         }
+        public async Task<string> MostExpensiveDestination()
+        {
+            var result = await repo.AllReadonly<Flight>()
+                .AsNoTracking()
+                .Include(f=>f.ArrivalAirport.City)
+                .OrderByDescending(t => t.Price)
+                .Select(t => new
+                {
+                    ArrivalAirport = t.ArrivalAirport.Name,
+                    ArrivalCity = t.ArrivalAirport.City.Name,
+                    Price = t.Price
+                })
+                .FirstOrDefaultAsync();
+            if (result==null)
+            {
+                return  "";
+            }
+
+            return $"{result.ArrivalCity}, {result.ArrivalAirport} for ${result.Price.ToString("F2")}"; 
+        }
     }
 }
