@@ -103,6 +103,34 @@ namespace AirTicketApp.Services
 
         }
 
+        public async Task<string> MostPopularAirport()
+        {
+            var list = await repo.AllReadonly<Ticket>()
+                .Include(t => t.Flight.ArrivalAirport)
+                .GroupBy(t => t.Flight.ArrivalAirport.Name)
+                .Select(g => new
+                {
+                    Name = g.Key,
+                    Count = g.Count()
+                })
+                .OrderByDescending(t=>t.Count)
+                .ToListAsync();
 
+            string result = list.FirstOrDefault().Name;
+
+            if (result==null)
+            {
+                return "";
+            }
+
+            return result;
+        }
+
+        public async Task<int> TotalTickets()
+        {
+            return await repo.AllReadonly<Ticket>()
+                .AsNoTracking()
+                .CountAsync();
+        }
     }
 }

@@ -38,10 +38,10 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        @if (User.IsInRole("Administrator") == true)
+                        @if (User.IsInRole(AdminRolleName) == true)
                         {
                             <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Flight" asp-action="Add">Add flight</a>
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Home" asp-action="Index">Admin panel</a>
                             </li>
                         }
                         @if (this.User.Identity.IsAuthenticated)
@@ -49,9 +49,6 @@
                             <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Flight" asp-action="Search">Search for flight</a>
                             </li>
-                        }
-                        @if (this.User.Identity.IsAuthenticated)
-                        {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Ticket" asp-action="All" asp-route-id=@User.Id >Show buyed tickets</a>
                             </li>

@@ -7,5 +7,7 @@ namespace AirTicketApp.Services.Contracts
         Task<string> BuyTicket(int flightId, string userId, int capacity);
         Task<bool> AvailableTickets(int flightId, int capacity);
         Task<List<TicketAllViewModel>> AllTicketsByUser(string userId);
+        Task<int> TotalTickets();
+        Task<string> MostPopularAirport();
     }
 }

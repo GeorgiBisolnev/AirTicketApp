@@ -1,14 +1,24 @@
 ﻿using AirTicketApp.Models;
+using AirTicketApp.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace AirTicketApp.Controllers
 {
     public class HomeController : Controller
-    {     
-        public IActionResult Index()
+    {
+        private readonly IFlightService flightService;
+
+        public HomeController(IFlightService _flightService)
         {
-            return View();
+            this.flightService = _flightService;
+        }
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            var model = await flightService.GetMostCheapThreeFlights();
+
+            return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

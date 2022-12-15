@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AirTicketApp.Migrations
 {
     [DbContext(typeof(AirTicketAppContext))]
-    [Migration("20221212161030_initial")]
-    partial class initial
+    [Migration("20221215134259_initialMigration")]
+    partial class initialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -160,6 +160,12 @@ namespace AirTicketApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("ImgUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImgUrlCarousel")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -173,17 +179,37 @@ namespace AirTicketApp.Migrations
                         new
                         {
                             Id = 1,
+                            ImgUrl = "https://www.fim-musicians.org/wp-content/uploads/bulgaria-air.png",
+                            ImgUrlCarousel = "https://cdn.aiidatapro.net/media/3e/4e/b4/t780x490/3e4eb43084e6c2bffb1a75f14bdd696bdb4511b6.jpg",
                             Name = "Bulgaria Air"
                         },
                         new
                         {
                             Id = 2,
+                            ImgUrl = "https://s0.rbk.ru/emitent_pics/images/52/12/b2e6636f4cc75e7c8b61aecef55d6572.png",
+                            ImgUrlCarousel = "https://cdn.businesstraveller.com/wp-content/uploads/fly-images/945460/Aeroflot-B7378-916x516.jpg",
                             Name = "Aeroflot"
                         },
                         new
                         {
                             Id = 3,
+                            ImgUrl = "https://www.fim-musicians.org/wp-content/uploads/turkish-airlines.png",
+                            ImgUrlCarousel = "https://www.economic.bg/web/files/articles/61839/narrow_image/thumb_834x469_89.jpg",
                             Name = "Turkish Airlines"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ImgUrl = "https://uniticket.co.uk/wp-content/uploads/2019/airlines_64/EK.png",
+                            ImgUrlCarousel = "https://c.ekstatic.net/ecl/aircraft-exterior/boeing-777/emirates-boeing-777-sun-setting-down-w768x480.jpg",
+                            Name = "Emirates Air-lines"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ImgUrl = "https://panorama.quicket.io/airlines/logo/logo-FR.png",
+                            ImgUrlCarousel = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Ryanair_Boeing_737-800_EI-EBX.jpg/800px-Ryanair_Boeing_737-800_EI-EBX.jpg",
+                            Name = "Ryanair"
                         });
                 });
 
@@ -318,10 +344,12 @@ namespace AirTicketApp.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -379,17 +407,17 @@ namespace AirTicketApp.Migrations
                         {
                             Id = "dea12856-c198-4129-b3f3-b893d8395082",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "090aad6a-ca7e-4673-9a96-b948341a70bc",
+                            ConcurrencyStamp = "8a299380-8eac-4743-81db-076f6289500e",
                             Email = "user@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
-                            NormalizedEmail = "user@gmail.com",
+                            NormalizedEmail = "USER@GMAIL.COM",
                             NormalizedUserName = "user@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJdyWryRCHlw7b1Tb92pQjbff6+YZUJFDRjeKjZhzEtzbH9RpaHj1kZv10+az6YpCA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPao9lnBshaPDIymrrY4s7C5+PNHmW22tXXDjgD7ySu4I1bcXEskGYedGKmTVlIEzw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8ff7f978-94a1-47e1-9020-165a9f213c76",
+                            SecurityStamp = "187df1ad-ced4-43df-aa45-aac5929f876c",
                             TwoFactorEnabled = false,
-                            UserName = "user"
+                            UserName = "user@gmail.com"
                         });
                 });
 

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AirTicketApp.Migrations
 {
-    public partial class initial : Migration
+    public partial class initialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -29,7 +29,9 @@ namespace AirTicketApp.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    ImgUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImgUrlCarousel = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -90,8 +92,8 @@ namespace AirTicketApp.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     PassportNum = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     CountryId = table.Column<int>(type: "int", nullable: true),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -344,16 +346,18 @@ namespace AirTicketApp.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "CountryId", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PassportNum", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "dea12856-c198-4129-b3f3-b893d8395082", 0, "090aad6a-ca7e-4673-9a96-b948341a70bc", null, "user@gmail.com", true, null, null, false, null, "user@gmail.com", "user@gmail.com", null, "AQAAAAEAACcQAAAAEJdyWryRCHlw7b1Tb92pQjbff6+YZUJFDRjeKjZhzEtzbH9RpaHj1kZv10+az6YpCA==", null, false, "8ff7f978-94a1-47e1-9020-165a9f213c76", false, "user" });
+                values: new object[] { "dea12856-c198-4129-b3f3-b893d8395082", 0, "8a299380-8eac-4743-81db-076f6289500e", null, "user@gmail.com", true, null, null, false, null, "USER@GMAIL.COM", "user@gmail.com", null, "AQAAAAEAACcQAAAAEPao9lnBshaPDIymrrY4s7C5+PNHmW22tXXDjgD7ySu4I1bcXEskGYedGKmTVlIEzw==", null, false, "187df1ad-ced4-43df-aa45-aac5929f876c", false, "user@gmail.com" });
 
             migrationBuilder.InsertData(
                 table: "Companies",
-                columns: new[] { "Id", "Name" },
+                columns: new[] { "Id", "ImgUrl", "ImgUrlCarousel", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Bulgaria Air" },
-                    { 2, "Aeroflot" },
-                    { 3, "Turkish Airlines" }
+                    { 1, "https://www.fim-musicians.org/wp-content/uploads/bulgaria-air.png", "https://cdn.aiidatapro.net/media/3e/4e/b4/t780x490/3e4eb43084e6c2bffb1a75f14bdd696bdb4511b6.jpg", "Bulgaria Air" },
+                    { 2, "https://s0.rbk.ru/emitent_pics/images/52/12/b2e6636f4cc75e7c8b61aecef55d6572.png", "https://cdn.businesstraveller.com/wp-content/uploads/fly-images/945460/Aeroflot-B7378-916x516.jpg", "Aeroflot" },
+                    { 3, "https://www.fim-musicians.org/wp-content/uploads/turkish-airlines.png", "https://www.economic.bg/web/files/articles/61839/narrow_image/thumb_834x469_89.jpg", "Turkish Airlines" },
+                    { 4, "https://uniticket.co.uk/wp-content/uploads/2019/airlines_64/EK.png", "https://c.ekstatic.net/ecl/aircraft-exterior/boeing-777/emirates-boeing-777-sun-setting-down-w768x480.jpg", "Emirates Air-lines" },
+                    { 5, "https://panorama.quicket.io/airlines/logo/logo-FR.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Ryanair_Boeing_737-800_EI-EBX.jpg/800px-Ryanair_Boeing_737-800_EI-EBX.jpg", "Ryanair" }
                 });
 
             migrationBuilder.InsertData(

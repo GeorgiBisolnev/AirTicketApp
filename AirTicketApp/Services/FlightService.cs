@@ -251,5 +251,31 @@ namespace AirTicketApp.Services
 
             return true;
         }
+
+        public async Task<IEnumerable<FlightViewCarouselModel>> GetMostCheapThreeFlights()
+        {
+            var result = await repo.AllReadonly<Flight>()
+                .Include(f=>f.ArrivalAirport)
+                .Include(f=>f.DepartureAirport.City)
+                .Include(f=>f.DepartureAirport.City)
+                .AsNoTracking()
+                .Where(f=>f.DepartureDate>=DateTime.Now)
+                .OrderBy(f => f.Price)
+                .Take(3)
+                .Select(f => new FlightViewCarouselModel()
+                {
+                    FlightId = f.Id,
+                    ArrivalAirport = f.ArrivalAirport.Name,
+                    DepartureAirport = f.DepartureAirport.Name,
+                    ArrivalCity = f.ArrivalAirport.City.Name,
+                    DepartureCity = f.DepartureAirport.City.Name,
+                    Price = f.Price,
+                    Company = f.Company.Name,
+                    ImgUrlC = f.Company.ImgUrlCarousel
+                })
+                .ToListAsync();
+
+            return result;
+        }
     }
 }

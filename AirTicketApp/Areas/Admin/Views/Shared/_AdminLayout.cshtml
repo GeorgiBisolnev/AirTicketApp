@@ -37,9 +37,6 @@
                             <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="Admin" asp-controller="User" asp-action="All">Show all Users</a>
                             </li>
-                        }
-                        @if (this.User.Identity.IsAuthenticated)
-                        {
                             <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Flight" asp-action="Search">Search for flight</a>
                             </li>

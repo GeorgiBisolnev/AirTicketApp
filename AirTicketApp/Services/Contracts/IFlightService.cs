@@ -17,5 +17,6 @@ namespace AirTicketApp.Services.Contracts
         Task<bool> BuyedFlightsByGivenFlightId(int flightId);
         Task<bool> FlightExists(int flightId);
         Task<FlightViewModel> GetFlightById(int Id);
+        Task<IEnumerable<FlightViewCarouselModel>> GetMostCheapThreeFlights();
     }
 }

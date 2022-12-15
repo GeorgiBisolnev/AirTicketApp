@@ -10,5 +10,6 @@ namespace AirTicketApp.Models.CompanyModels
         [Required]
         [StringLength(MaxCompanyNameLength)]
         public string Name { get; set; } = null!;
+        public string? ImgUrl { get; set; }
     }
 }

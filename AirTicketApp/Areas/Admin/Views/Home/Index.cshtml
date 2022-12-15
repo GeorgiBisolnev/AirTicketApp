@@ -1,0 +1,43 @@
+﻿@using AirTicketApp.Areas.Admin.Models
+@model AdminBasicStatisticsViewModel
+
+<div class="mt-4 p-5 bg-light text-center">
+    <h2 class="display-4">Hello, Admin!</h2>
+    <p class="lead mb-1 mt-3">
+        This is your administrator area - you can <b>read</b>, <b>create</b>,
+        <b>edit</b> flight.
+        <br />You can <b>give</b> and administration role to <b>other</b> users, too!
+    </p>
+
+    <hr class="my-4">
+    <a asp-area="Admin" asp-controller="User" asp-action="All"
+       class="btn btn-primary btn-lg">All users</a>
+    <a asp-area="Admin" asp-controller="Flight" asp-action="Add"
+       class="btn btn-primary btn-lg">Add Flight</a>
+       <p>
+           <br />You can <b>search</b> for flight and <b>edit</b> it here!
+       </p>       
+    <a asp-area="" asp-controller="Flight" asp-action="Search"
+       class="btn btn-primary btn-lg">Search flight</a>
+    <hr class="my-4">
+</div>
+
+<h2>Basic statistics</h2>
+<table class="table table-sm">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Total users in DB</th>
+      <th scope="col">Total buyed tickets</th>
+      <th scope="col">Most popular destination</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row"></th>
+      <td>@Model.NumberOfUsers</td>
+      <td>@Model.TotalTickets</td>
+      <td>@Model.MostPopularAirport</td>
+    </tr>
+  </tbody>
+</table>

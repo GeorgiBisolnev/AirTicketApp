@@ -1,9 +1,11 @@
 ﻿using AirTicketApp.Data.Common.MessageConstants;
 using AirTicketApp.Services.Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AirTicketApp.Areas.Admin.Controllers
 {
+    [Authorize]
     public class User : BaseController
     {
         private readonly IApplicationUserService userService;
@@ -18,6 +20,7 @@ namespace AirTicketApp.Areas.Admin.Controllers
             
             return View(users);
         }
+
         [HttpGet]
         public async Task<IActionResult> GiveAdminRole(string Id)
         {

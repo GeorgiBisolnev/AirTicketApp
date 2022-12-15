@@ -1,9 +1,15 @@
-﻿@{
+﻿@using System.Globalization
+@model IEnumerable<FlightViewCarouselModel>
+@{
     ViewData["Title"] = "Home Page";
+    bool first = true;
 }
 
 <style>
-
+body {
+  background-image: url('https://scitechdaily.com/images/Jetliner-Airplane-Flying.jpg');
+  background-repeat: no-repeat;
+}
 $('#sandbox-container .input-group.date').datepicker({
     maxViewMode: 2,
     todayBtn: true,
@@ -12,13 +18,67 @@ $('#sandbox-container .input-group.date').datepicker({
     daysOfWeekHighlighted: "0,6",
     todayHighlight: true
 });
-
 </style>
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET CoreAASAS</a>.</p>
+    <p>Here you can search for best air-lines around the world with best prices.</p>
 </div>
+
+@if (@Model.Count()<=0)
+{
+    <div class="mt-4 p-5 bg-light">
+        <p class="lead">
+            There are no flights in the system currently available!            
+        </p>
+        <hr class="my-4">
+        <p class="lead">
+            @if (this.User.IsInRole(AdminRolleName)==true)
+            {
+                <p>So why don't you just add flight??</p>
+                <a asp-controller="Flight" asp-action="Add" asp-area="Admin" class="btn btn-primary btn-lg"
+                            role="button">Add Flight</a>
+            }
+        </p>
+    </div>
+}
+else
+{
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        @foreach (var flight in Model)
+        {
+            <div class="carousel-item @(first ? "active" : string.Empty)">
+
+                <img class="d-block w-100" style="height:500px"
+                 src="@flight.ImgUrlC" alt="@flight.ArrivalAirport">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>
+                                <p class="lead">
+                                     <p>From @flight.DepartureCity to @flight.ArrivalCity for $@flight.Price.ToString("0.00", CultureInfo.InvariantCulture)</p>
+                                     <a class="btn btn-primary" asp-controller="Flight" asp-action="Details"
+                                            asp-route-id="@flight.FlightId"> Details </a>
+                                </p>
+                    </h5>
+                </div>
+            </div>
+
+            first = false;
+        }
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+}
+
+
+
 
 
 @section Scripts{

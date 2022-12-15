@@ -21,6 +21,7 @@ namespace AirTicketApp.Services
                 {
                     Name = c.Name,
                     Id = c.Id,
+                    ImgUrl = c.ImgUrl,
                 })
                 .ToListAsync();
 

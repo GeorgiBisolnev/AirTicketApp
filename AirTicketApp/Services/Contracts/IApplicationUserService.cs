@@ -10,6 +10,7 @@ namespace AirTicketApp.Services.Contracts
         Task<bool> IsAdministrator(string Id);
         Task<bool> GiveAdminRole(string Id);
         Task<IEnumerable<ApplicationUserViewModel>> GetAll();
+        Task<int> NumberOfUsers();
 
     }
 }
