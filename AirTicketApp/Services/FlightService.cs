@@ -14,7 +14,10 @@ namespace AirTicketApp.Services
         {
             this.repo = _repo;
         }
-
+        /// <summary>
+        /// Процедурата връща модел за всички полети с дата на заминаване -най-малко днешна дата
+        /// </summary>
+        /// <returns>Всички бъдещо полети</returns>
         public async Task<IEnumerable<FlightViewModel>> AllFlights()
         {
             var flights =  await repo.AllReadonly<Flight>()
@@ -41,7 +44,11 @@ namespace AirTicketApp.Services
             
             return flights;
         }
-
+        /// <summary>
+        /// Процедурата създава полет по всички входни параметри от модела
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns>Връща Id на полета при успешно създаване на полет</returns>
         public async Task<int> Create(FlightViewModel model)
         {
             var flight = new Flight()
@@ -110,7 +117,16 @@ namespace AirTicketApp.Services
 
             return flightModel;
         }
-
+        /// <summary>
+        /// Процедурата връща модел за полет, като потребителя предварително подава като параметър дата на полет, начин на сортиране
+        /// летище на излитане и кацане
+        /// </summary>
+        /// <param name="sorting"></param>
+        /// <param name="searchDate"></param>
+        /// <param name="ArrivalAirportId"></param>
+        /// <param name="DepartureAirportId"></param>
+        /// <returns>Връща списъчен модел с всички полети по зададените критерии</returns>
+        /// <exception cref="ArgumentException"></exception>
         public async Task<IEnumerable<FlightViewModel>> AllFlightsFilter(
             FlightSorting? sorting = 0,
             DateTime? searchDate = null,
@@ -145,7 +161,15 @@ namespace AirTicketApp.Services
 
             return result;
         }
-
+        /// <summary>
+        /// Процедурата редактира полет по подаденият модел и ID на полет
+        /// 
+        /// </summary>
+        /// <param name="flightId"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
         public async Task Edit(int flightId, FlightViewModel model)
         {
             var flight = await repo.All<Flight>()
@@ -158,24 +182,26 @@ namespace AirTicketApp.Services
             {
                 throw new ArgumentNullException("There is no flightwith such id");
             }
-            
-            if (await BuyedFlightsByGivenFlightId(flightId)==false)
+            // ако няма закупени билети по този полет, то може да променим летище за кацане и пристигане, компанията и самолета            
+            if (await BuyedFlightsByGivenFlightId(flightId)==false) 
             {
                 flight.ArrivalId = model.ArrivalId;
                 flight.DepartureId = model.DepartureId;
                 flight.CompanyId = model.CompanyId;
                 flight.AirplaneId = model.AirplaneId;
-            } else if(model.ArrivalId!=flight.ArrivalId 
+            } else if(model.ArrivalId!=flight.ArrivalId  
                 || flight.DepartureId != model.DepartureId 
                 || flight.CompanyId != model.CompanyId 
-                || flight.AirplaneId != model.AirplaneId    
+                || flight.AirplaneId != model.AirplaneId
+                // ако датата на излитане и кацане е коригирана с разлика повече от 24 то тази проверка няма да позволи това
                 || model.ArrivalDate > flight.ArrivalDate.AddDays(1)
                 || model.ArrivalDate < flight.ArrivalDate.AddDays(-1)
                 || model.DepartureDate > flight.DepartureDate.AddDays(1)
                 || model.DepartureDate < flight.DepartureDate.AddDays(-1))
             {
                 throw new ArgumentException("Company, Airplane, airports and date's more that 24 hours cant be chaged due to avalible tickets for this flight!");
-            }            
+            }
+            //параметрите които можем да редактираме без значение дали има закупени билети
             flight.Snack = model.Snack;
             flight.Food = model.Food;
             flight.Luggage = model.Luggage;
@@ -186,7 +212,12 @@ namespace AirTicketApp.Services
 
             await repo.SaveChangesAsync();
         }
-
+        /// <summary>
+        /// Процедурата проверява дали има закупени билети по подадено Id на полет
+        /// Трябва да се помисли дали процедурата не трябва да се премести в Ticket сървиса
+        /// </summary>
+        /// <param name="flightId"></param>
+        /// <returns>Връща бълева стойност, дали има закупени билети за подаденият полет</returns>
         public async Task<bool> BuyedFlightsByGivenFlightId(int flightId)
         {
             var result = await repo.AllReadonly<Ticket>()
@@ -200,6 +231,12 @@ namespace AirTicketApp.Services
 
             return true;
         }
+        /// <summary>
+        /// Процедурата връща полетен модел при подаден Id на полет
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
         public async Task<FlightViewModel> GetFlightById(int Id)
         {
             var model = await repo.AllReadonly<Flight>()
@@ -236,13 +273,16 @@ namespace AirTicketApp.Services
 
             return model;
         }
-
+        /// <summary>
+        /// Процедурата проверява дали в БД съществува полет с подаден параметър Id на полет
+        /// </summary>
+        /// <param name="flightId"></param>
+        /// <returns>Връща булева стойност дали съществува такъв полет</returns>
         public async Task<bool> FlightExists(int flightId)
         {
             var result = await repo.AllReadonly<Flight>()
                 .AsNoTracking()
                 .ToListAsync();
-
 
             if (result.FirstOrDefault(f => f.Id == flightId) == null)
             {
@@ -251,7 +291,12 @@ namespace AirTicketApp.Services
 
             return true;
         }
-
+        /// <summary>
+        /// Процедурата въща най-евтините 3 полета в БД
+        /// Полети с по-стара дата от днешната не се взимат в изчислението на процедурата
+        /// Процедурата се използва за реклама на евтините билети в началната страница на приложението
+        /// </summary>
+        /// <returns>Връща 3 най-евтини полети като модел</returns>
         public async Task<IEnumerable<FlightViewCarouselModel>> GetMostCheapThreeFlights()
         {
             var result = await repo.AllReadonly<Flight>()
@@ -277,10 +322,16 @@ namespace AirTicketApp.Services
 
             return result;
         }
+        /// <summary>
+        /// Процедурата връща информация за най-скъпият полет
+        /// Полети с по-стара дата от днешната не се взимат в предвид в изчислението
+        /// </summary>
+        /// <returns>Връща име на летището и града плюс цена за най-скъпият полет</returns>
         public async Task<string> MostExpensiveDestination()
         {
             var result = await repo.AllReadonly<Flight>()
                 .AsNoTracking()
+                .Where(f=>f.DepartureDate>= DateTime.Now)
                 .Include(f=>f.ArrivalAirport.City)
                 .OrderByDescending(t => t.Price)
                 .Select(t => new

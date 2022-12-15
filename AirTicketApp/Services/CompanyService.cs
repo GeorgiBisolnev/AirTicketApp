@@ -14,7 +14,14 @@ namespace AirTicketApp.Services
         {
             this.repo = repo;
         }
-
+        /// <summary>
+        /// Процедурата редактира информация за авиокомпания като в параметрите се подава модел,
+        /// от който се взима информация за редакция
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns>При успешна редакция връща булева стойност true</returns>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="Exception"></exception>
         public async Task<bool> Edit(CompanyViewModel model)
         {
             try
@@ -44,7 +51,10 @@ namespace AirTicketApp.Services
             }
             
         }
-
+        /// <summary>
+        /// Процедурата връща списъчен модел с всички авиокомпании
+        /// </summary>
+        /// <returns>Списък с всички авиокомпании</returns>
         public async Task<List<CompanyViewModel>> GetAllCompanies()
         {
             var companies = await repo.AllReadonly<Company>()
@@ -60,7 +70,12 @@ namespace AirTicketApp.Services
 
             return companies;
         }
-
+        /// <summary>
+        /// Процедурата връща един модел на авиокомпания по зададено Id в параметрите на процедурата 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Връща модел на авиокомпания</returns>
+        /// <exception cref="ArgumentException"></exception>
         public Task<CompanyViewModel> GetCompanyById(int id)
         {
             var result = repo.AllReadonly<Company>()

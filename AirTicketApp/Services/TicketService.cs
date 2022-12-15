@@ -25,7 +25,11 @@ namespace AirTicketApp.Services
             this.userService = _userService;
             this.flightService = _flightService;
         }
-
+        /// <summary>
+        /// Връща всички билети по дадено Id на потребител от таблицата Users
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns>Връща модел за преглед на билети</returns>
         public async Task<List<TicketAllViewModel>> AllTicketsByUser(string userId)
         {
 
@@ -58,7 +62,12 @@ namespace AirTicketApp.Services
 
             return result.OrderByDescending(t => t.ArrivalDate).ToList();
         }
-
+        /// <summary>
+        /// Тази процедура приверява дали има свободни билети за даденият полет и участващият в него самолет
+        /// </summary>
+        /// <param name="flightId"></param>
+        /// <param name="capacity"></param>
+        /// <returns>Връща даали има или няма свободни билети за този полет</returns>
         public async Task<bool> AvailableTickets(int flightId, int capacity)
         {
             var result = await repo.AllReadonly<Ticket>()
@@ -72,7 +81,16 @@ namespace AirTicketApp.Services
 
             return false;
         }
-
+        /// <summary>
+        /// Процедурата записва нов билет за даденият потребител и ID на полет.
+        /// За в бъеще трябва да се премахне подаването на капацитета на самолета участващ в полета
+        /// Мисля че е излишно да се подава като параметър
+        /// </summary>
+        /// <param name="flightId"></param>
+        /// <param name="userId"></param>
+        /// <param name="capacity"></param>
+        /// <returns>Връща номера на билета при успешно купуване на билет</returns>
+        /// <exception cref="ArgumentException"></exception>
         public async Task<string> BuyTicket(int flightId, string userId, int capacity)
         {
             bool flightExsists = await flightService.FlightExists(flightId);
@@ -102,7 +120,10 @@ namespace AirTicketApp.Services
             }
 
         }
-
+        /// <summary>
+        /// Процедурата групира всички купени билети по летище на пристигане и връща летището за което са купени най-много билети
+        /// </summary>
+        /// <returns>Връща името на лтището с най-много закупени билети</returns>
         public async Task<string> MostPopularAirport()
         {
             var list = await repo.AllReadonly<Ticket>()
@@ -125,7 +146,10 @@ namespace AirTicketApp.Services
 
             return result;
         }
-
+        /// <summary>
+        /// Процедурата връща брой на всички закупени билети
+        /// </summary>
+        /// <returns>бройка на всички закупени билети</returns>
         public async Task<int> TotalTickets()
         {
             return await repo.AllReadonly<Ticket>()
