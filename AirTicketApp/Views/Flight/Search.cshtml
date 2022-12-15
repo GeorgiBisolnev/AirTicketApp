@@ -1,9 +1,16 @@
 ﻿@model AllFlightsQueryModel
 
+@{
+    ViewData["Title"] = "Search for tickets";
+}
+<div class="text-center">
+    <h1 class="display-4">Search flight</h1>
+    <p>Here you can search for flights</p>
+</div>
 
-<form method="post">
+<form method="post" class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6" >
     <div class="row">
-         <div class="dropdown bootstrap-select form-control">
+         <div class="mt-1 offset-1 col-10 border border-primary pt-2 pb-2 px-2 py-2" style="background-color:white">
             <div class="form-group">
                 <label asp-for="DepartureAirportId">Departure airport</label>
                 <select asp-for="DepartureAirportId" class="form-control">
@@ -28,35 +35,33 @@
                 </select>
                 <span asp-validation-for="ArrivalAirportId" class="small text-danger"></span>
             </div>
+            <div style="display:flex; justify-content: center">
+                <div class="form-group col-md-6" >
+                    <label asp-for="SearchDate">Departure date</label>                              
+                    <input asp-for="SearchDate" type="date" class="form-control" value=@DateTime.Today
+                        min=@DateTime.Today required ="required">
+                    <span asp-validation-for="SearchDate" class="small text-danger"></span>
+                </div>
+                <div class="form-group col-md-3" style="margin-left:10%">
+                    <div class="form-group">
+                        <label asp-for="Sorting"></label>
+                        <select asp-for="Sorting" class="form-select" aria-label="multiple select example">
+                            <option value="0">Price</option>
+                            <option value="1">Company name</option>
+                            <option value="2">Departure date</option>
+                            <option value="3">Arrival date</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3" style="margin-left:6.3%">
+                <div class="form-group mt-4 p-2">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </div>
+            </div>
         </div>
  
-
-            <div class="form-group col-md-3">
-                <label asp-for="SearchDate">Departure date</label>                              
-                <input asp-for="SearchDate" type="date" class="form-control" value=@DateTime.Today
-                    min=@DateTime.Today required ="required">
-                <span asp-validation-for="SearchDate" class="small text-danger"></span>
-            </div>
-
-
-        <div class="col-md-3">
-            <div class="form-group mt-4 p-2">
-                <input type="submit" value="Search" class="btn btn-primary" />
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </div>
-        </div>
-
-        <div class="form-group col-md-3">
-            <div class="form-group">
-                <label asp-for="Sorting"></label>
-                <select asp-for="Sorting" class="form-select" multiple aria-label="multiple select example">
-                    <option value="0">Price</option>
-                    <option value="1">Company name</option>
-                    <option value="2">Departure date</option>
-                    <option value="3">Arrival date</option>
-                </select>
-            </div>
-        </div>
     </div>
 </form>
 

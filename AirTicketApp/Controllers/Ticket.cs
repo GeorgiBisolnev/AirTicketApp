@@ -82,7 +82,7 @@ namespace AirTicketApp.Controllers
                 {
                     string ticketId = await ticketService.BuyTicket(modelFromTempData.FlightModel.Id, userId, modelFromTempData.FlightModel.Airplane.Capacity);
                     TempData[MessageConstant.SuccessMessage] = "Successfully bued ticket number " + ticketId;
-                    return RedirectToAction("All", "Flight");
+                    return RedirectToAction("All", "Ticket");
                 }
                 catch (ArgumentException ex)
                 {

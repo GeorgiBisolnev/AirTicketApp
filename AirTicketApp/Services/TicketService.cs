@@ -82,7 +82,7 @@ namespace AirTicketApp.Services
 
             if (departureDate<DateTime.Now)
             {
-                throw new ArgumentException("Departure date is in the past!");
+                throw new ArgumentException("This flight is no longer avaliable!");
             }
                 
             var ticketsAvalibale = await AvailableTickets(flightId, capacity);

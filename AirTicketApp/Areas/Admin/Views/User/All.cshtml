@@ -1,7 +1,9 @@
 ﻿@using AirTicketApp.Models.ApplicationUser
 @model IEnumerable<ApplicationUserViewModel>
 
-
+@{
+    ViewData["Title"] = "All users";
+}
 <h2>All users in DB</h2>
 
 <partial name="_AllUsersViewPartial" model="@Model"></partial>

@@ -1,9 +1,11 @@
 ﻿@using AirTicketApp.Models.Ticket
 @using System.Globalization
 @model List<TicketAllViewModel>
-
+@{
+    ViewData["Title"] = "Allbuyed tickets";
+}
 <h2>All buyed tickets</h2>
-<table class="table">
+<table class="table" style="background-color:white">
   <thead>
     <tr>
       <th scope="col">#</th>
