@@ -33,7 +33,19 @@ namespace AirTicketApp.Data.Configuration
                             Id=3,
                             Name = "Istanbul",
                             CountryId = 3
-                        }
+                        },
+                        new City()
+                        {
+                            Id = 4,
+                            Name = "Burgas",
+                            CountryId = 1,
+                        },
+                        new City()
+                        {
+                            Id = 5,
+                            Name = "Madrid",
+                            CountryId = 4,
+                        },
                     };
 
                 return cities;

@@ -31,7 +31,7 @@ namespace AirTicketApp.UnitTests
         [Test]
         public async Task TestGetMostCheapThreeFlightsInMemory()
         {
-            var repo=new Repository(DbContext);
+            var repo = new Repository(DbContext);
             flightService = new FlightService(repo);
 
             DateTime datePast = DateTime.Parse("2022-11-19 16:30:00");
@@ -40,7 +40,7 @@ namespace AirTicketApp.UnitTests
             await repo.AddRangeAsync(new List<Flight>
             {
                 new Flight()
-                    { 
+                    {
                         Id = 100,
                         DepartureId = 1,
                         ArrivalId = 2,
@@ -120,10 +120,76 @@ namespace AirTicketApp.UnitTests
             var flightCollection = await flightService.GetMostCheapThreeFlights();
 
             Assert.That(3, Is.EqualTo(flightCollection.Count()));
-            Assert.That(flightCollection.Any(f=>f.Price==400), Is.False);
-            Assert.That(flightCollection.Any(f=>f.Price==5), Is.False);
+            Assert.That(flightCollection.Any(f => f.Price == 400), Is.False);
+            //Следващият полет е с най-сника цена, но е със стара дата и не трябва да влиза в изчисленията
+            Assert.That(flightCollection.Any(f => f.Price == 5), Is.False);
         }
+        
+        [Test]
+        public async Task TestGetMostCheapTheeFlightsInMemoryShouldReturn2models()
+        {
+            var repo = new Repository(DbContext);
+            flightService = new FlightService(repo);
 
+            DateTime datePast = DateTime.Parse("2022-11-19 16:30:00");
+            DateTime dateTmr = DateTime.Now.AddDays(1);
+
+            await repo.AddRangeAsync(new List<Flight>
+            {
+                new Flight()
+                    {
+                        Id = 100,
+                        DepartureId = 1,
+                        ArrivalId = 2,
+                        ArrivalDate = dateTmr.AddHours(2),
+                        DepartureDate = dateTmr,
+                        CompanyId = 1,
+                        Price = 200,
+                        AirplaneId = 1,
+                        Snack = true,
+                        Food = true,
+                        Luggage = true,
+                        Duration = 120
+                    },
+                new Flight()
+                    {
+                        Id = 200,
+                        DepartureId = 1,
+                        ArrivalId = 2,
+                        ArrivalDate = dateTmr.AddHours(2),
+                        DepartureDate = dateTmr,
+                        CompanyId = 1,
+                        Price = 100,
+                        AirplaneId = 1,
+                        Snack = true,
+                        Food = true,
+                        Luggage = true,
+                        Duration = 120
+                    },
+                new Flight()
+                    {
+                        Id = 401,
+                        DepartureId = 1,
+                        ArrivalId = 2,
+                        ArrivalDate = datePast.AddHours(2),
+                        DepartureDate = datePast,
+                        CompanyId = 1,
+                        Price = 5,
+                        AirplaneId = 1,
+                        Snack = true,
+                        Food = true,
+                        Luggage = true,
+                        Duration = 120
+                    },
+                });
+
+            await repo.SaveChangesAsync();
+            var flightCollection = await flightService.GetMostCheapThreeFlights();
+
+            Assert.That(2, Is.EqualTo(flightCollection.Count()));
+            //Следващият полет е с най-сника цена, но е със стара дата и не трябва да влиза в изчисленията
+            Assert.That(flightCollection.Any(f => f.Price == 5), Is.False);
+        }
         [TearDown]
         public void TearDown()
         {

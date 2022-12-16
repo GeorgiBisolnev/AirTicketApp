@@ -39,6 +39,22 @@ namespace AirTicketApp.Data.Configuration
                 CityId = 3
 
             });
+            airports.Add(new Airport()
+            {
+                Id = 4,
+                Name = "Burgas Airport",
+                IATACode = "BOJ",
+                CityId = 4
+
+            });
+            airports.Add(new Airport()
+            {
+                Id = 5,
+                Name = "Barajas Airport",
+                IATACode = "MAD",
+                CityId = 4
+            });
+
             return airports;
         }
     }

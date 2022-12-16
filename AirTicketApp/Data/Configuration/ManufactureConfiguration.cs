@@ -20,6 +20,21 @@ namespace AirTicketApp.Data.Configuration
                 {
                     Id=1,
                     Name="Boeing"
+                },
+                new Manufacture()
+                {
+                    Id=2,
+                    Name="Cessna"
+                },
+                new Manufacture()
+                {
+                    Id=3,
+                    Name="Airbus"
+                },
+                new Manufacture()
+                {
+                    Id=4,
+                    Name="Sukhoi"
                 }
             };
 

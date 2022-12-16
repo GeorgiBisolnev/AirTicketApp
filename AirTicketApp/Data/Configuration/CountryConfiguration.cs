@@ -29,6 +29,11 @@ namespace AirTicketApp.Data.Configuration
                 {
                     Id=3,
                     Name="Turkey"
+                },
+                new Country()
+                {
+                    Id=4,
+                    Name="Spain"
                 }
             };
             return countries;

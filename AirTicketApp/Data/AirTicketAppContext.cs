@@ -26,7 +26,7 @@ namespace AirTicketApp.Data
             builder.ApplyConfiguration(new CompaniesConfiguration());
             builder.ApplyConfiguration(new CountryConfiguration());
             builder.ApplyConfiguration(new ManufactureConfiguration());
-            builder.ApplyConfiguration(new FlightConfiguration());
+            //builder.ApplyConfiguration(new FlightConfiguration());
             
             base.OnModelCreating(builder);
         }

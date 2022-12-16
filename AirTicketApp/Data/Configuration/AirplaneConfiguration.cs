@@ -21,11 +21,29 @@ namespace AirTicketApp.Data.Configuration
                     ManufactureId=1,
                     Model="737",
                     Capacity=166
+                },
+                new Airplane()
+                {
+                    Id = 2,
+                    ManufactureId=2,
+                    Model="Skyhawk 172",
+                    Capacity=4
+                },
+                new Airplane()
+                {
+                    Id=3,
+                    ManufactureId=3,
+                    Model="А318",
+                    Capacity=136
+                },
+                new Airplane()
+                {
+                    Id=4,
+                    ManufactureId=4,
+                    Model="Superjet 100",
+                    Capacity=108
                 }
             };
-
-
-
             return airplanes;
         }
     }
