@@ -18,7 +18,10 @@ namespace AirTicketApp.Services
             this.userManager = _userManager;
             this.repo = _repo;
         }
-
+        /// <summary>
+        /// Процедурата прочита всички потребители от БД и ги връща като списък
+        /// </summary>
+        /// <returns>Връща списък с модел на потребител</returns>
         public async Task<IEnumerable<ApplicationUserViewModel>> GetAll()
         {
             var users = await repo.AllReadonly<ApplicationUser>()
@@ -50,6 +53,11 @@ namespace AirTicketApp.Services
             
             return users;
         }
+        /// <summary>
+        /// Процедурата проверява дали потребителят е администратор по ID на потребител
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns>Връща булева стойност true, ако потребителя е администратор</returns>
         public async Task<bool> IsAdministrator(string Id)
         {
             var user = await repo.AllReadonly<ApplicationUser>()
@@ -72,7 +80,12 @@ namespace AirTicketApp.Services
             
             return false;
         }
-
+        /// <summary>
+        /// Процедурата чете от БД информация за потребител, като търсенето се извършва по Id на потребител
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns>Връща модел на потребител</returns>
+        /// <exception cref="ArgumentException"></exception>
         public async Task<ApplicationUserViewModel> GetUserInfo(string Id)
         {
             var user = await repo.AllReadonly<ApplicationUser>()
@@ -99,7 +112,11 @@ namespace AirTicketApp.Services
             else throw new ArgumentException("There is no such User by given Id " + Id);
                 
         }
-
+        /// <summary>
+        /// Процедурата запазва допълнителните полета добавени към IdentityUser
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns>Въща булева стойност true при успешно запазване на данните</returns>
         public async Task<bool> SavePersonaUserInfo(ApplicationUserViewModel user)
         {
             var findUser = await repo.AllReadonly<ApplicationUser>()
@@ -120,7 +137,11 @@ namespace AirTicketApp.Services
 
             else return false;
         }
-
+        /// <summary>
+        /// Процедурата дава административна роля на потребител по зададено ID на потребител
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns>въща булева стойност true при успешно даване на право на роля</returns>
         public async Task<bool> GiveAdminRole(string Id)
         {
             var user = await repo.All<ApplicationUser>()
@@ -134,7 +155,10 @@ namespace AirTicketApp.Services
 
             return false;
         }
-
+        /// <summary>
+        /// Процедурата връща броя на регистрираните потребители в БД
+        /// </summary>
+        /// <returns></returns>
         public async Task<int> NumberOfUsers()
         {
             return await repo.AllReadonly<ApplicationUser>()

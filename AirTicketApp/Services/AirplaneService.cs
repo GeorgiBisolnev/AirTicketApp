@@ -14,7 +14,10 @@ namespace AirTicketApp.Services
         {
             this.repo = _repo;
         }
-
+        /// <summary>
+        /// Процедурата прочита всички самолети в БД и ги връща като списък
+        /// </summary>
+        /// <returns>Връща списъчен модел на самолети</returns>
         public async Task<IEnumerable<AirplaneViewModel>> GetAllAirplanes()
         {
             var airplanes = await repo.AllReadonly<Airplane>()

@@ -14,7 +14,10 @@ namespace AirTicketApp.Services
         {
             this.repo = _repo;
         }
-
+        /// <summary>
+        /// Процедурата прочита всички летища в БД и ги връща като списък
+        /// </summary>
+        /// <returns>Процедурата прочита всички летища в БД и ги връща като списък</returns>
         public async Task<IEnumerable<AirportViewModel>> GetAllAirports()
         {
             var airports = await repo.AllReadonly<Airport>()

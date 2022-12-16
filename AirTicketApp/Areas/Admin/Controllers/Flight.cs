@@ -24,36 +24,44 @@ namespace AirTicketApp.Areas.Admin.Controllers
             this.airportService = _airportService;
             this.companyService = _companyService;
         }
-
         [HttpGet]
         public async Task<IActionResult> Add()
-        {            
-            var model = new FlightViewModel()
-            {                
-                Airplanes = await airplaneService.GetAllAirplanes(),
-                Airports = await airportService.GetAllAirports(),
-                Companies = await companyService.GetAllCompanies(),
-                DateTimeNowFormatedArrival = DateTime.Now.ToString("yyyy-MM-dd") + 
-                "T"+
-                DateTime.Now.ToString("HH:mm"),
-                DateTimeNowFormatedDeparture = DateTime.Now.ToString("yyyy-MM-dd") +
-                "T" +
-                DateTime.Now.ToString("HH:mm"),                
-            };
+        {
+            try
+            {
+                var model = new FlightViewModel()
+                {
+                    Airplanes = await airplaneService.GetAllAirplanes(),
+                    Airports = await airportService.GetAllAirports(),
+                    Companies = await companyService.GetAllCompanies(),
+                    DateTimeNowFormatedArrival = DateTime.Now.ToString("yyyy-MM-dd") +
+                    "T" +
+                    DateTime.Now.ToString("HH:mm"),
+                                    DateTimeNowFormatedDeparture = DateTime.Now.ToString("yyyy-MM-dd") +
+                    "T" +
+                    DateTime.Now.ToString("HH:mm"),
+                };
+                //Създават се дефолни летища и самолет за да не гърми във вюто при зареждане 
+                model.ArrivalAirport = new Airport()
+                {
+                    Id = 1
+                };
+                model.DepartureAirport = new Airport()
+                {
+                    Id = 1
+                };
+                model.Airplane = new Airplane()
+                {
+                    Id = 1
+                };
+                return View(model);
+            }
+            catch (Exception)
+            {
 
-            model.ArrivalAirport = new Airport()
-            {
-                Id = 1
-            };
-            model.DepartureAirport = new Airport()
-            {
-                Id = 1
-            };
-            model.Airplane = new Airplane()
-            {
-                Id = 1
-            };
-            return View(model);
+                TempData[MessageConstant.ErrorMessage] = "System error!";
+                return RedirectToAction("Index", "Home");
+            }            
         }
 
         [HttpPost]
