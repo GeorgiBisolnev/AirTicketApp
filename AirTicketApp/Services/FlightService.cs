@@ -168,7 +168,6 @@ namespace AirTicketApp.Services
         /// <param name="flightId"></param>
         /// <param name="model"></param>
         /// <returns></returns>
-        /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
         public async Task Edit(int flightId, FlightViewModel model)
         {
@@ -180,7 +179,7 @@ namespace AirTicketApp.Services
 
             if (flight == null)
             {
-                throw new ArgumentNullException("There is no flightwith such id");
+                throw new ArgumentException("There is no flightwith such id");
             }
             // ако няма закупени билети по този полет, то може да променим летище за кацане и пристигане, компанията и самолета            
             if (await BuyedFlightsByGivenFlightId(flightId)==false) 
@@ -236,7 +235,7 @@ namespace AirTicketApp.Services
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
         public async Task<FlightViewModel> GetFlightById(int Id)
         {
             var model = await repo.AllReadonly<Flight>()
@@ -268,7 +267,7 @@ namespace AirTicketApp.Services
 
             if (model == null)
             {
-                throw new ArgumentNullException("There is no flight with such Id!");
+                throw new ArgumentException("There is no flight with such Id!");
             }
 
             return model;

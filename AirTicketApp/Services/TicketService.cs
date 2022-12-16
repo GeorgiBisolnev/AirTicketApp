@@ -10,19 +10,16 @@ namespace AirTicketApp.Services
 {
     public class TicketService : ITicketService
     {
-        private readonly UserManager<ApplicationUser> userManager;
+
         private readonly IRepository repo;
-        private readonly IApplicationUserService userService;
+
         private readonly IFlightService flightService;
 
-        public TicketService(UserManager<ApplicationUser> _userManager, 
+        public TicketService(
             IRepository _repo,
-            IApplicationUserService _userService,
             IFlightService _flightService)
         {
-            this.userManager = _userManager;
             this.repo = _repo;
-            this.userService = _userService;
             this.flightService = _flightService;
         }
         /// <summary>
