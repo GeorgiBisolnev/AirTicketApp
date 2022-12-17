@@ -22,10 +22,8 @@ namespace AirTicketApp.Services
         /// <returns>При успешна редакция връща булева стойност true</returns>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="Exception"></exception>
-        public async Task<bool> Edit(CompanyViewModel model)
+        public async Task<Company> Edit(CompanyViewModel model)
         {
-            try
-            {
                 var company = await repo.All<Company>()
                                 .Where(c => c.Id == model.Id)
                                 .FirstOrDefaultAsync();
@@ -41,15 +39,8 @@ namespace AirTicketApp.Services
                     company.ImgUrlCarousel=model.ImgUrlCarousel;
                     repo.Update(company);
                     await repo.SaveChangesAsync();
-                    return true;
-                }               
-            }
-            catch (Exception)
-            {
-
-                throw new Exception("System error!");
-            }
-            
+                    return company;
+                }            
         }
         /// <summary>
         /// Процедурата връща списъчен модел с всички авиокомпании
@@ -89,7 +80,7 @@ namespace AirTicketApp.Services
                 })
                 .FirstOrDefaultAsync(c=>c.Id==id);
 
-            if (result==null)
+            if (result.Result==null)
             {
                 throw new ArgumentException ("There is no company with such Id");
             }else

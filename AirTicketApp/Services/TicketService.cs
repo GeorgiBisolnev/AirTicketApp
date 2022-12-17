@@ -133,14 +133,13 @@ namespace AirTicketApp.Services
                 })
                 .OrderByDescending(t=>t.Count)
                 .ToListAsync();
-
-            string result = list.FirstOrDefault().Name;
-
-            if (result==null)
+            
+            if (list.Count() == 0)
             {
                 return "";
             }
 
+            string result = list.FirstOrDefault().Name;
             return result;
         }
         /// <summary>

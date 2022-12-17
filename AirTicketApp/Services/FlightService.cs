@@ -79,24 +79,11 @@ namespace AirTicketApp.Services
         /// <exception cref="Exception"></exception>
         public async Task<FlightViewModelDetails> Details(int Id)
         {
-
-            var f = await repo.AllReadonly<Flight>()
-                            .AsNoTracking()
-                            .Include(m => m.Airplane.Manufacture)
-                            .Include(c => c.ArrivalAirport.City.Country)
-                            .Include(c => c.DepartureAirport.City.Country)
-                            .Include(c=>c.Company)
-                            .FirstOrDefaultAsync(f => f.Id == Id);
+            var f = await GetFlightById(Id);
 
             int buyedFlights = await repo.AllReadonly<Ticket>()
                 .AsNoTracking()
                 .CountAsync(t => t.FlightId == Id);
-
-            if (f==null)
-            {
-                throw new Exception ("We cant find flight information!");
-            }
-
             
             var flightModel = new FlightViewModelDetails()
             {
@@ -128,7 +115,7 @@ namespace AirTicketApp.Services
         /// <returns>Връща списъчен модел с всички полети по зададените критерии</returns>
         /// <exception cref="ArgumentException"></exception>
         public async Task<IEnumerable<FlightViewModel>> AllFlightsFilter(
-            FlightSorting? sorting = 0,
+            FlightSorting? sorting = null,
             DateTime? searchDate = null,
             int? ArrivalAirportId = null,
             int? DepartureAirportId = null)
@@ -140,11 +127,11 @@ namespace AirTicketApp.Services
             }
             var result = await AllFlights();
 
-            result = result.Where(f => f.ArrivalAirport.Id == ArrivalAirportId);
+            result = result.Where(f => f.ArrivalAirport.Id == ArrivalAirportId).ToList();
 
-            result = result.Where(f => f.DepartureAirport.Id == DepartureAirportId);
+            result = result.Where(f => f.DepartureAirport.Id == DepartureAirportId).ToList();
 
-            result = result.Where(f => f.DepartureDate.Date == searchDate);
+            result = result.Where(f => f.DepartureDate.Date == searchDate).ToList();
 
             result = sorting switch
             {
@@ -250,14 +237,17 @@ namespace AirTicketApp.Services
                 .Select(f => new FlightViewModel()
                 {
                     Id = f.Id,
+                    ArrivalId = f.ArrivalId,
                     ArrivalAirport = f.ArrivalAirport,
+                    DepartureId = f.DepartureId,
                     DepartureAirport = f.DepartureAirport,
                     ArrivalDate = f.ArrivalDate,
                     DepartureDate = f.DepartureDate,
                     Duration = f.Duration,
-                    Company = f.Company,
+                    Company = f.Company,                    
                     CompanyId=f.CompanyId,
                     Airplane = f.Airplane,
+                    AirplaneId=f.AirplaneId,
                     Price = f.Price,
                     Snack = f.Snack,
                     Food = f.Food,

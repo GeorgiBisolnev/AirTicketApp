@@ -26,6 +26,7 @@ namespace AirTicketApp.Services
                 {
                     Id = a.Id,
                     Name = a.Name,
+                    CityId = a.CityId,
                     City = a.City,
                     IATACode = a.IATACode,
                 })

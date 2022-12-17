@@ -65,15 +65,16 @@ namespace AirTicketApp.Controllers
         [HttpPost]        
         public async Task<IActionResult> Search(AllFlightsQueryModel query)
         {
-            IEnumerable<FlightViewModel> result = new List<FlightViewModel>();
             try
             {
-                result = await flightService.AllFlightsFilter(
+                var result = await flightService.AllFlightsFilter(
                 query.Sorting,
                 query.SearchDate,
                 query.ArrivalAirportId,
                 query.DepartureAirportId
                 );
+                TempData["filter"] = JsonConvert.SerializeObject(result);
+                return RedirectToAction("All", new { page = 1 });
             }
             catch (ArgumentException ex)
             {
@@ -94,8 +95,7 @@ namespace AirTicketApp.Controllers
                 return Redirect("Search");
             }
 
-            TempData["filter"] = JsonConvert.SerializeObject(result);
-            return RedirectToAction("All", new { page = 1 });            
+            
         }
 
         [HttpGet]

@@ -98,8 +98,6 @@ namespace AirTicketApp.Services
                     LastName = u.LastName,
                     PassportNum = u.PassportNum,
                     Email = u.Email,
-                    Country = u.Country,
-                    CountryId = u.CountryId,
                     PhoneNumber = u.PhoneNumber,
                 })
                 .FirstOrDefaultAsync();

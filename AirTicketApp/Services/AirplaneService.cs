@@ -27,6 +27,7 @@ namespace AirTicketApp.Services
                     Model = a.Model,
                     Id = a.Id,
                     Manufacture = a.Manufacture,
+                    Capacity = a.Capacity,
                 })
                 .ToListAsync();
 

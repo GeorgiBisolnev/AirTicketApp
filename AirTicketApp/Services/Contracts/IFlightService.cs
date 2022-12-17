@@ -6,7 +6,7 @@ namespace AirTicketApp.Services.Contracts
     {
         Task<IEnumerable<FlightViewModel>> AllFlights(); 
         Task<IEnumerable<FlightViewModel>> AllFlightsFilter(
-            FlightSorting? sorting = FlightSorting.Price,
+            FlightSorting? sorting = null,
             DateTime? searchDate = null,
             int? ArrivalAirportId = null,
             int? DepartureAirportId = null

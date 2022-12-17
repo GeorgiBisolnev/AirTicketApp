@@ -1,4 +1,5 @@
-﻿using AirTicketApp.Models.CompanyModels;
+﻿using AirTicketApp.Data.EntityModels;
+using AirTicketApp.Models.CompanyModels;
 
 namespace AirTicketApp.Services.Contracts
 {
@@ -6,6 +7,6 @@ namespace AirTicketApp.Services.Contracts
     {
         Task<List<CompanyViewModel>> GetAllCompanies();
         Task<CompanyViewModel> GetCompanyById(int id);
-        Task<bool> Edit(CompanyViewModel model);
+        Task<Company> Edit(CompanyViewModel model);
     }
 }

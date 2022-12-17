@@ -16,6 +16,5 @@
         public DateTime DepartureDate { get; set; }
         public decimal Price { get; set; }
         public int FlightId { get; set; }
-        public string UserId { get; set; }
     }
 }
