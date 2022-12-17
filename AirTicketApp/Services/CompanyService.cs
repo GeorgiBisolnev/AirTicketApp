@@ -50,13 +50,14 @@ namespace AirTicketApp.Services
         {
             var companies = await repo.AllReadonly<Company>()
                 .AsNoTracking()
-                .Select(c => new CompanyViewModel()
+                .Select(c => new CompanyViewModel()                
                 {
                     Name = c.Name,
                     Id = c.Id,
                     ImgUrl = c.ImgUrl,
                     ImgUrlCarousel = c.ImgUrlCarousel
                 })
+                .OrderBy(comparer => comparer.Name)
                 .ToListAsync();
 
             return companies;

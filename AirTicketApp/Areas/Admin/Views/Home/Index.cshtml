@@ -11,7 +11,8 @@
 
     <hr class="my-4">
     <a asp-area="Admin" asp-controller="User" asp-action="All"
-       class="btn btn-primary btn-lg">All users</a>
+       class="btn btn-primary btn-lg">Users</a>
+       <a class="btn btn-primary btn-lg" asp-area="Admin" asp-controller="Company" asp-action="All">Companies</a>
     <a asp-area="Admin" asp-controller="Flight" asp-action="Add"
        class="btn btn-primary btn-lg">Add Flight</a>
        <p>
@@ -19,6 +20,7 @@
        </p>       
     <a asp-area="" asp-controller="Flight" asp-action="Search"
        class="btn btn-primary btn-lg">Search flight</a>
+    
     <hr class="my-4">
 </div>
 

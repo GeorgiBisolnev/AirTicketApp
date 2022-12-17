@@ -29,6 +29,7 @@ namespace AirTicketApp.Services
                     Manufacture = a.Manufacture,
                     Capacity = a.Capacity,
                 })
+                .OrderBy(comparer => comparer.Model)
                 .ToListAsync();
 
             return airplanes;

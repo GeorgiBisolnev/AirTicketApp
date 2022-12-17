@@ -62,8 +62,15 @@ namespace AirTicketApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Buy(TicketViewModel model)
         {
+
             var modelFromTempData = JsonConvert
                 .DeserializeObject<TicketViewModel>((string)TempData["buyTicket"]);
+
+            if (!ModelState.IsValid)
+            {
+                TempData[MessageConstant.WarningMessage] = "Not all validations are passed!";
+                return RedirectToAction("Buy", "Ticket", new {Id= modelFromTempData.FlightModel.Id });
+            }
 
             var userModel = new ApplicationUserViewModel()
             {
@@ -99,7 +106,7 @@ namespace AirTicketApp.Controllers
             else if(!ticketsAvalibale)
             {
                 TempData[MessageConstant.WarningMessage] = "No tickets avalable for this flight";
-                return RedirectToAction("All", "Flight");
+                return RedirectToAction("Details", "Flight", new {Id = modelFromTempData.FlightModel.Id});
             }
             else
             {

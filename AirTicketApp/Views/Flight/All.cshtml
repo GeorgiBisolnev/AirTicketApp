@@ -17,16 +17,23 @@
         flex-wrap:nowrap;
         justify-content:center;
   }
+  .center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
 
 </style>
 
 @if (Model.Count()==0)
-{
-    <h2 class="text-center">@ViewBag.Title</h2>
+{    
     <h2 class="text-center"> No Flights found!</h2>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoEFf-q3FNbFyOBSGsoEMkb80euQyJ8zgbuQ&usqp=CAU" class="center"></img>
 }
 else
 {
+    <h2 class="text-center">@ViewBag.Title</h2>
     <h2 class="text-center">Flights found</h2>
 }
 
@@ -36,8 +43,10 @@ else
     <partial name="_flightViewPartial" model="@flight" />
 }
 
-@Html.PagedListPager((IPagedList) Model, page=> Url.Action("All", new {page}),
-new X.PagedList.Web.Common.PagedListRenderOptions{
+@if (Model.Count() > 0)
+{
+    @Html.PagedListPager((IPagedList) Model, page=> Url.Action("All", new {page}),
+    new X.PagedList.Web.Common.PagedListRenderOptions{
     LiElementClasses = new string[]{
         "page-item",
     },
@@ -45,3 +54,4 @@ new X.PagedList.Web.Common.PagedListRenderOptions{
         "page-link"
     }    
 })
+}

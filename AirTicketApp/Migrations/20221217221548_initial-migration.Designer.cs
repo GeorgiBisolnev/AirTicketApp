@@ -12,14 +12,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AirTicketApp.Migrations
 {
     [DbContext(typeof(AirTicketAppContext))]
-    [Migration("20221215134259_initialMigration")]
-    partial class initialMigration
+    [Migration("20221217221548_initial-migration")]
+    partial class initialmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.11")
+                .HasAnnotation("ProductVersion", "6.0.12")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -55,6 +55,27 @@ namespace AirTicketApp.Migrations
                             Capacity = 166,
                             ManufactureId = 1,
                             Model = "737"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Capacity = 4,
+                            ManufactureId = 2,
+                            Model = "Skyhawk 172"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Capacity = 136,
+                            ManufactureId = 3,
+                            Model = "А318"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Capacity = 108,
+                            ManufactureId = 4,
+                            Model = "Superjet 100"
                         });
                 });
 
@@ -106,6 +127,20 @@ namespace AirTicketApp.Migrations
                             CityId = 3,
                             IATACode = "IST",
                             Name = "Istanbul Airport"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CityId = 4,
+                            IATACode = "BOJ",
+                            Name = "Burgas Airport"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CityId = 4,
+                            IATACode = "MAD",
+                            Name = "Barajas Airport"
                         });
                 });
 
@@ -149,6 +184,18 @@ namespace AirTicketApp.Migrations
                             Id = 3,
                             CountryId = 3,
                             Name = "Istanbul"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CountryId = 1,
+                            Name = "Burgas"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CountryId = 4,
+                            Name = "Madrid"
                         });
                 });
 
@@ -245,6 +292,11 @@ namespace AirTicketApp.Migrations
                         {
                             Id = 3,
                             Name = "Turkey"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Spain"
                         });
                 });
 
@@ -302,23 +354,6 @@ namespace AirTicketApp.Migrations
                     b.HasIndex("DepartureId");
 
                     b.ToTable("Flights");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AirplaneId = 1,
-                            ArrivalDate = new DateTime(2022, 11, 19, 18, 30, 0, 0, DateTimeKind.Unspecified),
-                            ArrivalId = 2,
-                            CompanyId = 1,
-                            DepartureDate = new DateTime(2022, 11, 19, 16, 30, 0, 0, DateTimeKind.Unspecified),
-                            DepartureId = 1,
-                            Duration = 120,
-                            Food = true,
-                            Luggage = true,
-                            Price = 100m,
-                            Snack = true
-                        });
                 });
 
             modelBuilder.Entity("AirTicketApp.Data.EntityModels.IdentityModels.ApplicationUser", b =>
@@ -407,15 +442,15 @@ namespace AirTicketApp.Migrations
                         {
                             Id = "dea12856-c198-4129-b3f3-b893d8395082",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8a299380-8eac-4743-81db-076f6289500e",
+                            ConcurrencyStamp = "f9e79129-2083-48ec-8f5c-66559850d2da",
                             Email = "user@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@GMAIL.COM",
                             NormalizedUserName = "user@gmail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPao9lnBshaPDIymrrY4s7C5+PNHmW22tXXDjgD7ySu4I1bcXEskGYedGKmTVlIEzw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOT1ok97kiTq8GS194k83oIpZSa4mC9NODnGj07ta29g1EhBu0x3Q9hvo7O7P11iCA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "187df1ad-ced4-43df-aa45-aac5929f876c",
+                            SecurityStamp = "e6f127b2-2e28-482c-83f9-a4396225b500",
                             TwoFactorEnabled = false,
                             UserName = "user@gmail.com"
                         });
@@ -443,6 +478,21 @@ namespace AirTicketApp.Migrations
                         {
                             Id = 1,
                             Name = "Boeing"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Cessna"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Airbus"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Sukhoi"
                         });
                 });
 

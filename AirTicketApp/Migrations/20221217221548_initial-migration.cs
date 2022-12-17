@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AirTicketApp.Migrations
 {
-    public partial class initialMigration : Migration
+    public partial class initialmigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -346,7 +346,7 @@ namespace AirTicketApp.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "CountryId", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PassportNum", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "dea12856-c198-4129-b3f3-b893d8395082", 0, "8a299380-8eac-4743-81db-076f6289500e", null, "user@gmail.com", true, null, null, false, null, "USER@GMAIL.COM", "user@gmail.com", null, "AQAAAAEAACcQAAAAEPao9lnBshaPDIymrrY4s7C5+PNHmW22tXXDjgD7ySu4I1bcXEskGYedGKmTVlIEzw==", null, false, "187df1ad-ced4-43df-aa45-aac5929f876c", false, "user@gmail.com" });
+                values: new object[] { "dea12856-c198-4129-b3f3-b893d8395082", 0, "f9e79129-2083-48ec-8f5c-66559850d2da", null, "user@gmail.com", true, null, null, false, null, "USER@GMAIL.COM", "user@gmail.com", null, "AQAAAAEAACcQAAAAEOT1ok97kiTq8GS194k83oIpZSa4mC9NODnGj07ta29g1EhBu0x3Q9hvo7O7P11iCA==", null, false, "e6f127b2-2e28-482c-83f9-a4396225b500", false, "user@gmail.com" });
 
             migrationBuilder.InsertData(
                 table: "Companies",
@@ -367,18 +367,31 @@ namespace AirTicketApp.Migrations
                 {
                     { 1, "Bulgaria" },
                     { 2, "Russia" },
-                    { 3, "Turkey" }
+                    { 3, "Turkey" },
+                    { 4, "Spain" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Manufactures",
                 columns: new[] { "Id", "Name" },
-                values: new object[] { 1, "Boeing" });
+                values: new object[,]
+                {
+                    { 1, "Boeing" },
+                    { 2, "Cessna" },
+                    { 3, "Airbus" },
+                    { 4, "Sukhoi" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Airplanes",
                 columns: new[] { "Id", "Capacity", "ManufactureId", "Model" },
-                values: new object[] { 1, 166, 1, "737" });
+                values: new object[,]
+                {
+                    { 1, 166, 1, "737" },
+                    { 2, 4, 2, "Skyhawk 172" },
+                    { 3, 136, 3, "А318" },
+                    { 4, 108, 4, "Superjet 100" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Cities",
@@ -387,28 +400,22 @@ namespace AirTicketApp.Migrations
                 {
                     { 1, 1, "Sofia" },
                     { 2, 2, "Moscow" },
-                    { 3, 3, "Istanbul" }
+                    { 3, 3, "Istanbul" },
+                    { 4, 1, "Burgas" },
+                    { 5, 4, "Madrid" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Airports",
                 columns: new[] { "Id", "CityId", "IATACode", "Name" },
-                values: new object[] { 1, 1, "SOF", "Sofia Airport" });
-
-            migrationBuilder.InsertData(
-                table: "Airports",
-                columns: new[] { "Id", "CityId", "IATACode", "Name" },
-                values: new object[] { 2, 2, "SVO", "Sheremetyevo Airport" });
-
-            migrationBuilder.InsertData(
-                table: "Airports",
-                columns: new[] { "Id", "CityId", "IATACode", "Name" },
-                values: new object[] { 3, 3, "IST", "Istanbul Airport" });
-
-            migrationBuilder.InsertData(
-                table: "Flights",
-                columns: new[] { "Id", "AirplaneId", "ArrivalDate", "ArrivalId", "CompanyId", "DepartureDate", "DepartureId", "Duration", "Food", "Luggage", "Price", "Snack" },
-                values: new object[] { 1, 1, new DateTime(2022, 11, 19, 18, 30, 0, 0, DateTimeKind.Unspecified), 2, 1, new DateTime(2022, 11, 19, 16, 30, 0, 0, DateTimeKind.Unspecified), 1, 120, true, true, 100m, true });
+                values: new object[,]
+                {
+                    { 1, 1, "SOF", "Sofia Airport" },
+                    { 2, 2, "SVO", "Sheremetyevo Airport" },
+                    { 3, 3, "IST", "Istanbul Airport" },
+                    { 4, 4, "BOJ", "Burgas Airport" },
+                    { 5, 4, "MAD", "Barajas Airport" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Airplanes_ManufactureId",

@@ -30,6 +30,7 @@ namespace AirTicketApp.Services
                     City = a.City,
                     IATACode = a.IATACode,
                 })
+                .OrderBy(a => a.Name)
                 .ToListAsync();
 
             return airports;
