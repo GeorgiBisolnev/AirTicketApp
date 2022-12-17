@@ -27,8 +27,8 @@
     <partial name="_UserMessages" />
     <style>
         body {
-          background-image: url('https://scitechdaily.com/images/Jetliner-Airplane-Flying.jpg');
-          background-repeat: no-repeat;
+          background-image: url('https://images.unsplash.com/photo-1610642372677-bcddb69f3531?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80');
+          /*background-repeat: no-repeat;*/
         }
     </style>
     <header>
@@ -43,9 +43,15 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
+                        @if (this.User.Identity.IsAuthenticated)
+                        {
+                            if (User.IsInRole(AdminRolleName) == false)
+                            {
+                                <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                </li>
+                            }                            
+                        }
                         @if (User.IsInRole(AdminRolleName) == true)
                         {
                             <li class="nav-item">

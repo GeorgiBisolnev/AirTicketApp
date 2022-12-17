@@ -30,7 +30,7 @@
 else
 {
     <h3 class="display-6" >Top 3 offers on our site</h3>
-    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="height:550px; width:800px;" >
     <div class="carousel-inner">
         @foreach (var flight in Model)
         {
@@ -40,8 +40,8 @@ else
                  src="@flight.ImgUrlC" alt="@flight.ArrivalAirport">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>
-                                <p class="lead">
-                                     <p style="background-color: wheat">From @flight.DepartureCity to @flight.ArrivalCity for $@flight.Price.ToString("0.00", CultureInfo.InvariantCulture)</p>
+                                <p class="lead" >
+                                     <p style="background-color: wheat; color:brown" >From @flight.DepartureCity to @flight.ArrivalCity for $@flight.Price.ToString("0.00", CultureInfo.InvariantCulture)</p>
                                      <a class="btn btn-primary" asp-controller="Flight" asp-action="Details"
                                             asp-route-id="@flight.FlightId"> Details </a>
                                 </p>

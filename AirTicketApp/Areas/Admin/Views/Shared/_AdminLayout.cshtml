@@ -29,10 +29,13 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Home" asp-action="Index">Admin panel</a>
                         </li>
                         @if (User.IsInRole(AdminRolleName) == true)
                         {
+                            <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Flight" asp-action="Search">Search flight</a>
+                            </li>
                             <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="Admin" asp-controller="Flight" asp-action="Add">Add flight</a>
                             </li>
@@ -41,10 +44,7 @@
                             </li>
                             <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="Admin" asp-controller="User" asp-action="All">All users</a>
-                            </li>
-                            <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Flight" asp-action="Search">Search flight</a>
-                            </li>
+                            </li>                            
                         } 
                     </ul>
                     <partial name="_LoginPartial" />

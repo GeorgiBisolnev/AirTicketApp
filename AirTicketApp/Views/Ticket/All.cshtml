@@ -4,7 +4,15 @@
 @{
     ViewData["Title"] = "Allbuyed tickets";
 }
-<h2>All buyed tickets</h2>
+@if (@Model.Count()==0)
+{
+    <div class="container" >
+     <h2 >You haven't buyed tickets yet</h2>
+     <img src="https://ik.imgkit.net/3vlqs5axxjf/PCWW/uploadedImages/Articles/Opinion/2022/March/airline-innovation-executing.jpeg?tr=w-600%2Ch-300%2Cfo-auto"></img>
+    </div>
+}
+else{
+    <h2>All buyed tickets</h2>
 <table class="table" style="background-color:white">
   <thead>
     <tr>
@@ -51,3 +59,4 @@
         } 
   </tbody>
 </table>
+}
