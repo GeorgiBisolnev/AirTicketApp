@@ -13,13 +13,13 @@ namespace AirTicketApp.Models.FlightModels
         [Key]
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Departure airport is Required")]
         [NotEqualTo("ArrivalId", ErrorMessage = "Departure airport can't be the same as arrival airport")]
         public int DepartureId { get; set; }
 
         public Airport? DepartureAirport { get; set; } = null!;
 
-        [Required]
+        [Required(ErrorMessage = "Arrival airport is Required")]
         public int ArrivalId { get; set; }
 
         public Airport? ArrivalAirport { get; set; } = null!;
