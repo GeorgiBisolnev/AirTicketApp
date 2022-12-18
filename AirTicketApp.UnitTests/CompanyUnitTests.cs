@@ -177,6 +177,89 @@ namespace AirTicketApp.UnitTests
             }));
         }
 
+        [Test]
+        public async Task TestAdd()
+        {
+            var repo = new Repository(DbContext);
+            companyService = new CompanyService(repo);
+
+            await repo.AddRangeAsync(new List<Company>
+            {
+                new Company(){
+                    Id=1,
+                    Name="Test Company1",
+                    ImgUrl="Img1",
+                    ImgUrlCarousel="ImgC1"
+                },
+                new Company(){
+                    Id=2,
+                    Name="Test Company2",
+                    ImgUrl="Img2",
+                    ImgUrlCarousel="ImgC2"
+                },
+                new Company(){
+                    Id=3,
+                    Name="Test Company3",
+                    ImgUrl="Img3",
+                    ImgUrlCarousel="ImgC3"
+                }
+            });
+            await repo.SaveChangesAsync();
+            var result = await companyService.Add(new Models.CompanyModels.CompanyViewModel
+            {
+                Name = "newCom",
+                ImgUrl = "NewImg",
+                ImgUrlCarousel = "NewImgC"
+            });
+            var allCompanyes = await companyService.GetAllCompanies();
+
+            Assert.That(allCompanyes.Count(), Is.EqualTo(4));
+            Assert.That(allCompanyes.Any(c=>c.Name=="newCom"), Is.EqualTo(true));
+            Assert.That(allCompanyes.Any(c=>c.ImgUrl=="NewImg"), Is.EqualTo(true));
+            Assert.That(allCompanyes.Any(c=>c.ImgUrlCarousel=="NewImgC"), Is.EqualTo(true));
+        }
+        [Test]
+        public async Task TestAddShouldReturnArgumentException()
+        {
+            var repo = new Repository(DbContext);
+            companyService = new CompanyService(repo);
+
+            await repo.AddRangeAsync(new List<Company>
+            {
+                new Company(){
+                    Id=1,
+                    Name="Test Company1",
+                    ImgUrl="Img1",
+                    ImgUrlCarousel="ImgC1"
+                },
+                new Company(){
+                    Id=2,
+                    Name="Test Company2",
+                    ImgUrl="Img2",
+                    ImgUrlCarousel="ImgC2"
+                },
+                new Company(){
+                    Id=3,
+                    Name="Test Company3",
+                    ImgUrl="Img3",
+                    ImgUrlCarousel="ImgC3"
+                }
+            });
+            await repo.SaveChangesAsync();
+            
+            Assert.ThrowsAsync<ArgumentException>(async () => await companyService.Add(new Models.CompanyModels.CompanyViewModel
+            {
+                Name = "Test Company3",
+                ImgUrl = "NewImg",
+                ImgUrlCarousel = "NewImgC"
+            }));
+            var allCompanyes = await companyService.GetAllCompanies();
+            Assert.That(allCompanyes.Count(), Is.EqualTo(3));
+            Assert.That(allCompanyes.Any(c => c.Name == "newCom"), Is.EqualTo(false));
+            Assert.That(allCompanyes.Any(c => c.ImgUrl == "NewImg"), Is.EqualTo(false));
+            Assert.That(allCompanyes.Any(c => c.ImgUrlCarousel == "NewImgC"), Is.EqualTo(false));
+        }
+
         [TearDown]
         public void TearDown()
         {

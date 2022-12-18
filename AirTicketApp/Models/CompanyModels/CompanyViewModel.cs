@@ -16,12 +16,14 @@ namespace AirTicketApp.Models.CompanyModels
         [Required]
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Company name is required")]
         [StringLength(MaxCompanyNameLength)]
         public string Name { get; set; } = null!;
-        [Required]
+        [Required(ErrorMessage = "Required")]
+        [RegularExpression(@"^.*\.(jpg|JPG|gif|GIF|png|PNG)$", ErrorMessage = "Invalid img adress")]
         public string ImgUrl { get; set; }
-        [Required]
-        public string ImgUrlCarousel { get; set; }
+        [Required(ErrorMessage = "Required")]
+        [RegularExpression(@"^.*\.(jpg|JPG|gif|GIF|png|PNG)$",ErrorMessage ="Invalid img adress")]
+        public string ImgUrlCarousel { get; set; }        
     }
 }

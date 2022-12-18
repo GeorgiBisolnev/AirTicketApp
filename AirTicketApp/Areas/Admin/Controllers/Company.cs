@@ -27,9 +27,9 @@ namespace AirTicketApp.Areas.Admin.Controllers
             {
 
                 TempData[MessageConstant.ErrorMessage] = "System error!";
-                return((IActionResult)model);
+                return ((IActionResult)model);
             }
-            
+
         }
 
         [HttpGet]
@@ -46,7 +46,7 @@ namespace AirTicketApp.Areas.Admin.Controllers
                 TempData[MessageConstant.ErrorMessage] = ex.Message;
                 return View(new CompanyViewModel());
             }
-            catch 
+            catch
             {
                 TempData[MessageConstant.ErrorMessage] = "System error";
                 return View(new CompanyViewModel());
@@ -81,5 +81,41 @@ namespace AirTicketApp.Areas.Admin.Controllers
             }
 
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Add()
+        {
+
+            return View(new CompanyViewModel());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(CompanyViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData[MessageConstant.WarningMessage] = "Not all validations are passed!";
+                return View(model);
+            }
+
+            try
+            {
+                await companyService.Add(model);
+                TempData[MessageConstant.SuccessMessage] = $"Successfully added {model.Name}!";
+                return RedirectToAction("All", "Company", new { area = "Admin" });
+            }
+            catch (ArgumentException ex)
+            {
+                TempData[MessageConstant.ErrorMessage] = ex.Message;
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                TempData[MessageConstant.ErrorMessage] = "System error!";
+                return RedirectToAction("All", "Company", new { area = "Admin" });
+            }
+
+        }
+
     }
 }

@@ -89,5 +89,35 @@ namespace AirTicketApp.Services
                     return result;
                 }
         }
+        /// <summary>
+        /// Процедурата добавя нова авиокомпания към БД
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public async Task<Company> Add(CompanyViewModel model)
+        {
+            var company = await repo.All<Company>()
+                            .Where(c => c.Name == model.Name)
+                            .FirstOrDefaultAsync();
+
+            if (company == null)
+            {
+                var newCompany = new Company()
+                {
+                    Name = model.Name,
+                    ImgUrl = model.ImgUrl,
+                    ImgUrlCarousel = model.ImgUrlCarousel
+                };
+                await repo.AddAsync(newCompany);
+
+                await repo.SaveChangesAsync();
+                return newCompany;
+            }
+            else
+            {
+                throw new ArgumentException($"Airline company with name {model.Name} already exists!");
+            }
+        }
     }
 }
