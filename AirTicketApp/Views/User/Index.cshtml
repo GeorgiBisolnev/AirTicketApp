@@ -1,0 +1,73 @@
+﻿@using AirTicketApp.Models.ApplicationUser
+@model ApplicationUserViewModel
+
+<div class="container rounded bg-white mt-5 mb-5" style=" max-width: 650px">
+    <div class="row">
+        <div class="col-md-4 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                <span class="font-weight-bold">@Model.FirstName</span>
+                <span class="text-black-50">@Model.Email</span>
+                <span> </span></div>
+        </div>
+        <div class="col-md-5 border-right">
+            <form style="width: 23rem;" id="account" method="post">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">Profile Settings</h4>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                        <label asp-for="@Model.FirstName" class="labels">Name</label>
+                        <input asp-for="@Model.FirstName" type="text" class="form-control" placeholder="first name" />
+                        <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="@Model.LastName" class="labels">Surname</label>
+                        <input asp-for="@Model.LastName" type="text" class="form-control" placeholder="first name" />
+                        <span asp-validation-for="@Model.LastName" class="text-danger"></span>
+                    </div>
+
+                    @*<div class="col-md-6">
+                        <label class="labels">Name</label>
+                        <input type="text" class="form-control" placeholder="first name" value="@Model.FirstName"></div>
+                    <div class="col-md-6"><label class="labels">Surname</label>
+                        <input type="text" class="form-control" value="@Model.LastName" placeholder="surname"></div>*@
+                </div>
+                <div class="form-group">
+                    <input asp-for="Email" class="form-control" placeholder="" hidden>
+                </div>
+                <div class="form-group">
+                    <input asp-for="UserName" class="form-control" placeholder="" hidden>
+                </div>
+                <div class="col-md-12">
+@*                    <div class="col-md-12"><label class="labels">Mobile Number</label>
+                        <input type="text" class="form-control" placeholder="enter phone number" value="@Model.PhoneNumber"></div>*@
+                    
+                        <label asp-for="@Model.PhoneNumber" class="labels">Phone Number</label>
+                        <input asp-for="@Model.PhoneNumber" type="text" class="form-control" placeholder="enter phone number" />
+                        <span asp-validation-for="@Model.PhoneNumber" class="text-danger"></span>
+                </div>
+                    
+                    <div class="col-md-12">
+                        <label asp-for="@Model.PassportNum" class="labels">Passport serial number</label>
+                        <input asp-for="@Model.PassportNum" type="text" class="form-control" placeholder="enter passport number" />
+                        <span asp-validation-for="@Model.PassportNum" class="text-danger"></span>
+                    </div>
+                    
+                </div>
+
+                <div class="mt-5 text-center">
+                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Save Profile</button></div>
+            
+            </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

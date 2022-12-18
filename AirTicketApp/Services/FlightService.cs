@@ -138,7 +138,7 @@ namespace AirTicketApp.Services
                 FlightSorting.Price => result
                     .OrderBy(f=>f.Price).ToList(),
                 FlightSorting.Company=>result
-                    .OrderByDescending(f=>f.Company.Name).ToList(),
+                    .OrderBy(f=>f.Company.Name).ToList(),
                 FlightSorting.DepartureDate => result
                     .OrderBy(f=>f.DepartureDate).ToList(),
                 FlightSorting.ArrivalDate=> result

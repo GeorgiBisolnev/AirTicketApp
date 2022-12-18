@@ -1053,7 +1053,7 @@
             Assert.That(4, Is.EqualTo(flightCollection.Count()));
             Assert.That(200, Is.EqualTo(flightCollection.FirstOrDefault().Id));
             flightCollection = await flightService.AllFlightsFilter(FlightSorting.Company, dateTmr.Date, 2, 1);
-            Assert.That(300, Is.EqualTo(flightCollection.FirstOrDefault().Id));
+            Assert.That(200, Is.EqualTo(flightCollection.FirstOrDefault().Id));
             flightCollection = await flightService.AllFlightsFilter(FlightSorting.DepartureDate, dateTmr.Date, 2, 1);
             Assert.That(200, Is.EqualTo(flightCollection.FirstOrDefault().Id));
             flightCollection = await flightService.AllFlightsFilter(FlightSorting.ArrivalDate, dateTmr.Date, 2, 1);
