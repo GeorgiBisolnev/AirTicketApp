@@ -103,14 +103,26 @@ namespace AirTicketApp.Areas.Admin.Controllers
                     TempData[MessageConstant.ErrorMessage] = "System error!";
                     return View(model);
                 }
+
                 
                 model.DateTimeNowFormatedArrival = model.ArrivalDate.ToString("yyyy-MM-dd") +
                     "T" + model.ArrivalDate.ToString("HH:mm");
 
                 model.DateTimeNowFormatedDeparture = model.DepartureDate.ToString("yyyy-MM-dd") +
                     "T" + model.DepartureDate.ToString("HH:mm");
-                TempData[MessageConstant.ErrorMessage] = "Departure date error!";
-                TempData[MessageConstant.WarningMessage] = "Not all validations are passed!";
+                if (model.DepartureDate < DateTime.Now)
+                {
+                    TempData[MessageConstant.ErrorMessage] = "Departure date error!";
+                }
+                if (model.DepartureDate>=model.ArrivalDate)
+                {
+                    TempData[MessageConstant.ErrorMessage] = "Departure date cant be bigger than arrival date!";
+                }
+                if (model.ArrivalId==model.DepartureId)
+                {
+                    TempData[MessageConstant.ErrorMessage] = "Airport error!";
+                }
+                TempData[MessageConstant.WarningMessage] = "Not all validations are passed, check all errors!";
                 return View(model);
             }
 
