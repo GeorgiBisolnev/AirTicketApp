@@ -9,7 +9,7 @@ namespace AirTicketApp.Models.ApplicationUser
         public string? Id { get; set; }
 
         [StringLength(MaxPassportNumLength)]
-        [RegularExpression(@"^[a-zA-Z1-9]{5,20}$", ErrorMessage = "Passport number must be 5 to 20 symbols")]
+        [RegularExpression(@"^[a-zA-Z0-9]{5,20}$", ErrorMessage = "Passport number must be 5 to 20 symbols")]
         public string PassportNum { get; set; } = null!;
 
         public int? CountryId { get; set; }
