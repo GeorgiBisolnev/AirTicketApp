@@ -29,5 +29,13 @@ namespace AirTicketApp.Areas.Admin.Controllers
             TempData[MessageConstant.SuccessMessage] = $"User {user.UserName} is now Administrator!";
             return RedirectToAction("All", "User", new {Area="Admin"});
         }
+        [HttpGet]
+        public async Task<IActionResult> RemoveAdminRole(string Id)
+        {
+            var result = await userService.RemoveAdminRole(Id);
+            var user = await userService.GetUserInfo(Id);
+            TempData[MessageConstant.SuccessMessage] = $"User {user.UserName} is removed from administrator roles!";
+            return RedirectToAction("All", "User", new { Area = "Admin" });
+        }
     }
 }

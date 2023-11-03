@@ -91,5 +91,7 @@ namespace AirTicketApp.Data.Common.Repository
         /// </summary>
         /// <returns>Error code</returns>
         Task<int> SaveChangesAsync();
+
+        void DetachAllEntities();
     }
 }

@@ -29,6 +29,9 @@
                     <td>@Model.ElementAtOrDefault(i).PhoneNumber </td>
                     <td><label>✔</label> </td>
                     <td>@Model.ElementAtOrDefault(i).PassportNum</td>
+                    <td>
+                        <a asp-area="Admin" asp-controller="User" asp-action="RemoveAdminRole" asp-route-id="@Model.ElementAtOrDefault(i).Id" class="btn btn-danger">Remove admin role</a>
+                    </td>
                     <td></td>
                 </tr>
             }

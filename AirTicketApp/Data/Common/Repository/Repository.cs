@@ -180,5 +180,10 @@ namespace AirTicketApp.Data.Common.Repository
             var entities = All(deleteWhereClause);
             DeleteRange(entities);
         }
+
+        public void DetachAllEntities()
+        {
+            Context.ChangeTracker.Clear();
+        }
     }
 }

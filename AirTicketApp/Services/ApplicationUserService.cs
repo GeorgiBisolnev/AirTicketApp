@@ -50,7 +50,7 @@ namespace AirTicketApp.Services
                 else
                     user.IsAdministrator = false;
             }
-            
+            repo.DetachAllEntities();
             return users;
         }
         /// <summary>
@@ -77,7 +77,7 @@ namespace AirTicketApp.Services
                     return true;
                 }
             }
-            
+            repo.DetachAllEntities();
             return false;
         }
         /// <summary>
@@ -89,6 +89,7 @@ namespace AirTicketApp.Services
         public async Task<ApplicationUserViewModel> GetUserInfo(string Id)
         {
             var user = await repo.AllReadonly<ApplicationUser>()
+                //.AsNoTracking()
                 .Where(u=>u.Id==Id)
                 .Include(c=>c.Country)
                 .Select(u=> new ApplicationUserViewModel()
@@ -101,7 +102,7 @@ namespace AirTicketApp.Services
                     PhoneNumber = u.PhoneNumber,
                 })
                 .FirstOrDefaultAsync();
-
+            repo.DetachAllEntities();
             if (user !=null)
             {
                 return user;
@@ -118,6 +119,7 @@ namespace AirTicketApp.Services
         public async Task<bool> SavePersonaUserInfo(ApplicationUserViewModel user)
         {
             var findUser = await repo.AllReadonly<ApplicationUser>()
+                //.AsNoTracking()
                 .Where(u => u.NormalizedEmail == user.Email.ToUpper())
                 .FirstOrDefaultAsync();
 
@@ -130,6 +132,7 @@ namespace AirTicketApp.Services
 
                 repo.Update(findUser);
                 await repo.SaveChangesAsync();
+                repo.DetachAllEntities();
                 return true;
             }
 
@@ -143,11 +146,26 @@ namespace AirTicketApp.Services
         public async Task<bool> GiveAdminRole(string Id)
         {
             var user = await repo.All<ApplicationUser>()
+                //.AsNoTracking()
                 .FirstOrDefaultAsync(u=>u.Id == Id);
 
             if (user!=null)
             {                
                 await userManager.AddToRoleAsync(user, AdminRolleName);
+                return true;
+            }
+            repo.DetachAllEntities();
+            return false;
+        }
+        public async Task<bool> RemoveAdminRole(string Id)
+        {
+            repo.DetachAllEntities();
+            var user = await repo.All<ApplicationUser>()
+                .FirstOrDefaultAsync(u => u.Id == Id);
+
+            if (user != null)
+            {
+                await userManager.RemoveFromRoleAsync(user, AdminRolleName);
                 return true;
             }
 
@@ -160,8 +178,9 @@ namespace AirTicketApp.Services
         public async Task<int> NumberOfUsers()
         {
             return await repo.AllReadonly<ApplicationUser>()
-                .AsNoTracking()
+                //.AsNoTracking()
                 .CountAsync();
+
         }
     }
 }
